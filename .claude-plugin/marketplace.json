@@ -1,0 +1,15 @@
+{
+  "name": "mb-claude-skills",
+  "owner": {
+    "name": "Maurice Blackburn Marketing",
+    "email": "ttjahjadi@mauriceblackburn.com.au"
+  },
+  "description": "Maurice Blackburn's free Claude skills for the marketing team.",
+  "plugins": [
+    {
+      "name": "mb-brand",
+      "source": "./mb-brand",
+      "description": "MB brand reference (colours, typography, logo, tone of voice, brand history) plus a conversational brand-vs-competitor comparison skill."
+    }
+  ]
+}

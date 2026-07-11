@@ -4,10 +4,11 @@ Free Claude skills for the Maurice Blackburn marketing team — brand reference 
 
 ## Install (claude.ai / Cowork)
 
-1. Open the **Directory** panel and go to **Plugins**.
-2. Click **+** → **Add marketplace**.
-3. Paste `ttjahjadi-mb/mb-claude-skills` into the URL field and click **Sync**.
-4. Find the **mb-brand** plugin in the list and install/enable it.
+1. Open **Extensions** → **Browse extensions**.
+2. Go to the **Plugins** tab.
+3. Click **Add GitHub**.
+4. Paste `ttjahjadi-mb/mb-claude-skills` into the URL field and click **Sync**.
+5. Find the **mb-brand** plugin in the list and install/enable it.
 
 That's it — no downloading, no manual file uploads. Because it's synced from this GitHub repo, updates here reach you automatically; you don't need to redo this setup when the brand tokens, tone of voice, or history change.
 

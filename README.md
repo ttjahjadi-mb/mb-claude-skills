@@ -27,6 +27,23 @@ Then just mention brand-related work in conversation — the skills trigger auto
 | `brand-mb` | Building anything MB-branded (site component, deck, dashboard, document) that needs exact colours/fonts/logo, or writing content that needs to sound like MB rather than a generic assistant |
 | `brand-analyst-mb` | Asking "how does our brand compare to [competitor]" — a quick, conversational brand-vs-competitor read |
 
+## Try it — example prompts
+
+**brand-mb** (triggers automatically, no need to ask for it by name):
+
+- "Build me a one-pager in our brand colours for the new claims process."
+- "Draft an EDM about the BRCA1 gene patent case." — writes in the Courageous Ally voice, uses the real case history.
+- "Write social copy for a class action update." — applies the audience split (familiar vs. not familiar with the law), uses the person's name instead of "our client"/"the plaintiff."
+- "What's MB's brand personality?"
+- "When was MB founded?" — sourced facts, not a guess.
+
+**brand-analyst-mb** (ask for a brand comparison directly):
+
+- "How does our brand compare to Slater and Gordon?" — live research on their site/positioning, scored against MB's documented voice/colours.
+- "What's Shine Lawyers doing differently on their homepage?"
+
+Good live demo: pick a real competitor name in the room and run `brand-analyst-mb` on the spot — it researches fresh each time rather than relying on memory of what a firm's brand used to look like.
+
 ## What's *not* in this public repo
 
 Two things are deliberately left out of `brand-mb` here, both for licensing/sensitivity reasons:

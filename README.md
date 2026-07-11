@@ -2,25 +2,23 @@
 
 Free Claude skills for the Maurice Blackburn marketing team — brand reference and brand-vs-competitor comparison, ready to use in any Claude conversation.
 
-## Install (claude.ai web or Cowork — no tech setup needed)
+## Install (claude.ai / Cowork)
 
-This is the easiest path if you're not using Claude Code:
+1. Open the **Directory** panel and go to **Plugins**.
+2. Click **+** → **Add marketplace**.
+3. Paste `ttjahjadi-mb/mb-claude-skills` into the URL field and click **Sync**.
+4. Find the **mb-brand** plugin in the list and install/enable it.
 
-1. Download this repo as a zip: click the green **Code** button above → **Download ZIP**.
-2. Unzip it.
-3. In Claude, open **Settings → Capabilities → Skills** (the exact menu name may vary slightly depending on your Claude plan/app).
-4. Upload the skill folder for `mb-brand/skills/brand-mb` and `mb-brand/skills/brand-analyst-mb` — each one needs its `SKILL.md` plus any `reference/` and `assets/` files alongside it.
+That's it — no downloading, no manual file uploads. Because it's synced from this GitHub repo, updates here reach you automatically; you don't need to redo this setup when the brand tokens, tone of voice, or history change.
 
-If you get stuck, ask Thomas (Cowork/Claude Code) or check Anthropic's own help docs for uploading custom skills — the upload step is an Anthropic product feature, not something specific to this repo.
-
-## Install (Claude Code — for anyone comfortable with a terminal)
+## Install (Claude Code)
 
 ```
 /plugin marketplace add ttjahjadi-mb/mb-claude-skills
 /plugin install mb-brand@mb-claude-skills
 ```
 
-Then just mention brand-related work in conversation (or run `/mb-brand` if your Claude Code version surfaces it as a command) — the skills trigger automatically when relevant. To update later: `/plugin update`.
+Then just mention brand-related work in conversation — the skills trigger automatically when relevant. To update later: `/plugin update`.
 
 ## What's inside
 
@@ -37,7 +35,3 @@ Two things are deliberately left out of `brand-mb` here, both for licensing/sens
 - **The internal "Brand guidelines" writing-guide PDF** — the source document behind `tone-of-voice.md`. The distilled summary in this skill is safe to share publicly; the original internal PDF isn't.
 
 Everything else (colours, type scale, logo, the full tone-of-voice and brand-history summaries) is complete and accurate here.
-
-## Keeping this updated
-
-This repo is a mirror of the internal working copy at `Tony 2.0/.claude/skills/` in Thomas's Claude workspace. If brand tokens, tone of voice, or history change, that internal copy gets updated first, then re-mirrored here (with the font/PDF stripped again). Don't expect hand-edits made only in this repo to persist — flag any needed change to Thomas instead.

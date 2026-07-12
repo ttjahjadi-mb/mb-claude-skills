@@ -86,20 +86,34 @@ Invoke `post-grader-mb` on the draft. Apply its fixes. Re-grade if needed. Do no
 Which CTA do you want — Free claim check, Ask Morry AI, Chat with Morry AI, Request a callback, or Get in touch? I've used [X] above; happy to swap.
 ```
 
-### Step 8: Offer a matching creative (Canva, optional)
+### Step 8: Offer a matching creative (Canva brand template)
 
-If the user asks for a visual, or after presenting the final post ask "want a matching creative for this too?"
+After presenting the post, offer: "Want a matching MB-brand creative for this?" If Canva's MCP tools are connected (quick tool search for `mcp__claude_ai_Canva__*`), use MB's **real brand templates** — not AI-generated layouts — as the base:
 
-If Canva's MCP tools are connected (check via a quick tool search — `mcp__claude_ai_Canva__generate-design` etc.), call `generate-design` with:
-- `design_type`: Instagram → `instagram_post`, Meta/Facebook → `facebook_post`. LinkedIn and TikTok have no native Canva type — generate as `instagram_post` and use `resize-design` afterward (LinkedIn: 1200x627 or keep 1080x1080; TikTok/Reels: 1080x1920).
-- `brand_kit_id`: MB's kit — look it up via `list-brand-kits` if not already known (as of 2026-07-12 there is exactly one MB brand kit).
-- `query`: describe the post's tone, hook, and CTA as creative direction — mood, subject matter, key phrase to feature.
+**1. Pick the format and map it to an MB brand template.** Use the MB main-brand set (MB red / charcoal / white). Avoid the navy "CFA" (Claims Funding Australia) sub-brand templates unless the post is CFA/litigation-funding content.
 
-**Be upfront with the user about what this actually does**: `generate-design` treats your query as creative direction, not literal copy to place on the image — tested 2026-07-12 on a real post, it produced an on-brand design (correct MB colours, warm human photography) but with its own headline text, not the post's exact hook/CTA. Present it as a strong on-brand starting point to open and adjust in Canva (share the `edit_url`), not a finished, publish-ready asset. Don't claim it placed the exact post copy unless you've verified it did.
+| Post format | MB brand template (search by title) |
+|---|---|
+| Pull-quote / striking stat | Quote - x 3 versions |
+| Key points / listicle / eligibility checklist | Key Points List: White |
+| Educational swipe carousel (text) | Full Width Text Carousel |
+| Photo + text split | Image & Solid: 60/40 (Shade 02 or 03) |
+| Bold branded statement / generic | Layered Squares: Red (Left or Right) |
+| News / blog promo | Latest News/Blogs: Shade 2 |
+| Award / milestone | FF Awards template - with photo |
+| Google review / testimonial | 5 star Google review (White or MB4) |
 
-After `generate-design` returns a candidate, call `create-design-from-candidate` to save it to a real, editable design and get `edit_url`/`view_url` — give the user both.
+Find it with `search-brand-templates` (query the title). If none fits, use the fallback below.
 
-If Canva isn't connected, say so plainly and suggest asking Cowork directly to mock up a creative as a fallback, or noting it for manual creation later.
+**2. Create an editable design:** `create-design-from-brand-template` with the template ID → returns `edit_url` + `view_url`.
+
+**3. Hand off with the copy to paste — state the manual step plainly.** MB's brand templates are **not autofill-enabled** (verified 2026-07-12: `get-brand-template-dataset` returns `{}`), so the new design opens with the template's *placeholder* text, NOT the post's copy. Give the user the `edit_url` plus the exact hook / body / CTA to paste in, and say so: "This is your on-brand MB template — open it and paste the copy above into the text fields. Autofill isn't set up on these templates, so the text is a manual step." **Never claim the design already contains the post's wording.**
+
+**4.** Optionally preview with `get-design-thumbnail` (needs `start-editing-transaction` first) and show it in chat.
+
+**Fallback — no template fits the format:** `generate-design` (`design_type`: Instagram → `instagram_post`, Meta/Facebook → `facebook_post`; LinkedIn/TikTok → generate as `instagram_post` then `resize-design` — LinkedIn 1200x627 or 1080x1080, TikTok/Reels 1080x1920; `brand_kit_id` MB's kit `kAF2WJIK_h8`), then `create-design-from-candidate` to save it. Same caveat: `generate-design` treats your `query` as creative direction, not literal copy — an on-brand starting point with its own headline, not the post's exact wording. Share `edit_url`; don't claim verbatim text placement.
+
+If Canva isn't connected, say so plainly and note the creative for manual creation later.
 
 ## Platform Constraints
 
@@ -120,4 +134,4 @@ When a post is for multiple channels, write the longer-platform version first, t
 - Don't pile on hashtags where they hurt (LinkedIn, Facebook, TikTok beyond 5).
 - Don't write 3 versions and ask the user to pick. Pick one strong version; they can ask for an alternate.
 - Don't include the hook category name or grading details inside the actual post text — those are for the meta-output only.
-- Don't claim a Canva-generated creative shows the post's exact wording unless you've actually checked the design — it's a creative starting point, not guaranteed verbatim text placement.
+- Don't claim a Canva creative (template-based or generated) already contains the post's exact wording — MB's brand templates aren't autofill-enabled, so the copy is always a manual paste in Canva. Hand over the text to paste; never imply it's placed.

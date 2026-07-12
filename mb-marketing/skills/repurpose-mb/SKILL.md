@@ -96,9 +96,16 @@ CTA: ...
 
 After the batch: "Which CTAs do you want to keep or swap? Want a matching Canva creative for any of the Instagram/Facebook posts? And are you ready to copy these into your scheduler?"
 
-### Step 10: Matching creatives (Canva, optional)
+### Step 10: Matching creatives (Canva brand template, optional)
 
-If the user wants a creative for one or more posts, follow `post-writer-mb`'s Step 8 pattern: `generate-design` per post (Instagram → `instagram_post`, Meta/Facebook → `facebook_post`, MB's brand kit via `list-brand-kits`), then `create-design-from-candidate` to save it. Be upfront that the generated design reflects the post's mood/colours as creative direction, not its exact wording — share the `edit_url` so the post's specific hook/CTA can be checked and adjusted in Canva before publishing.
+If the user wants a creative for one or more posts, follow `post-writer-mb`'s Step 8 flow — **MB brand templates first, not AI-generated layouts**:
+
+1. Map each post's format to an MB main-brand template (Quote - x 3 versions; Key Points List: White; Full Width Text Carousel; Image & Solid: 60/40; Layered Squares: Red; Latest News/Blogs: Shade 2; FF Awards; 5 star Google review). Avoid the navy "CFA" sub-brand templates unless the post is Claims Funding Australia content. Find it via `search-brand-templates`.
+2. `create-design-from-brand-template` → editable on-brand design + `edit_url`.
+3. Hand over the `edit_url` **plus the post's exact hook/body/CTA to paste in** — MB's templates aren't autofill-enabled (`get-brand-template-dataset` returns `{}`), so the design opens with placeholder text, not the post copy. Say so plainly; never claim the design already contains the wording.
+4. Fallback only if no template fits: `generate-design` (Instagram → `instagram_post`, Meta/Facebook → `facebook_post`; brand kit `kAF2WJIK_h8`) → `create-design-from-candidate`, with the same "creative direction, not literal copy" caveat.
+
+Batch tip: for a multi-post batch, list which template each post maps to before creating, so the user can redirect before you spin up several designs.
 
 ## What NOT to Do
 

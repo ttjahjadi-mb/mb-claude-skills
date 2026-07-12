@@ -2,7 +2,7 @@
 name: seo-gap-mb
 description: Find the content, technical, and coverage gaps between Maurice Blackburn and its competitors (Slater and Gordon, Shine Lawyers) that represent real ranking and AI-citation opportunity, then rank them into a briefable opportunity matrix. Covers the classic SEO keyword/topic/funnel gap AND the 2026 GEO gap (questions where an answer engine cites a competitor and MB is absent). Use when the user asks "where are our SEO gaps", "what are competitors ranking for that we're not", "keyword gap analysis", "why does ChatGPT/Perplexity cite Slater and Gordon and not us", "what content should we build to rank/get cited", "topic gap for [practice area]", or wants a prioritised list of content opportunities. Produces rows each briefable straight into a content ticket.
 argument-hint: "[practice area or topic] [competitor(s)] [path to keyword-gap CSV, optional]"
-allowed-tools: Read, Grep, Glob, Bash, WebSearch, WebFetch
+allowed-tools: Read, Write, Grep, Glob, Bash, WebSearch, WebFetch, AskUserQuestion
 ---
 
 # SEO Gap Finder (MB)
@@ -35,10 +35,10 @@ Confirm these before running. Ask, do not assume:
 1. **Scope**: one practice area, several, or the whole site? A single practice area gives a sharper, more actionable matrix.
 2. **Geography**: national, or a state focus (VIC/NSW/QLD/WA/SA)? MB content is jurisdiction-sensitive; a "road accident compensation" gap differs by state scheme (TAC in VIC vs CTP elsewhere).
 3. **Competitors**: default to Slater and Gordon and Shine Lawyers. Add or swap if the user names others.
-4. **Data source available**: which of these can we use right now (see "Data Sourcing" below):
+4. **Data source available (ask this explicitly, do not assume none exists)**: before running anything, ask directly whether the user has Profound data, BrightEdge data, or a SEMrush export they can share for this scope, that is real, measured data instead of an estimated WebSearch probe. See "Data Sourcing" below:
    - A live paid connector (SEMrush / BrightEdge / Profound / DataForSEO MCP), or
    - A human-provided export (SEMrush keyword gap CSV, Ahrefs, GSC, Screaming Frog crawl), or
-   - Neither, so we run the lightweight WebSearch + Playwright probe only.
+   - Neither, so we run the lightweight WebSearch + Playwright probe only, and every number gets labelled estimated.
 5. **Answer-engine probing wanted?**: confirm whether to run the AI-citation gap probe (the GEO half). It is the highest-value half in 2026 but takes longer.
 
 State plainly which parts you can automate now and which need an export. Never pretend you have keyword volumes you cannot source.
@@ -162,6 +162,10 @@ The core deliverable. One row per opportunity, sorted by GOS descending. Every r
 ### Handoff
 
 Note that the matrix rows can be piped into `brief-ticket-monday-mb` or `brief-ticket-jira-mb` to create content tickets, and that each row is designed to brief `seo-content-mb` for the build. Recommend `seo-analyst-mb` for the schema/structured-data pass on any new page, and `seo-competitor-mb` if the user wants the wider competitive picture behind these gaps. For a recurring or historical AI-citation trend rather than this one-off probe, hand off to `geo-visibility-mb` (internal only).
+
+### MB-branded docx
+
+Always also export the opportunity matrix as a `.docx` with the MB logo in the page header. Build a JSON object matching the shape at the top of `scripts/render_mb_docx.py` (title, subtitle = the scope/practice area, date, sections covering the summary, findings by category, and the opportunity matrix table), write it with `Write`, then run `/usr/bin/python3 scripts/render_mb_docx.py <input.json> <output-name>.docx`. Use system Python (`/usr/bin/python3`), it has `python-docx` installed. Tell the user the saved file path.
 
 ## Error Handling
 

@@ -2,7 +2,7 @@
 name: seo-audit-mb
 description: Runs a full technical SEO and structured-data audit of a Maurice Blackburn page or the whole site. Crawls index hygiene first (robots.txt, noindex, canonicals, sitemap membership), then canonicals/hreflang/redirect chains/404s, Core Web Vitals via the free PageSpeed Insights + CrUX API, mobile-HTML parity, an AI-crawler parity check (GPTBot/PerplexityBot/OAI-SearchBot vs Googlebot), and full JSON-LD extraction and validation. Use when the user says "audit this page/site for SEO", "run a technical SEO audit", "check crawlability/indexability", "why isn't this page indexed", "validate the schema / structured data / FAQPage", "check Core Web Vitals", "is this page mobile-friendly", "can AI crawlers see this page", or asks about canonicals, redirects, robots.txt, sitemaps, or rich results.
 argument-hint: [URL, sitemap URL, domain, or crawl/GSC export path]
-allowed-tools: Read, Grep, Glob, Bash, WebFetch
+allowed-tools: Read, Write, Grep, Glob, Bash, WebFetch, AskUserQuestion
 ---
 
 # seo-audit-mb
@@ -41,7 +41,7 @@ Confirm before auditing. Ask only what is missing:
 1. **Scope.** One URL, a set of URLs, a sitemap URL, or the whole domain (mauriceblackburn.com.au)?
 2. **Practice area** of the page(s), so severity is judged against YMYL expectations (asbestos, medical negligence, road/transport injury, workers comp, super/TPD, class actions, employment, abuse law, public liability).
 3. **Geography.** MB is Australia-only. Any hreflang or non-AU signal is a flag, not a feature.
-4. **Inputs available.** Is there a Screaming Frog crawl export, a Google Search Console (GSC) coverage/index export, or an XML sitemap? Any of these lets you cross-check "in the sitemap" vs "actually indexed" without guessing. Always support the pasted/exported CSV fallback.
+4. **Inputs available (ask this explicitly, do not assume none exists).** Before running the free-tool checks, ask whether the user has a Screaming Frog crawl export, a Google Search Console (GSC) coverage/index export, an XML sitemap, or a BrightEdge Data Cube / SEMrush Site Audit export for the same page(s). Any of these cross-checks "in the sitemap" vs "actually indexed", or supplements Core Web Vitals with a broader ranking/technical picture, without guessing. Always support the pasted/exported CSV fallback, but ask first rather than defaulting straight to the free-tool-only path.
 5. **Cadence.** One-off, or the quarterly recurring audit (see the note at the end)?
 
 If given a bare URL and no other context, begin immediately and note the assumptions you made.
@@ -170,6 +170,9 @@ Deliver a severity-ranked audit plus a fix backlog:
    - **Medium**: e.g. add author-as-Person to BlogPosting across the blog template, fix a canonical chain.
    - **High Impact** (bigger build): e.g. server-render nav/body so AI crawlers and Googlebot see it, fix a site-wide LCP regression.
 4. **Backlog handoff.** Each action is written so it can be piped straight into `brief-ticket-monday-mb` (marketing/roadmap) or `brief-ticket-jira-mb` (Deloitte MBLS dev work). State which board each item belongs on. If the audit produced a formal write-up, `documentation-mb` can render it.
+5. **MB-branded docx.** Always also export the audit as a `.docx` with the MB logo in the page header, do not leave the final deliverable only in chat. Build a JSON object matching the shape documented at the top of `scripts/render_mb_docx.py` (title, subtitle = the audited URL/scope, date, and a `sections` array covering the summary, findings table, and action plan), write it to a temp file with `Write`, then run:
+   `/usr/bin/python3 scripts/render_mb_docx.py <input.json> <output-name>.docx`
+   Use system Python (`/usr/bin/python3`), not a Homebrew/pyenv one, it is the interpreter with `python-docx` installed. Tell the user the saved file path.
 
 Cross-link the siblings when a finding falls outside scope: content/E-E-A-T rewrites to `seo-content-mb`, keyword/topic gaps to `seo-gap-mb`, competitor/Share-of-Model tracking to `seo-competitor-mb`, off-site brand mentions and links to `seo-backlinks-mb`, bulk dead links to the "SEO - 404 Checker" workstream.
 

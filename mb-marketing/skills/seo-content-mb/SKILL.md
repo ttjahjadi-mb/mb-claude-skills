@@ -42,7 +42,7 @@ Confirm these before writing. Ask only what is missing (use AskUserQuestion for 
 4. **Primary query / intent**: the one question or search this page must own (informational vs. "find a lawyer" transactional).
 5. **Geography**: Australia-wide or a specific state/territory (jurisdiction changes both compliance hedges and LocalBusiness schema).
 6. **Author**: the real MB lawyer or expert to attribute as the schema `author` Person. E-E-A-T needs a named human, not "MB Team."
-7. **Paid-tool data**: is a SEMrush/BrightEdge/Profound connector live, or can the user paste a keyword-gap / SERP / AI-citation export? Always support the paste fallback.
+7. **Paid-tool data (ask this explicitly, do not assume none exists)**: before writing, ask whether a SEMrush/BrightEdge/Profound connector is live, or whether the user has a keyword-gap, SERP-ranking, or AI-citation export to paste in. That data sharpens the title/entity targeting and the GEO angle. Always support the paste fallback, but ask first rather than defaulting straight to writing without it.
 
 If the page exists, fetch and read it first (WebFetch, or Playwright for JS-rendered pages) so you optimise the real copy, not a guess.
 
@@ -133,6 +133,7 @@ Return, in this order:
 6. **Optional llms.txt entry**: flagged experimental / low-priority / forward-compat.
 7. **Prioritised action plan**: for anything not fixed inline, grouped **Quick Wins / Medium / High Impact**. Note that this backlog can be piped into `brief-ticket-monday-mb` or `brief-ticket-jira-mb`.
 8. **Next steps**: after publish, run `seo-audit-mb` (and `seo-analyst-mb`) to validate the live schema and technical setup; use `seo-gap-mb` to decide the next page to write.
+9. **MB-branded docx.** Always also export the draft (summary, compliance result, checklist pass-report, and rubric score, the page copy itself can stay in-chat/HTML for pasting into the CMS) as a `.docx` with the MB logo in the page header. Build a JSON object matching the shape at the top of `scripts/render_mb_docx.py`, write it with `Write`, then run `/usr/bin/python3 scripts/render_mb_docx.py <input.json> <output-name>.docx`. Use system Python (`/usr/bin/python3`), it has `python-docx` installed. Tell the user the saved file path.
 
 ## Error Handling
 

@@ -2,7 +2,7 @@
 name: seo-backlinks-mb
 description: Audit Maurice Blackburn's backlink profile, flag toxic links, find the competitor link gap, and build a prioritised outreach list. Produces a backlink health report scored by Domain Rating tiers, a reviewed disavow-candidate list (always held for human sign-off, never auto-submitted), and a ranked outreach prospect list. Use when the user asks "audit our backlinks / backlink profile", "how healthy is our link profile", "do we have toxic / spammy / bad links", "should we disavow", "build a disavow file", "who links to Slater and Gordon / Shine but not us", "backlink gap analysis", "find link-building / outreach targets", or "digital PR prospect list". Default competitors: Slater and Gordon, Shine Lawyers.
 argument-hint: [MB domain + competitor(s), plus a backlink CSV export path if available (Ahrefs/SEMrush/BrightEdge)]
-allowed-tools: Read, Grep, Glob, Bash, WebFetch
+allowed-tools: Read, Write, Grep, Glob, Bash, WebFetch, AskUserQuestion
 ---
 
 # MB Backlink Profile Auditor
@@ -34,7 +34,7 @@ Confirm, briefly, before running:
 1. **Scope:** the whole domain (mauriceblackburn.com.au) or a specific section / practice-area path? Practice areas: asbestos & dust diseases, medical negligence, road/transport accident injury, workplace injury & workers compensation, superannuation & TPD claims, class actions, employment & industrial law, abuse law, public liability.
 2. **Competitors for the gap:** default Slater and Gordon (slatergordon.com.au) and Shine Lawyers (shine.com.au). Confirm or add others.
 3. **Geography:** national, or a state/city focus. This shapes which outreach prospects are relevant (local news, community, legal directories).
-4. **Data available (this is the gating question):** backlink data is not free-crawlable at scale, so this job usually needs a paid export. Ask which the user has:
+4. **Data available (this is the gating question, ask explicitly, do not assume none exists):** backlink data is not free-crawlable at scale, so this job usually needs a paid export. Before running anything, ask directly which the user has:
    - **Live connector:** SEMrush MCP (`mcp.semrush.com/v1/mcp`, backlink + competitive data) or DataForSEO MCP backlink API (if a key is provisioned). Load via ToolSearch.
    - **Default path, an export CSV** the user pastes or points to: Ahrefs (Referring Domains / Backlinks export), SEMrush (Backlink Analytics export), or BrightEdge. State plainly that without one of these, MB's backlink profile cannot be enumerated and you can only do the parts that live crawling supports.
 
@@ -116,6 +116,7 @@ Deliver in the conversation (offer to save a copy if the run is large):
 6. **Prioritised action plan:** Quick Wins / Medium / High Impact. Disavow review sits under a "defensive" heading and is a last resort; earned-media / digital-PR outreach usually sits in High Impact given the links-plus-AI-visibility payoff.
 7. **Handoff notes:** the whole backlog (disavow review task, each outreach prospect, each gap target) can be piped into `brief-ticket-monday-mb` or `brief-ticket-jira-mb` (MBLS) as tickets. The link gap can also drop into the SEO pillar of `acquisition-dashboard-mb`, and complements `seo-competitor-mb`'s Share-of-Model read.
 8. **Cadence note:** recommend re-running this audit quarterly, and log the run in the relevant project's `MEMORY.md` Activity Log.
+9. **MB-branded docx:** always also export the health report as a `.docx` with the MB logo in the page header (the disavow-candidate list, kept clearly labelled for human sign-off, can go in the same document or a separate one). Build a JSON object matching the shape at the top of `scripts/render_mb_docx.py`, write it with `Write`, then run `/usr/bin/python3 scripts/render_mb_docx.py <input.json> <output-name>.docx`. Use system Python (`/usr/bin/python3`), it has `python-docx` installed. Tell the user the saved file path.
 
 ## Error Handling
 

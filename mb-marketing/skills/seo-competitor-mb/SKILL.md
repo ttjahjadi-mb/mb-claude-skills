@@ -2,7 +2,7 @@
 name: seo-competitor-mb
 description: Compare Maurice Blackburn's SEO and GEO (generative engine / AI-answer) standing against named competitors, default Slater and Gordon and Shine Lawyers. Produces a competitor scorecard, a keyword-gap opportunity list, and both traditional Share of Voice and Share of Model (AI-answer visibility) bars. Use when the user asks "how do we rank vs Slater and Gordon", "SEO competitor analysis", "who wins on [practice area] search", "are we showing up in ChatGPT/Perplexity/AI Overviews vs competitors", "keyword gap vs Shine", "share of voice", or "share of model / AI visibility". Reuses the competitor framework from acquisition-dashboard-mb and brand-analyst-mb rather than forking it, and adds the SEO/GEO-specific measurement layer on top.
 argument-hint: [MB page/domain + competitor(s) + practice area/geography, or a paid-tool export path]
-allowed-tools: Read, Grep, Glob, Bash, WebSearch, WebFetch
+allowed-tools: Read, Write, Grep, Glob, Bash, WebSearch, WebFetch, AskUserQuestion
 ---
 
 # MB SEO/GEO Competitor Analyst
@@ -43,7 +43,7 @@ Confirm, briefly, before running:
 1. **Scope:** whole domain (mauriceblackburn.com.au) or a specific practice area / page? Practice areas: asbestos & dust diseases, medical negligence, road/transport accident injury, workplace injury & workers compensation, superannuation & TPD claims, class actions, employment & industrial law, abuse law, public liability.
 2. **Competitors:** default Slater and Gordon (slatergordon.com.au) and Shine Lawyers (shine.com.au). Confirm or add others.
 3. **Geography:** national, or a state/city (matters for local pack and "near me" intent).
-4. **Data available:** is a paid connector live (SEMrush / BrightEdge / Profound / DataForSEO MCP), or will the user paste/export a CSV (SEMrush keyword gap, Ahrefs backlinks, Screaming Frog crawl, GSC export)? State which parts you can automate now vs which need an export before you begin, so expectations are set.
+4. **Data available (ask this explicitly, do not assume none exists):** before running anything, ask directly whether the user has Profound data, BrightEdge data, or a SEMrush export for this scope, rather than defaulting straight to the free/estimated path. Is a paid connector live (SEMrush / BrightEdge / Profound / DataForSEO MCP), or will the user paste/export a CSV (SEMrush keyword gap, Ahrefs backlinks, Screaming Frog crawl, GSC export)? State which parts you can automate now vs which need an export before you begin, so expectations are set.
 
 ## Method
 
@@ -109,6 +109,7 @@ Deliver in the conversation (offer to save a copy if the run is large):
 6. **Keyword-gap opportunity list:** the competitor-ranks-MB-absent and open-field buckets, ranked by volume × winnability, each tagged with the target practice area and intent.
 7. **Prioritised action plan:** Quick Wins / Medium / High Impact. GEO fixes (earned-media brand mentions, adding cited statistics and expert quotes, opening sections with standalone answers, jurisdiction disclaimers in body copy) usually sit in High Impact given the 3:1 mentions-over-backlinks and 30-40% citation-lift evidence above. Note that `llms.txt` is a low-priority, experimental, forward-compat bet with no measured citation lift yet, never a primary tactic.
 8. **Handoff notes:** the opportunity list feeds `seo-gap-mb` for on-page execution on a specific MB page; the scorecard drops into the SEO pillar of `acquisition-dashboard-mb`; and the whole backlog can be piped into `brief-ticket-monday-mb` or `brief-ticket-jira-mb` (MBLS) as tickets.
+9. **MB-branded docx:** always also export the scorecard as a `.docx` with the MB logo in the page header. Build a JSON object matching the shape at the top of `scripts/render_mb_docx.py` (title, subtitle = scope/competitors, date, sections for the summary, scorecard table, SoV/Share-of-Model bars as text, and the action plan), write it with `Write`, then run `/usr/bin/python3 scripts/render_mb_docx.py <input.json> <output-name>.docx`. Use system Python (`/usr/bin/python3`), it has `python-docx` installed. Tell the user the saved file path.
 
 ## Error Handling
 

@@ -8,19 +8,18 @@ Free Claude skills for the Maurice Blackburn marketing team — brand reference,
 2. Go to the **Plugins** tab.
 3. Click **Add GitHub**.
 4. Paste `ttjahjadi-mb/mb-claude-skills` into the URL field and click **Sync**.
-5. Find **mb-brand** and **mb-social** in the list and install/enable both. (`mb-social` reads MB's brand voice from `mb-brand`, so install both together.)
+5. Find **Maurice Blackburn Marketing Skills** in the list and install/enable it — one plugin, all six skills included.
 
-That's it — no downloading, no manual file uploads. Because it's synced from this GitHub repo, updates here reach you automatically; you don't need to redo this setup when the brand tokens, tone of voice, or skill logic change.
+That's it — no downloading, no manual file uploads. Installing only pulls the repo's current state at that moment — it does **not** auto-update later. When the brand tokens, tone of voice, or skill logic change here, remove the plugin (⋮ menu → Remove) and re-add it via the same steps to pick up the latest version.
 
 ## Install (Claude Code)
 
 ```
 /plugin marketplace add ttjahjadi-mb/mb-claude-skills
-/plugin install mb-brand@mb-claude-skills
-/plugin install mb-social@mb-claude-skills
+/plugin install mb-marketing@mb-claude-skills
 ```
 
-Then just mention brand or social-content work in conversation — the skills trigger automatically when relevant. To update later: `/plugin update`.
+Then just mention brand or social-content work in conversation — the skills trigger automatically when relevant. `/plugin update` refreshes it later.
 
 ## What's inside
 
@@ -33,7 +32,7 @@ Then just mention brand or social-content work in conversation — the skills tr
 | `viral-hooks-mb` | Needs a strong opening line — a curated hook library filtered for a law firm's voice and compliance obligations (no fake urgency, no fabricated confessions) |
 | `repurpose-mb` | "Turn this case update into a week of content" — one long input becomes a batch of platform-native posts across LinkedIn, Instagram, TikTok, and Meta |
 
-`post-writer-mb`, `post-grader-mb`, `viral-hooks-mb`, and `repurpose-mb` are all in the **mb-social** plugin, and all read `mb-brand`'s tone-of-voice, brand guidelines, and a shared legal-marketing guardrails file — install `mb-brand` alongside `mb-social` for these to work.
+All six skills ship in the one **mb-marketing** plugin. `post-writer-mb`, `post-grader-mb`, `viral-hooks-mb`, and `repurpose-mb` all read `brand-mb`'s tone-of-voice, brand guidelines, and a shared legal-marketing guardrails file — bundled together so that dependency is never an issue.
 
 ## Try it — example prompts
 
@@ -52,7 +51,7 @@ Then just mention brand or social-content work in conversation — the skills tr
 
 Good live demo: pick a real competitor name in the room and run `brand-analyst-mb` on the spot — it researches fresh each time rather than relying on memory of what a firm's brand used to look like.
 
-**mb-social** (post-writer-mb, post-grader-mb, viral-hooks-mb, repurpose-mb):
+**Social content skills** (post-writer-mb, post-grader-mb, viral-hooks-mb, repurpose-mb):
 
 - "Write me a LinkedIn post about the Dr Simon Gordon investigation."
 - "Give me a hook for a post about workplace injury claims."

@@ -71,6 +71,19 @@ How each principle flexes by audience — full detail, but the shape is: **famil
 
 **Brochureware/response-centre scripts** — soften hard "can't help" language into "unfortunately, this isn't something we can help with." Speak in first person to show empathy ("I'm worried that it might be hard for you to prove..." rather than "we are concerned that..."). Put negative information at the end of a sentence, not the start, to ease the listener in.
 
+## How MB writes on social (observed from 109 live posts, 2026-07-12)
+
+Grounded in MB's own Instagram (55) + LinkedIn (54) posts, observed 2026-07-12. This is how the documented voice above actually shows up on social:
+
+- **Structure:** very short paragraphs (1-2 sentences) with line breaks between them. Never a dense block.
+- **Case/client arc:** setup → what went wrong → the legal point → an explicit takeaway ("The lesson is clear:…", "That's negligence."). The person's story leads; MB's role is clear but secondary.
+- **Hedged conversion, always:** "you may be entitled to compensation," "it's important to understand where you stand," "you have options," "your voice matters." Wins are stated only as facts of a specific past case, never as a promise to the reader. No outcome guarantees, ever.
+- **Sourced, specific stats** over vague superlatives ("6.7 deaths per 100,000 workers," "1 in 4 adult asthma cases"), all attributed/real.
+- **Authority via named Principal Lawyers**, quoted directly — adds credibility and accountability.
+- **The audience split shows up as a platform split:** LinkedIn ≈ Audience 01 (names the spokesperson lawyer, inline trackable links, firm/awards/thought-leadership content, restrained emoji); Instagram ≈ Audience 02 ("link in bio," campaign hashtags, carousel "swipe through," warmer, more emoji, POV/trend hooks for lighter topics). Campaigns are cross-posted with these per-channel tweaks.
+- **Most common hooks** (see `viral-hooks-mb`): rhetorical question, the receipt/result-tease, myth-bust ("Not necessarily."), bold declarative stake, awareness-day frame, and — Instagram only — POV/trend.
+- **Trigger/content warnings** on distressing subject matter, per the house rule above.
+
 ## Writing mechanics (from the Appendix — these are real MB house-style rules)
 
 - **Australian English**, Macquarie Dictionary spelling (colour not color, -ise not -ize).

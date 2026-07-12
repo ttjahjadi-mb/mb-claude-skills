@@ -36,6 +36,11 @@ Invoke the `viral-hooks-mb` skill with the topic and platform. It returns a hook
 - **Specificity**: real numbers, real matters, real situations — never invented ones.
 - **One idea per post.** If it's two ideas, save the second for another post.
 - **Address the reader as "you"** where natural, without losing MB's institutional voice.
+- **Structure the way MB actually writes** (observed across 109 of MB's real posts; summary in `tone-of-voice.md`, "How MB writes on social"):
+  - **Very short paragraphs, one to two sentences each, with line breaks between them.** Never a dense block. This is near-universal on MB's feed.
+  - **For case/client content, use the arc: setup → what went wrong → the legal point → the lesson.** Close on an explicit takeaway line ("The lesson is clear:…", "The message this sends is clear.", "That's negligence.").
+  - **Hedge the conversion, always.** End on soft, non-guaranteeing action language: "you may be entitled to compensation," "it's important to understand where you stand," "you have options," "your voice matters." Never imply a result.
+  - **Use sourced stats, not vague superlatives** — a real figure with its context beats "many" or "the best."
 
 ### Step 4: Compliance pass (before the CTA, before grading)
 
@@ -98,12 +103,14 @@ If Canva isn't connected, say so plainly and suggest asking Cowork directly to m
 
 ## Platform Constraints
 
-- **LinkedIn**: hook in first ~140 characters (before "…see more"). Sweet spot 1,200-1,500 characters. No external links in the body. 3-5 hashtags optional at the end.
-- **Instagram**: hook in first 125 characters. Requires media. 3-5 niche hashtags at the end. One CTA.
-- **TikTok caption**: under 150 characters for most posts. 5 hashtags max. Keyword in the first 30 characters. If the request is for a video script, format as HOOK / BODY / CTA with [on-screen text] and [b-roll] cues, spoken length under 45 seconds.
+Format limits **and** MB's own observed conventions per channel (the conventions come from 109 of MB's real posts; see `tone-of-voice.md`, "How MB writes on social"). The platform split maps onto `tone-of-voice.md`'s audience model: **LinkedIn ≈ Audience 01** (professionals, referrers, media, peers) and **Instagram ≈ Audience 02** (claimants, general public). Match register accordingly.
+
+- **LinkedIn** (Audience 01): hook in first ~140 characters (before "…see more"). Sweet spot 1,200-1,500 characters. 3-5 hashtags optional at the end (firm/topic tags like #MauriceBlackburn, #AccessToJustice). **MB convention: name the spokesperson lawyer** ("Jonathan Walsh explains.", or tag them by name) and **put the link inline** (a trackable link is fine — MB uses brnw.ch/lnkd.in) often citing the source outlet ("Read the full article via the AFR:"). Tag partner orgs/people where relevant. Slightly more professional register, but the same empathy and hedged CTAs.
+- **Instagram** (Audience 02): hook in first 125 characters. Requires media. 3-5 niche/campaign hashtags at the end (e.g. #NAIDOCWeek). One CTA. **MB convention: CTA is "link in our bio" / "🔗 Link in bio" (no inline links)**; educational posts use the carousel "Swipe through…" mechanic; warmer, more emoji, may use POV/trend hooks for lighter topics. Spokesperson usually not named in the caption.
+- **TikTok caption**: under 150 characters for most posts. 5 hashtags max. Keyword in the first 30 characters. If the request is for a video script, format as HOOK / BODY / CTA with [on-screen text] and [b-roll] cues, spoken length under 45 seconds. Any video needs burned-in captions (MB burns bold white captions on all video).
 - **Meta (Facebook)**: 40-80 characters optimal for the hook. No hashtags. No engagement bait ("comment YES").
 
-When a post is for multiple channels, write the longer-platform version first, then ask if a shortened version is needed for the others.
+When a post is for multiple channels, write the longer-platform version first, then ask if a shortened version is needed for the others. When the same campaign runs on both LinkedIn and Instagram, keep the core message but apply each channel's convention above (LinkedIn adds the named lawyer + inline link; Instagram uses "link in bio" + campaign hashtags) — this mirrors how MB actually cross-posts.
 
 ## What NOT to Do
 

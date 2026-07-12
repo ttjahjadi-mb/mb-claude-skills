@@ -40,7 +40,12 @@ Check against `brand-mb/reference/legal-marketing-guardrails.md`:
 
 ### Step 3: Read brand brief context
 
-Read `brand-mb/reference/tone-of-voice.md` if available — grade voice match against MB's actual documented voice, not a generic standard.
+Read `brand-mb/reference/tone-of-voice.md` if available — grade voice match against MB's actual documented voice, not a generic standard. Its "How MB writes on social" section distils how MB actually writes across 109 real posts. **What "good" looks like in MB's real feed — reward these, and treat their absence as a voice-match miss:**
+- Short 1-2 sentence paragraphs with line breaks; no dense blocks.
+- Hedged conversion language ("you may be entitled," "understand where you stand," "you have options") — never a guarantee.
+- Sourced, specific statistics rather than vague superlatives.
+- Case content that lands an explicit takeaway ("The lesson is clear:…").
+- Empathy-first framing on heavy topics; the person's story ahead of MB's role.
 
 ### Step 4: Grade across 7 dimensions (only if compliance passed)
 
@@ -52,7 +57,7 @@ Read `brand-mb/reference/tone-of-voice.md` if available — grade voice match ag
 | **Share-worthiness** | 10% | Would a reader tag someone, save it, or forward it — for a genuine reason, not because it's alarming? |
 | **Voice match** | 15% | Matches MB's documented Courageous Ally voice in `tone-of-voice.md` — not a generic AI voice, not overly clinical. |
 | **Polarity / clear position** | 5% | Says something clear and useful, without being needlessly divisive on a legal matter. |
-| **Platform fit** | 10% | Length, hashtags, hook placement match the platform's real constraints. |
+| **Platform fit** | 10% | Length, hashtags, hook placement match the platform's real constraints **and MB's observed conventions**: LinkedIn (Aud 01) names the spokesperson lawyer + inline trackable link + firm/topic hashtags; Instagram (Aud 02) uses "link in bio" + campaign hashtags + carousel "swipe through" for educational content. A LinkedIn post with no named lawyer, or an Instagram post with an inline link instead of "link in bio," is a platform-fit miss. |
 
 ### Step 5: Voice rules audit (pass/fail, each failure -0.5, capped at -3)
 

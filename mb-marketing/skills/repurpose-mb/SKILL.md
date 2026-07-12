@@ -44,13 +44,17 @@ Invoke `viral-hooks-mb` for each output, passing the theme and channel. Vary the
 
 ### Step 5: Write each output to its channel
 
-**LinkedIn**: hook in first ~140 characters. 1,200-1,500 characters sweet spot. No external links in body. 3-5 hashtags optional at the end.
+Format limits + MB's own observed conventions (from 109 of MB's real posts; see `tone-of-voice.md`, "How MB writes on social"). The channel split follows `tone-of-voice.md`'s audiences: **LinkedIn ≈ Audience 01** (professionals/referrers/media), **Instagram ≈ Audience 02** (claimants/public).
 
-**Instagram**: hook in first 125 characters. Requires media reference/placeholder. 3-5 niche hashtags. One CTA.
+**LinkedIn** (Aud 01): hook in first ~140 characters. 1,200-1,500 characters sweet spot. 3-5 firm/topic hashtags optional at the end. **MB convention: name the spokesperson lawyer** and **put the (trackable) link inline**, often citing the source outlet. Tag partner orgs/people where relevant.
 
-**TikTok script**: HOOK (spoken line + on-screen text, first 1.7 seconds) / BODY (15-40 seconds, short spoken lines with [on-screen text] and [b-roll] cues) / CTA (final 3 seconds). Keep total spoken length under 45 seconds.
+**Instagram** (Aud 02): hook in first 125 characters. Requires media reference/placeholder. 3-5 niche/campaign hashtags. One CTA. **MB convention: "link in bio" (no inline links)**; use the carousel "Swipe through…" mechanic for educational angles; warmer register, more emoji; POV/trend hooks OK for lighter topics only.
+
+**TikTok script**: HOOK (spoken line + on-screen text, first 1.7 seconds) / BODY (15-40 seconds, short spoken lines with [on-screen text] and [b-roll] cues) / CTA (final 3 seconds). Keep total spoken length under 45 seconds. Assume burned-in bold white captions.
 
 **Meta (Facebook)**: 40-80 characters optimal for the hook. No hashtags. No engagement bait.
+
+Structure every written output the way MB actually does: very short 1-2 sentence paragraphs with line breaks; for case content, setup → what went wrong → the legal point → an explicit takeaway; hedged conversion language ("you may be entitled," "you have options"), never a guarantee.
 
 ### Step 6: Apply MB voice + compliance
 

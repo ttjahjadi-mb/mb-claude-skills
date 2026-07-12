@@ -86,11 +86,13 @@ Invoke `post-grader-mb` on the draft. Apply its fixes. Re-grade if needed. Do no
 Which CTA do you want — Free claim check, Ask Morry AI, Chat with Morry AI, Request a callback, or Get in touch? I've used [X] above; happy to swap.
 ```
 
-### Step 8: Offer a matching creative (Canva brand template)
+### Step 8: Draft a matching creative in Canva (auto-filled, for review)
 
-After presenting the post, offer: "Want a matching MB-brand creative for this?" If Canva's MCP tools are connected (quick tool search for `mcp__claude_ai_Canva__*`), use MB's **real brand templates** — not AI-generated layouts — as the base:
+After presenting the post, offer: "Want a matching MB-brand creative drafted for this?" If Canva's MCP tools are connected (quick tool search for `mcp__claude_ai_Canva__*`), draft it on a **real MB brand template** with the copy already placed — **never** hand back a placeholder to paste manually. Verified working 2026-07-12: MB's templates aren't autofill-enabled (`get-brand-template-dataset` → `{}`), but the **editing-transaction API places copy programmatically**, which is the path used here.
 
-**1. Pick the format and map it to an MB brand template.** Use the MB main-brand set (MB red / charcoal / white). Avoid the navy "CFA" (Claims Funding Australia) sub-brand templates unless the post is CFA/litigation-funding content.
+> **Golden rule: never edit the brand template itself.** `create-design-from-brand-template` spins up a *new* design from the template (the template stays read-only). All edits happen on that new design only.
+
+**1. Pick the format → MB brand template** (main-brand set; avoid the navy "CFA"/Claims Funding Australia templates unless it's CFA content):
 
 | Post format | MB brand template (search by title) |
 |---|---|
@@ -103,15 +105,21 @@ After presenting the post, offer: "Want a matching MB-brand creative for this?" 
 | Award / milestone | FF Awards template - with photo |
 | Google review / testimonial | 5 star Google review (White or MB4) |
 
-Find it with `search-brand-templates` (query the title). If none fits, use the fallback below.
+`search-brand-templates` (query the title). If none fits, use the fallback below.
 
-**2. Create an editable design:** `create-design-from-brand-template` with the template ID → returns `edit_url` + `view_url`.
+**2. Create a new design from it:** `create-design-from-brand-template` → new `design_id` + `edit_url`/`view_url`. (Brand-template designs can lag a moment; if a later call says "not found", recreate and use the fresh id.)
 
-**3. Hand off with the copy to paste — state the manual step plainly.** MB's brand templates are **not autofill-enabled** (verified 2026-07-12: `get-brand-template-dataset` returns `{}`), so the new design opens with the template's *placeholder* text, NOT the post's copy. Give the user the `edit_url` plus the exact hook / body / CTA to paste in, and say so: "This is your on-brand MB template — open it and paste the copy above into the text fields. Autofill isn't set up on these templates, so the text is a manual step." **Never claim the design already contains the post's wording.**
+**3. Open an editing transaction:** `start-editing-transaction` on the *new* design. The response returns every text element's `element_id` and its current placeholder text, the `pages` array (note each page's `is_responsive`), and a thumbnail.
 
-**4.** Optionally preview with `get-design-thumbnail` (needs `start-editing-transaction` first) and show it in chat.
+**4. Place the copy — fit it to the layout.** For each text element, `perform-editing-operations` with `replace_text` (or `find_and_replace_text`), mapping the post's hook/quote/body/attribution/CTA onto the template's fields. **Fit to the placeholder's length** — if your copy is much longer than what it replaces, it will overflow the fixed text box and collide with elements below (verified failure mode). If it's tight, shorten the copy or pick a roomier template, and **flag it to the user** in the review. On `is_responsive: true` pages, only `update_title`, `replace_text`, `update_fill`, `delete_element`, `find_and_replace_text` are allowed — stick to those.
 
-**Fallback — no template fits the format:** `generate-design` (`design_type`: Instagram → `instagram_post`, Meta/Facebook → `facebook_post`; LinkedIn/TikTok → generate as `instagram_post` then `resize-design` — LinkedIn 1200x627 or 1080x1080, TikTok/Reels 1080x1920; `brand_kit_id` MB's kit `kAF2WJIK_h8`), then `create-design-from-candidate` to save it. Same caveat: `generate-design` treats your `query` as creative direction, not literal copy — an on-brand starting point with its own headline, not the post's exact wording. Share `edit_url`; don't claim verbatim text placement.
+**5. Attach an image where the template has an image element** (e.g. Image & Solid, review templates, image carousels) and the user supplied one: `upload-asset-from-url` (needs a public image URL) → `update_fill` on that image element with the returned `asset_id`. (Image attach uses `update_fill`/`insert_fill`; text placement is live-verified, image attach is per the API schema — sanity-check the first real run.)
+
+**6. Render for review:** the `perform-editing-operations` response includes a thumbnail — show it in chat. Confirm nothing overflows.
+
+**7. Save + send for review:** `commit-editing-transaction` (saves the *new* design; template untouched). Give the user the `edit_url` + `view_url` + the rendered thumbnail: "Here's the drafted creative — review and tweak in Canva." If a preview looks wrong, `cancel-editing-transaction` instead and redraft.
+
+**Fallback — no template fits the format:** `generate-design` (`design_type`: Instagram → `instagram_post`, Meta/Facebook → `facebook_post`; LinkedIn/TikTok → `instagram_post` then `resize-design` — LinkedIn 1200x627 or 1080x1080, TikTok/Reels 1080x1920; `brand_kit_id` MB's kit `kAF2WJIK_h8`), then `create-design-from-candidate`. Caveat: `generate-design` treats `query` as creative direction, not literal copy — its own headline, not the post's exact wording. Share `edit_url`; don't claim verbatim placement.
 
 If Canva isn't connected, say so plainly and note the creative for manual creation later.
 
@@ -134,4 +142,4 @@ When a post is for multiple channels, write the longer-platform version first, t
 - Don't pile on hashtags where they hurt (LinkedIn, Facebook, TikTok beyond 5).
 - Don't write 3 versions and ask the user to pick. Pick one strong version; they can ask for an alternate.
 - Don't include the hook category name or grading details inside the actual post text — those are for the meta-output only.
-- Don't claim a Canva creative (template-based or generated) already contains the post's exact wording — MB's brand templates aren't autofill-enabled, so the copy is always a manual paste in Canva. Hand over the text to paste; never imply it's placed.
+- Don't hand back a placeholder creative for the user to fill in manually — place the copy into the new design via the editing transaction, fit it to the layout, and render a thumbnail so overflow is caught before saving. **Never edit the brand template itself** — always work on a new design created from it. Only claim text is placed after `perform-editing-operations` returns success and you've seen the thumbnail.

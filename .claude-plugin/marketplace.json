@@ -10,6 +10,11 @@
       "name": "mb-brand",
       "source": "./mb-brand",
       "description": "MB brand reference (colours, typography, logo, tone of voice, brand history) plus a conversational brand-vs-competitor comparison skill."
+    },
+    {
+      "name": "mb-social",
+      "source": "./mb-social",
+      "description": "Write, grade, and repurpose MB-branded social posts for LinkedIn, Instagram, TikTok, and Meta — on-brand voice, curated hooks, and legal-marketing compliance guardrails built in."
     }
   ]
 }

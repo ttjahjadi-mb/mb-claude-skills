@@ -59,7 +59,7 @@ Read `brand-mb/reference/tone-of-voice.md` if available — grade voice match ag
 | Rule | Pass = |
 |------|--------|
 | Contractions | Used naturally ("don't," "you've") |
-| Numbers as digits | "5 signs" not "five signs" |
+| Number style | One to nine spelled out, numerals from 10 up (MB house style — NOT "always digits") |
 | Active voice | No "was created by," "is being done" |
 | Filler words | None of: really, very, just, basically, literally, actually |
 | Filler openers | No "in today's world," "let me tell you," "here's the thing" |

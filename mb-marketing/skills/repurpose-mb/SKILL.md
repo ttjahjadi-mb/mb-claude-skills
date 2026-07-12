@@ -107,6 +107,8 @@ If the user wants creatives, draft them on real MB brand templates with the copy
 
 Batch discipline: for a multi-post batch, first list which approved template each post maps to (so the user can redirect before you create several designs), and **fit each post's copy to its template — flag any too long to fit cleanly**. **Never invent a design** — if none of the three approved templates fits a post, say so and ask, don't fall back to `generate-design`.
 
+Need a size the template doesn't natively cover (e.g. LinkedIn landscape from a square template)? `resize-design` the created design as a one-off — it reflows cleanly. **Never call `publish-brand-template` on a resized design** — confirmed bug: it errors and permanently orphans the design. Resize per-post only; it isn't a way to save a new template.
+
 ## What NOT to Do
 
 - Don't pad with weak angles to hit a count — if the source only supports 3 strong posts, return 3.

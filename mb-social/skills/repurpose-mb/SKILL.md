@@ -90,7 +90,11 @@ CTA: ...
 [full post]
 ```
 
-After the batch: "Which CTAs do you want to keep or swap? And are you ready to copy these into your scheduler?"
+After the batch: "Which CTAs do you want to keep or swap? Want a matching Canva creative for any of the Instagram/Facebook posts? And are you ready to copy these into your scheduler?"
+
+### Step 10: Matching creatives (Canva, optional)
+
+If the user wants a creative for one or more posts, follow `post-writer-mb`'s Step 8 pattern: `generate-design` per post (Instagram → `instagram_post`, Meta/Facebook → `facebook_post`, MB's brand kit via `list-brand-kits`), then `create-design-from-candidate` to save it. Be upfront that the generated design reflects the post's mood/colours as creative direction, not its exact wording — share the `edit_url` so the post's specific hook/CTA can be checked and adjusted in Canva before publishing.
 
 ## What NOT to Do
 

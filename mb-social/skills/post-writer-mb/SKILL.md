@@ -81,6 +81,21 @@ Invoke `post-grader-mb` on the draft. Apply its fixes. Re-grade if needed. Do no
 Which CTA do you want — Free claim check, Ask Morry AI, Chat with Morry AI, Request a callback, or Get in touch? I've used [X] above; happy to swap.
 ```
 
+### Step 8: Offer a matching creative (Canva, optional)
+
+If the user asks for a visual, or after presenting the final post ask "want a matching creative for this too?"
+
+If Canva's MCP tools are connected (check via a quick tool search — `mcp__claude_ai_Canva__generate-design` etc.), call `generate-design` with:
+- `design_type`: Instagram → `instagram_post`, Meta/Facebook → `facebook_post`. LinkedIn and TikTok have no native Canva type — generate as `instagram_post` and use `resize-design` afterward (LinkedIn: 1200x627 or keep 1080x1080; TikTok/Reels: 1080x1920).
+- `brand_kit_id`: MB's kit — look it up via `list-brand-kits` if not already known (as of 2026-07-12 there is exactly one MB brand kit).
+- `query`: describe the post's tone, hook, and CTA as creative direction — mood, subject matter, key phrase to feature.
+
+**Be upfront with the user about what this actually does**: `generate-design` treats your query as creative direction, not literal copy to place on the image — tested 2026-07-12 on a real post, it produced an on-brand design (correct MB colours, warm human photography) but with its own headline text, not the post's exact hook/CTA. Present it as a strong on-brand starting point to open and adjust in Canva (share the `edit_url`), not a finished, publish-ready asset. Don't claim it placed the exact post copy unless you've verified it did.
+
+After `generate-design` returns a candidate, call `create-design-from-candidate` to save it to a real, editable design and get `edit_url`/`view_url` — give the user both.
+
+If Canva isn't connected, say so plainly and suggest asking Cowork directly to mock up a creative as a fallback, or noting it for manual creation later.
+
 ## Platform Constraints
 
 - **LinkedIn**: hook in first ~140 characters (before "…see more"). Sweet spot 1,200-1,500 characters. No external links in the body. 3-5 hashtags optional at the end.
@@ -98,3 +113,4 @@ When a post is for multiple channels, write the longer-platform version first, t
 - Don't pile on hashtags where they hurt (LinkedIn, Facebook, TikTok beyond 5).
 - Don't write 3 versions and ask the user to pick. Pick one strong version; they can ask for an alternate.
 - Don't include the hook category name or grading details inside the actual post text — those are for the meta-output only.
+- Don't claim a Canva-generated creative shows the post's exact wording unless you've actually checked the design — it's a creative starting point, not guaranteed verbatim text placement.

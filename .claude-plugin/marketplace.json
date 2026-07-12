@@ -14,7 +14,7 @@
     {
       "name": "mb-social",
       "source": "./mb-social",
-      "description": "Write, grade, and repurpose MB-branded social posts for LinkedIn, Instagram, TikTok, and Meta — on-brand voice, curated hooks, and legal-marketing compliance guardrails built in."
+      "description": "Write, grade, and repurpose MB-branded social posts for LinkedIn, Instagram, TikTok, and Meta — on-brand voice, curated hooks, and legal-marketing compliance guardrails built in. Requires the mb-brand plugin installed alongside it."
     }
   ]
 }

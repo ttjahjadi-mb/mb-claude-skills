@@ -10,6 +10,11 @@
       "name": "mb-marketing",
       "source": "./mb-marketing",
       "description": "MB brand reference (colours, typography, logo, tone of voice, brand history), a conversational brand-vs-competitor comparison skill, and a full social content toolkit (write, grade, and repurpose MB-branded posts for LinkedIn, Instagram, TikTok, and Meta) — on-brand voice, curated hooks, and legal-marketing compliance guardrails built in."
+    },
+    {
+      "name": "mb-seo",
+      "source": "./mb-seo",
+      "description": "Five skills for a plaintiff law firm's SEO and GEO work: full technical audits, SEO/GEO-optimised page writing with a compliance gate, keyword and AI-citation gap analysis, competitor benchmarking (Share of Voice and Share of Model), and backlink auditing."
     }
   ]
 }

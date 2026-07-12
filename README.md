@@ -1,6 +1,6 @@
 # MB Claude Skills
 
-Free Claude skills for the Maurice Blackburn marketing team — brand reference, brand-vs-competitor comparison, and on-brand social content creation, ready to use in any Claude conversation.
+Free Claude skills for the Maurice Blackburn marketing team: brand reference, brand-vs-competitor comparison, on-brand social content creation, and SEO/GEO work, ready to use in any Claude conversation. Two plugins: **mb-marketing** and **mb-seo**.
 
 ## Install (claude.ai / Cowork)
 
@@ -8,18 +8,19 @@ Free Claude skills for the Maurice Blackburn marketing team — brand reference,
 2. Go to the **Plugins** tab.
 3. Click **Add GitHub**.
 4. Paste `ttjahjadi-mb/mb-claude-skills` into the URL field and click **Sync**.
-5. Find **Maurice Blackburn Marketing Skills** in the list and install/enable it — one plugin, all six skills included.
+5. Find **Maurice Blackburn Marketing Skills** (brand + social, six skills) and/or **Maurice Blackburn SEO and GEO Skills** (five skills) in the list and install/enable whichever you need.
 
-That's it — no downloading, no manual file uploads. Installing only pulls the repo's current state at that moment — it does **not** auto-update later. When the brand tokens, tone of voice, or skill logic change here, remove the plugin (⋮ menu → Remove) and re-add it via the same steps to pick up the latest version.
+That's it, no downloading, no manual file uploads. Installing only pulls the repo's current state at that moment, it does **not** auto-update later. When the brand tokens, tone of voice, or skill logic change here, remove the plugin (⋮ menu → Remove) and re-add it via the same steps to pick up the latest version.
 
 ## Install (Claude Code)
 
 ```
 /plugin marketplace add ttjahjadi-mb/mb-claude-skills
 /plugin install mb-marketing@mb-claude-skills
+/plugin install mb-seo@mb-claude-skills
 ```
 
-Then just mention brand or social-content work in conversation — the skills trigger automatically when relevant. `/plugin update` refreshes it later.
+Then just mention brand, social-content, or SEO/GEO work in conversation, the skills trigger automatically when relevant. `/plugin update` refreshes it later.
 
 ## What's inside
 
@@ -59,6 +60,26 @@ Good live demo: pick a real competitor name in the room and run `brand-analyst-m
 - "Turn this case update into posts for our channels." — produces a batch across LinkedIn, Instagram, TikTok, and Meta.
 
 Compliance is a hard gate on every one of these — a post that scores well but makes an outcome guarantee or skips a required trigger warning will not be returned as-is. MB's house style permits the em dash and these skills apply it by default; the only thing they'll ask you to confirm is the CTA (Free claim check, Ask Morry AI, Chat with Morry AI, Request a callback, or Get in touch).
+
+## What's inside: mb-seo
+
+| Skill | When it kicks in |
+| --- | --- |
+| `seo-audit-mb` | "Audit this page/site for SEO": full technical + structured-data audit: crawlability, canonicals, hreflang, redirects, Core Web Vitals, AI-crawler access, JSON-LD validation |
+| `seo-content-mb` | "Write an SEO page for X" / "make this GEO-ready": writes or optimises a page to rank in traditional search and be cited by AI answer engines, with a compliance gate before anything ships |
+| `seo-gap-mb` | "Where are our SEO gaps" / "why does ChatGPT cite a competitor and not us": keyword, topic, and AI-citation gap analysis, ranked into a briefable opportunity list |
+| `seo-competitor-mb` | "How do we compare to [competitor] on search": keyword gap, Share of Voice, and Share of Model (AI-answer visibility) benchmarking |
+| `seo-backlinks-mb` | "Audit our backlinks" / "find link-building targets": backlink health, toxic-link flagging (disavow always held for human sign-off), and a competitor link-gap outreach list |
+
+All five ship in the one **mb-seo** plugin and are built for a law firm's SEO/GEO work specifically: named competitor benchmarking, YMYL E-E-A-T weighting, and a legal-marketing compliance gate on anything the content skill writes or recommends. Some capabilities (keyword volume, backlink data, AI-answer share of voice) need a live SEMrush/BrightEdge/Profound/DataForSEO connector or a pasted CSV export; each skill states plainly which parts it can automate on the spot versus which need that data supplied.
+
+**Try it:**
+
+- "Run a technical SEO audit on our TPD claims page."
+- "Write an SEO and GEO optimised page about workers compensation claims in Victoria."
+- "What SEO gaps do we have against Shine Lawyers on road injury content?"
+- "How does our Share of Voice compare to Slater and Gordon?"
+- "Audit our backlink profile and flag anything toxic."
 
 ## What's *not* in this public repo
 

@@ -100,9 +100,12 @@ After the batch: "Which CTAs do you want to keep or swap? Want a matching Canva 
 
 If the user wants creatives, draft them on real MB brand templates with the copy **already placed** — follow `post-writer-mb`'s Step 8 flow exactly (create a new design from the template → open an editing transaction → `replace_text` the copy fitted to the layout → attach a supplied image via `upload-asset-from-url` + `update_fill` where the template has an image element → render the thumbnail → `commit` → send the `edit_url` + thumbnail for review). **Never edit the brand template itself; always work on the new design created from it.**
 
-Format → MB main-brand template: Quote - x 3 versions; Key Points List: White; Full Width Text Carousel; Image & Solid: 60/40; Layered Squares: Red; Latest News/Blogs: Shade 2; FF Awards; 5 star Google review. Avoid navy "CFA" templates unless it's Claims Funding Australia content.
+**Approved MB-standalone templates only** (verified 2026-07-12) — the rest of the account is MB×AWU co-brand (locked footer) or CFA navy sub-brand and must not be used for standalone MB posts:
+- **Quote - x 3 versions** — pull-quote / statement
+- **5 star Google review - White** (or "…- MB4") — testimonial / review
+- **FF Awards template - with photo** — award / milestone
 
-Batch discipline: for a multi-post batch, first list which template each post maps to (so the user can redirect before you create several designs), and **fit each post's copy to its template — flag any that are too long to fit cleanly** and offer a shorter version or a roomier template rather than letting text overflow. Fallback if no template fits: `generate-design` → `create-design-from-candidate` (creative direction, not literal copy).
+Batch discipline: for a multi-post batch, first list which approved template each post maps to (so the user can redirect before you create several designs), and **fit each post's copy to its template — flag any too long to fit cleanly**. **Never invent a design** — if none of the three approved templates fits a post, say so and ask, don't fall back to `generate-design`.
 
 ## What NOT to Do
 

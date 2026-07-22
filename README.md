@@ -39,7 +39,7 @@ Then just mention brand, social-content, or SEO/GEO work in conversation, the sk
 | Skill | When it kicks in |
 | --- | --- |
 | `seo-audit-mb` | "Audit this page/site for SEO": full technical + structured-data audit: crawlability, canonicals, hreflang, redirects, Core Web Vitals, AI-crawler access, JSON-LD validation |
-| `seo-content-mb` | "Write an SEO page for X" / "make this GEO-ready": writes or optimises a page to rank in traditional search and be cited by AI answer engines, with a compliance gate before anything ships |
+| `seo-content-mb` | "Write an SEO page for X" / "make this GEO-ready": reasons through content type first (blog vs practice-area vs localised practice-area page), then writes a page to rank AND be cited by AI answer engines, with a full Targeting brief, a YMYL + E-E-A-T read, a compliance gate, and delivery as both an HTML preview and a copywriter-ready docx |
 | `seo-gap-mb` | "Where are our SEO gaps" / "why does ChatGPT cite a competitor and not us": keyword, topic, and AI-citation gap analysis, ranked into a briefable opportunity list |
 | `seo-competitor-mb` | "How do we compare to [competitor] on search": keyword gap, Share of Voice, and Share of Model (AI-answer visibility) benchmarking |
 | `seo-backlinks-mb` | "Audit our backlinks" / "find link-building targets": backlink health, toxic-link flagging (disavow always held for human sign-off), and a competitor link-gap outreach list |
@@ -75,12 +75,12 @@ Compliance is a hard gate on every one of these — a post that scores well but 
 **SEO and GEO skills** (seo-audit-mb, seo-content-mb, seo-gap-mb, seo-competitor-mb, seo-backlinks-mb):
 
 - "Run a technical SEO audit on our TPD claims page."
-- "Write an SEO and GEO optimised page about workers compensation claims in Victoria."
+- "Write an SEO and GEO optimised page about workers compensation claims in Victoria." States its content-type reasoning first, then returns a full Targeting brief (suggested URL/meta/H1/SERP preview/keywords/People Also Asked/internal links), a YMYL + E-E-A-T read, the schema as its own file, and the draft as both an HTML layout preview and a copywriter-ready docx.
 - "What SEO gaps do we have against Shine Lawyers on road injury content?"
 - "How does our Share of Voice compare to Slater and Gordon?"
 - "Audit our backlink profile and flag anything toxic."
 
-Same rule as the rest: mention the right thing and the right skill triggers, no need to name it. Some of these need a live SEMrush/BrightEdge/Profound/DataForSEO connector or a pasted CSV export for the fullest answer; each skill will tell you plainly what it can do on the spot versus what needs that data supplied.
+Same rule as the rest: mention the right thing and the right skill triggers, no need to name it. Every skill will ask plainly whether SEMrush, BrightEdge, Profound, or a GSC export is available before falling back to an estimated read, so answer for all of them, not just the first one you think of.
 
 ## What's *not* in this public repo
 

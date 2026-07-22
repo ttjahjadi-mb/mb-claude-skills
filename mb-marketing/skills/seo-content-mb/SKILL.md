@@ -1,6 +1,6 @@
 ---
 name: seo-content-mb
-description: Write or optimise a Maurice Blackburn page so it ranks in traditional search AND gets cited by AI answer engines (ChatGPT, Claude, Gemini, Perplexity, Google AI Overviews), with legal-marketing compliance as a hard gate. Produces a publish-ready page draft (HTML or markdown), a JSON-LD block, a checklist pass-report, and an optional llms.txt entry. Use when the user says "write an SEO page for [practice area]", "optimise this page for search", "make this page rank", "get us cited in AI answers", "write a GEO-ready page", "help this page show up in ChatGPT/AI Overviews", or pastes a draft and asks to SEO/GEO it.
+description: Write or optimise a Maurice Blackburn page so it ranks in traditional search AND gets cited by AI answer engines (ChatGPT, Claude, Gemini, Perplexity, Google AI Overviews), with legal-marketing compliance as a hard gate. States its content-type reasoning (blog vs practice-area page vs localised practice-area page) before drafting, produces a full agency-style Targeting brief (suggested URL/meta/H1/SERP preview/keywords/People Also Asked/internal links), a YMYL + E-E-A-T alignment summary, a publish-ready page draft delivered as BOTH an HTML layout preview and a copywriter-editable MB-branded .docx, and the JSON-LD schema as its own separate file. Use when the user says "write an SEO page for [practice area]", "optimise this page for search", "make this page rank", "get us cited in AI answers", "write a GEO-ready page", "help this page show up in ChatGPT/AI Overviews", or pastes a draft and asks to SEO/GEO it.
 argument-hint: "[URL, file, or topic] [practice area] [geography]"
 allowed-tools: Read, Write, Grep, Glob, Bash, WebSearch, WebFetch, AskUserQuestion
 ---
@@ -13,7 +13,7 @@ MB (mauriceblackburn.com.au) is an Australian plaintiff (claimant-side) law firm
 
 MCP tools (Playwright, SEMrush, BrightEdge, Profound) load at runtime via ToolSearch and are optional. Everything core here runs on the standard tools plus a pasted export fallback.
 
-**Read `reference/mb-page-templates.md` before drafting a service/practice page or a blog/guide page.** It documents the real, live MB page templates (section order, title/meta conventions, CTA cadence, schema gaps, GEO gaps) extracted from 7 production pages on 2026-07-12, so a new page matches house pattern instead of a generic template. It also lists the specific schema and GEO gaps found on those live pages (missing `FAQPage`/`BlogPosting`/`LegalService` schema, thin cited-stats, a double-H1 bug, a page opening with "Table of content") so you can fix the same gaps wherever you spot them, not just avoid repeating them.
+**Read `reference/mb-page-templates.md` before drafting a service/practice page or a blog/guide page.** It documents the real, live MB page templates (section order, title/meta conventions, CTA cadence, schema gaps, GEO gaps, robots.txt/sitemap.xml grounding, site inventory by section) extracted from live production pages, so a new page matches house pattern instead of a generic template, and so Internal Links and Suggested URL in the Targeting brief (below) are real, not invented.
 
 ## When to Activate
 
@@ -38,22 +38,32 @@ Confirm these before writing. Ask only what is missing (use AskUserQuestion for 
 
 1. **Target page**: a URL to optimise, a file to edit, or a topic to write from scratch.
 2. **Practice area**: which of MB's areas, so entity coverage and the pillar link are right.
-3. **Page type**: service/practice page or blog/guide. The two have distinct section skeletons, see `reference/mb-page-templates.md`.
+3. **Content type**: do not just ask this as a binary. See Step 0 below, it is a reasoned decision (blog vs practice-area page vs localised practice-area page), stated explicitly before drafting, not assumed.
 4. **Primary query / intent**: the one question or search this page must own (informational vs. "find a lawyer" transactional).
-5. **Geography**: Australia-wide or a specific state/territory (jurisdiction changes both compliance hedges and LocalBusiness schema).
+5. **Geography**: Australia-wide or a specific state/territory (jurisdiction changes compliance hedges, LocalBusiness schema, and the Step 0 decision).
 6. **Author**: the real MB lawyer or expert to attribute as the schema `author` Person. E-E-A-T needs a named human, not "MB Team."
 7. **Paid-tool data (MANDATORY, ask about every tool by name, do not bundle them into one line and do not silently drop any):** before writing, ask the user explicitly and separately whether each of the following is available. Do not skip a tool because another one was already confirmed, and do not assume "no" for a tool the user didn't mention unprompted:
    - **SEMrush**: live connector, or a keyword/SERP export to paste?
    - **BrightEdge**: live connector, or a Data Cube / rankings export to paste?
    - **Profound**: live connector (MB is on the Enterprise/API tier), or an AI-citation / Share-of-Voice export to paste?
    - **Google Search Console (GSC)**: an export of queries/impressions for this topic?
-   If the user answers for only one or two, ask about the remaining ones before moving on, do not treat a partial answer as a complete one. Always support the paste fallback for any of them. This data sharpens the title/entity targeting and the GEO angle.
+   If the user answers for only one or two, ask about the remaining ones before moving on, do not treat a partial answer as a complete one. Always support the paste fallback for any of them. This data sharpens the title/entity targeting, the Keywords section of the Targeting brief, and the GEO angle.
 
 If the page exists, fetch and read it first (WebFetch, or Playwright for JS-rendered pages) so you optimise the real copy, not a guess.
 
 ## Method
 
 Write for two readers at once: Google's ranking systems and an LLM extracting a citable answer. The GEO layer is not a second pass bolted on. Bake it into the structure from the first sentence.
+
+### Step 0: Content-type decision (state the reasoning before drafting, do not skip this)
+
+Before writing a word of copy, decide and **state in the Output, as its own labelled section**, which of these three content types this page should be, and why. Never silently assume, and never let the user's initial phrasing decide it without a check, they may ask for "a page about X" without knowing which type actually fits.
+
+1. **Blog / guide.** Choose when the primary intent is informational or educational: a question ("how do I...", "what is...", "considerations before..."), a news hook (a legislation change, a case update), or a topic that feeds top-of-funnel awareness and links down to a money page. Not itself the primary conversion page for a practice area.
+2. **Practice-area page (core / pillar).** Choose when the intent is transactional ("find a lawyer for X") and the practice area does not yet need, or does not have, meaningfully different local demand or jurisdiction rules that would justify a dedicated state page. This is the primary money page for the practice area.
+3. **Localised practice-area page.** Choose only when at least one of these is true: (a) there is real, meaningful state/city-level search volume and intent ("workers compensation lawyer Melbourne"), (b) the jurisdiction's scheme or law genuinely differs from the core page's content (e.g. TAC in VIC vs CTP schemes elsewhere), or (c) MB has a physical office presence there worth surfacing via LocalBusiness schema and the local pack. **Do not create a localised page that would be near-duplicate content of the core page with only the location swapped and no real local differentiation**, that risks cannibalisation and duplicate-content dilution. In that case, fold location targeting into the core page's internal linking and LocalBusiness schema instead of forking a new page.
+
+State the decision in 2-4 sentences citing which specific criteria applied (e.g. "Localised practice-area page: WorkCover is a Victoria-specific statutory scheme (criterion b), and MB has a Melbourne office to surface (criterion c)."). If the user's original ask conflicts with this reasoning, say so and recommend the better fit before proceeding, do not silently override or silently comply.
 
 ### Step 1: On-page SEO checklist (traditional ranking)
 
@@ -65,11 +75,11 @@ Every item is a check with a Critical / Warning / Info severity if it fails.
 | **Meta description** | 140-160 chars, active voice, includes primary query and a compliant reason to click. Not a duplicate of the H1. | Warning |
 | **Single H1** | Exactly one, containing the primary entity. Never zero, never two. | Critical |
 | **Heading hierarchy** | Logical H2 > H3 nesting, no skipped levels, headings describe content not decoration. | Warning |
-| **Internal links** | Link up to the practice-area **pillar** page and across to related practice pages / relevant case studies. Descriptive anchor text, not "click here". | Warning |
+| **Internal links** | Link up to the practice-area **pillar** page and across to related practice pages / relevant case studies. Descriptive anchor text, not "click here". Real URLs from `reference/mb-page-templates.md`'s site inventory, feeds the Targeting brief's Internal Links section. | Warning |
 | **Named-entity coverage** | Name the entities a topic model expects: the practice area, relevant AU legislation/schemes (e.g. TAC, WorkCover, Dust Diseases), courts/bodies, locations, MB itself. Coverage, not stuffing. | Warning |
 | **Image alt text** | Descriptive, entity-bearing alt on meaningful images. | Info |
 | **Canonical** | Self-referential canonical present; no accidental duplicate-URL competition. | Warning |
-| **Schema (JSON-LD)** | See Step 3. | Critical if absent on a page type that needs it |
+| **Schema (JSON-LD)** | See Step 4. Delivered as its own file, see Output. | Critical if absent on a page type that needs it |
 
 ### Step 2: GEO layer (citability by AI answer engines)
 
@@ -77,7 +87,7 @@ Build each of these into the draft as you write. Cite the evidence where you ass
 
 1. **Answer-first sections.** Open every section with a direct, standalone answer of 40-80 words: state the fact, then support it. An LLM should be able to lift that opening paragraph as a complete answer with no surrounding context. Structuring for retrieval this way, plus citing sources and adding statistics and expert quotations, lifts AI citation roughly 30-40% (Princeton "GEO" study, arXiv 2311.09735). Keyword stuffing hurts.
 2. **Self-contained chunks.** Keep each chunk ~120-180 words and self-explanatory. Assume it may be extracted alone.
-3. **Question-based headings.** Phrase H2/H3 as the real questions people ask ("How long do I have to make a road accident claim in Victoria?"), so the heading matches the prompt and the answer sits directly beneath it.
+3. **Question-based headings.** Phrase H2/H3 as the real questions people ask ("How long do I have to make a road accident claim in Victoria?"), so the heading matches the prompt and the answer sits directly beneath it. These double as candidates for the Targeting brief's People Also Asked section.
 4. **Cite original data with attribution.** Where you state a statistic or claim, attribute it to a named study, dataset, or authority. Pages that cite credible sources get cited more themselves. Off-site brand mentions correlate with AI-answer visibility roughly 3:1 over backlinks (Ahrefs 75k-brand study), so earned-media-worthy, quotable facts matter more than on-page tricks. Never fabricate a statistic or a source. If you don't have one, say so and flag it for the author to supply.
 5. **Expert quotation.** Include at least one attributed quote from the named MB lawyer/author. Adds E-E-A-T and gives the LLM a citable, human, on-record line.
 6. **Freshness.** Set and surface `dateModified` in schema, and reflect a genuine last-reviewed date in visible copy. Stale YMYL content loses trust.
@@ -85,18 +95,32 @@ Build each of these into the draft as you write. Cite the evidence where you ass
 8. **Sitemap membership.** Confirm the page will be (or already is) listed in `https://www.mauriceblackburn.com.au/sitemap.xml`, a flat `urlset` (not an index), ~1,443 URLs as of 2026-07-22. New pages should appear here once published; a money page missing from it is a real gap. For context, the sitemap's rough shape by section: `/blog` (586 URLs, the largest section), `/our-lawyers` (291), `/media-centre` (198), `/class-actions` (140), `/injury-illness` (87, most of the practice/service pages this skill writes), `/our-offices` (35). A handful of older `/personal-injury-lawyers-{vic,qld,wa}/` URLs also exist, a different, smaller legacy pattern, do not copy that structure for new pages, use `reference/mb-page-templates.md`'s `/injury-illness/{pillar}/{keyword}-{location}/` pattern instead.
 9. **llms.txt (low priority).** Optionally emit an `/llms.txt` entry for the page. Flag it explicitly as **experimental / forward-compat only**: no measured citation lift yet, a cheap bet, never a primary tactic.
 
-### Step 3: Schema (JSON-LD)
+### Step 3: YMYL + E-E-A-T Alignment (its own labelled deliverable, not just folded into other checks)
+
+Report this as a distinct section in the Output, one line per pillar, each stating what the draft actually does, not just a restated definition. This is a pass/gap read, not a score, so a reviewer can see exactly what is satisfied and what still needs the author's input.
+
+- **YMYL classification.** State plainly that this is YMYL content and what is materially at stake for the reader (a compensation claim, a legal deadline, a financial entitlement).
+- **Experience.** Does the draft reflect real practical process knowledge (what actually happens, step by step, in a claim of this kind) rather than a generic textbook description? Flag it as a gap if it reads generic.
+- **Expertise.** A named lawyer/author with a real credential (role, and years practising or admission detail if known) attributed as the schema `author` `Person`, plus the expert quote from Step 2.
+- **Authoritativeness.** Named legislation/scheme cited (e.g. the Workplace Injury Rehabilitation and Compensation Act 2013 (Vic)), external sources/statistics cited with attribution, MB's own entity signals present (Organization schema, real office/NAP where relevant).
+- **Trustworthiness.** The disclaimer + jurisdiction sit in extractable body copy (not just a footer), a genuine last-reviewed date is shown, no fabricated statistic or review count anywhere, and the copy is transparent about what MB does and does not cover.
+
+If any pillar has a real gap (most commonly Experience or Authoritativeness on a first draft), say so plainly in this section rather than scoring around it, this is what `seo-content-mb` exists to catch before publish, not paper over.
+
+### Step 4: Schema (JSON-LD), delivered as its own file
 
 Emit valid `application/ld+json`. Match types to the page:
 
 - **Article / BlogPosting** for editorial/guide pages. `author` MUST be a real `Person` (the named lawyer/expert), plus `publisher` (Organization: Maurice Blackburn), `datePublished`, `dateModified`, `headline`, `mainEntityOfPage`.
-- **LegalService** (or **LocalBusiness** for an office/location page) for service and location pages: `name`, `areaServed` (the confirmed AU state/territory or nation), `address` for a physical office, `url`.
-- **FAQPage** only where the FAQ is genuine and visible on the page (Google's rule). Each item: `@type: Question` with `name`, and `acceptedAnswer` `@type: Answer` with `text`. Feed the same Q&A into the visible question-based headings from Step 2. This is the same pattern as the "SEO - Road Injury FAQ Schema" workstream: reuse it, don't reinvent it. Never use FAQPage on content that is primarily promotional.
+- **LegalService** (or **LocalBusiness** for an office/location page, or where Step 0 chose a localised practice-area page) for service and location pages: `name`, `areaServed` (the confirmed AU state/territory or nation), `address` for a physical office, `url`.
+- **FAQPage** only where the FAQ is genuine and visible on the page (Google's rule). Each item: `@type: Question` with `name`, and `acceptedAnswer` `@type: Answer` with `text`. Feed the same Q&A into the visible question-based headings from Step 2, and into the Targeting brief's People Also Asked section. This is the same pattern as the "SEO - Road Injury FAQ Schema" workstream: reuse it, don't reinvent it. Never use FAQPage on content that is primarily promotional.
 - **BreadcrumbList** where the page sits in a clear hierarchy.
 
 Use `@context: https://schema.org` (https, not http). Schema still matters for GEO: Google AI Mode uses structured data to verify claims. Do not invent field values. `seo-analyst-mb` / `seo-audit-mb` validate this block against the live page after publish.
 
-### Step 4: Compliance gate (HARD, run before returning anything)
+**Always write this schema to its own standalone file** (e.g. `<slug>.schema.json`, valid JSON only, nothing else in the file) via `Write`, so it can be handed to a developer or pasted into AEM without extracting it from a docx or chat message. Reference the file path in the docx and in the checklist pass-report, do not only show it inline as a code block.
+
+### Step 5: Compliance gate (HARD, run before returning anything)
 
 This is a pass/fail gate, identical in spirit to `post-grader-mb`, which is the sibling compliance authority. A page can be perfectly optimised and still fail here. **If any check fails, fix it, then re-run the gate. Do not return a draft that fails.**
 
@@ -111,19 +135,20 @@ This is a pass/fail gate, identical in spirit to `post-grader-mb`, which is the 
 
 Use hedged, MB-real conversion language instead of guarantees: "you may be entitled," "understand where you stand," "you have options." For voice, colour, and tone, apply `brand-mb` (MB's Courageous Ally voice, short paragraphs, empathy-first on heavy topics, sourced specifics over superlatives).
 
-### Step 5: Score readiness before returning (MB SEO/GEO Readiness Score)
+### Step 6: Score readiness before returning (MB SEO/GEO Readiness Score)
 
 Grade the draft with this NAMED rubric and FIXED weights so the score is deterministic and comparable run to run. Score each pillar 0-10, multiply by weight, sum to a score out of 100.
 
 | Pillar | Weight | What earns the score |
 |---|---|---|
-| **Citability (GEO)** | 30% | Answer-first 40-80 word openings; self-contained chunks; question-based headings; extractable disclaimer + jurisdiction. This is the highest weight because it is the reason the skill exists. |
-| **Structural readability** | 20% | One H1, clean H2/H3 hierarchy, scannable short paragraphs, logical internal links to pillar + related pages. |
-| **Entity & schema** | 20% | Named-entity coverage for the topic + valid, correctly-typed JSON-LD with a real Person author. |
-| **Authority / E-E-A-T** | 20% | Named human author, attributed expert quote, cited sources/statistics with attribution, genuine last-reviewed freshness. |
+| **Citability (GEO)** | 25% | Answer-first 40-80 word openings; self-contained chunks; question-based headings; extractable disclaimer + jurisdiction. |
+| **Structural readability** | 15% | One H1, clean H2/H3 hierarchy, scannable short paragraphs, logical internal links to pillar + related pages. |
+| **Entity & schema** | 15% | Named-entity coverage for the topic + valid, correctly-typed JSON-LD with a real Person author, delivered as its own file. |
+| **Authority / E-E-A-T** | 20% | The Step 3 YMYL + E-E-A-T Alignment read: named human author, attributed expert quote, cited sources/statistics with attribution, genuine last-reviewed freshness. |
 | **Technical** | 10% | Title <= 60 chars with entity+intent, meta description in range, self-canonical, AI crawlers allowed in robots.txt, dateModified set. |
+| **Brief completeness** | 15% | Step 0 content-type reasoning stated; Targeting brief fully populated (Suggested URL, Meta Title, H1, Meta Description, SERP Preview, Keywords, People Also Asked, Internal Links); schema delivered as its own file; both the HTML and the docx delivered. |
 
-**Gate on top of the score:** compliance (Step 4) is pass/fail and overrides everything. A 95/100 draft that fails compliance does not ship. Report compliance first and separately, then the score.
+**Gate on top of the score:** compliance (Step 5) is pass/fail and overrides everything. A 95/100 draft that fails compliance does not ship. Report compliance first and separately, then the score.
 
 Report each pillar's 0-10, the weighted contribution, and the total. Target >= 80/100 before returning; if below, state the biggest point-losers and fix them before you hand it back.
 
@@ -131,24 +156,39 @@ Report each pillar's 0-10, the weighted contribution, and the total. Target >= 8
 
 Return, in this order:
 
-1. **One-line summary**: e.g. "Road-accident claims page, VIC, drafted and scored 86/100, compliance PASS."
-2. **Compliance result**: PASS / FAIL with every check listed. If FAIL, what was fixed to reach PASS.
-3. **Publish-ready page draft**: HTML or markdown (match the user's stack; ask if unclear), with the title tag and meta description called out, single H1, question-based H2/H3, answer-first sections, internal-link placeholders labelled `[pillar: ...]` / `[related: ...]` where the real URL is unknown, and the extractable disclaimer + jurisdiction line in body copy.
-4. **JSON-LD block**: the complete `application/ld+json` for the chosen schema types.
-5. **Checklist pass-report**: the Step 1 on-page table and the Step 2 GEO items, each marked Pass / Critical / Warning / Info, plus the Step 5 rubric with per-pillar scores and the /100 total.
-6. **Optional llms.txt entry**: flagged experimental / low-priority / forward-compat.
-7. **Prioritised action plan**: for anything not fixed inline, grouped **Quick Wins / Medium / High Impact**. Note that this backlog can be piped into `brief-ticket-monday-mb` or `brief-ticket-jira-mb`.
-8. **Next steps**: after publish, run `seo-audit-mb` (and `seo-analyst-mb`) to validate the live schema and technical setup; use `seo-gap-mb` to decide the next page to write.
-9. **MB-branded docx.** Always also export the draft (summary, compliance result, checklist pass-report, and rubric score, the page copy itself can stay in-chat/HTML for pasting into the CMS) as a `.docx` with the MB logo in the page header. Build a JSON object matching the shape at the top of `scripts/render_mb_docx.py`, write it with `Write`, then run `/usr/bin/python3 scripts/render_mb_docx.py <input.json> <output-name>.docx`. Use system Python (`/usr/bin/python3`), it has `python-docx` installed. Tell the user the saved file path.
+1. **One-line summary**: e.g. "Localised practice-area page, workers compensation, Melbourne, drafted and scored 86/100, compliance PASS."
+2. **Content-type decision** (Step 0): the 2-4 sentence reasoning for blog vs practice-area page vs localised practice-area page.
+3. **Compliance result**: PASS / FAIL with every check listed. If FAIL, what was fixed to reach PASS.
+4. **Targeting brief.** A single labelled section with exactly these fields, in this order (matches MB's existing agency brief format):
+   - **Suggested URL**: the real, full URL following `reference/mb-page-templates.md`'s pattern for the chosen content type.
+   - **Suggested Meta Title**
+   - **Suggested H1**
+   - **Suggested Meta Description**
+   - **SERP Preview**: a text-mocked Google result (blue title line, green URL line, grey description line) so the user can eyeball how it will actually appear, not just read the raw strings separately.
+   - **Keywords**: primary keyword first, then secondary keywords, each with search volume in parentheses ONLY if sourced from a live connector or a pasted export (per Before You Start item 7). If no data source was provided, list the keywords without a fabricated number and state "search volume unavailable, no connector or export provided this run."
+   - **People Also Asked**: real PAA-style questions. Source via `WebSearch` on the primary query where possible. If live PAA data cannot be confirmed, generate plausible candidates from the Step 2 question-based headings and label them clearly as **"suggested, not sourced from live PAA data."** Never present a guessed question as if it were pulled from a real PAA box.
+   - **Internal Links**: real candidate MB URLs only, pulled from `reference/mb-page-templates.md`'s site inventory and matched to the practice area/content type. Never invent a URL.
+5. **YMYL + E-E-A-T Alignment** (Step 3): the pillar-by-pillar pass/gap read.
+6. **Publish-ready page draft, delivered as two files, not one:**
+   - **HTML** (`<slug>.html`): the full page markup, for a quick layout/visual overview. Single H1, question-based H2/H3, answer-first sections, internal links using the real URLs from the Targeting brief, and the extractable disclaimer + jurisdiction line in body copy.
+   - **DOCX** (`<slug>.docx`), for the copywriter to actually edit and for version control: build via `scripts/render_mb_docx.py` (MB logo in the header). Include, as sections: the Targeting brief fields, the YMYL + E-E-A-T Alignment read, and the full page copy itself (each H2 as its own docx section, body paragraphs matching the drafted copy), so a copywriter has everything they need in one editable, versionable document. Do not put only the report metadata in the docx and leave the actual copy HTML-only, the docx must contain the real page copy.
+   Write both with `Write`/`Bash` (`/usr/bin/python3 scripts/render_mb_docx.py <input.json> <output-name>.docx` for the docx, it has `python-docx` installed), and tell the user both saved file paths.
+7. **JSON-LD schema file**: `<slug>.schema.json`, written per Step 4, path stated. Do not only inline it in chat or the docx.
+8. **Checklist pass-report**: the Step 1 on-page table and the Step 2 GEO items, each marked Pass / Critical / Warning / Info, plus the Step 6 rubric with per-pillar scores and the /100 total.
+9. **Optional llms.txt entry**: flagged experimental / low-priority / forward-compat.
+10. **Prioritised action plan**: for anything not fixed inline, grouped **Quick Wins / Medium / High Impact**. Note that this backlog can be piped into `brief-ticket-monday-mb` or `brief-ticket-jira-mb`.
+11. **Next steps**: after publish, run `seo-audit-mb` (and `seo-analyst-mb`) to validate the live schema and technical setup; use `seo-gap-mb` to decide the next page to write.
 
 ## Error Handling
 
 - **Unreachable page (403/timeout/blocked):** do not guess the content. Ask the user to paste the copy, or use Playwright (`browser_navigate` + `browser_snapshot`) to render it.
 - **JS-rendered page (empty HTML from curl/WebFetch):** render with Playwright before analysing. You can also spoof an AI-crawler user-agent (GPTBot / PerplexityBot / ClaudeBot / OAI-SearchBot) and diff it against the Googlebot view to see what each bot actually receives.
 - **Paywalled / gated source you want to cite:** request the text; never fabricate a quote, statistic, or source.
-- **No paid-tool connector:** fall back to a pasted CSV export (SEMrush keyword gap, GSC, Screaming Frog, Ahrefs) and parse it. Never invent keyword volumes or ranking data.
+- **No paid-tool connector:** fall back to a pasted CSV export (SEMrush keyword gap, GSC, Screaming Frog, Ahrefs) and parse it. Never invent keyword volumes or ranking data, and never invent a search-volume figure for the Targeting brief's Keywords section.
+- **People Also Asked not obtainable via WebSearch:** fall back to Step 2's question-based headings as candidates and label them "suggested, not sourced from live PAA data," never present a guess as sourced fact.
 - **Missing author / consent / jurisdiction:** stop and ask. E-E-A-T needs a named author, compliance needs the jurisdiction, and client names need confirmed consent. Do not paper over a gap with a placeholder that could ship.
 - **Robots.txt unreachable:** flag the AI-crawler-access check as unverified rather than assuming it passes.
+- **Content-type decision conflicts with the user's original ask (Step 0):** say so and recommend the better fit; do not silently override the user, and do not silently comply with a weaker choice either.
 
 ## Cross-links
 
@@ -157,7 +197,7 @@ Return, in this order:
 - `brand-mb`: MB brand voice, colour, tone (Courageous Ally).
 - `post-grader-mb`: sibling legal-marketing compliance authority; the gate here mirrors it.
 - `brief-ticket-monday-mb` / `brief-ticket-jira-mb`, turn the action plan into tickets.
-- "SEO - Road Injury FAQ Schema" workstream, the FAQPage pattern reused in Step 3.
-- `reference/mb-page-templates.md` (this skill's own folder): the grounded page templates and their real schema/GEO gaps, read before drafting.
+- "SEO - Road Injury FAQ Schema" workstream, the FAQPage pattern reused in Step 4.
+- `reference/mb-page-templates.md` (this skill's own folder): the grounded page templates, URL patterns, and site inventory, read before drafting and before writing the Targeting brief.
 
 No em dashes in any output. Use colons or full stops.

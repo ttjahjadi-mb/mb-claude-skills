@@ -2,6 +2,49 @@
 
 Free Claude skills for the Maurice Blackburn marketing team: brand reference, brand-vs-competitor comparison, on-brand social content creation, and SEO/GEO work, ready to use in any Claude conversation. One plugin, **mb-marketing**, 11 skills.
 
+## What are Skills?
+
+Skills are markdown files that give Claude specialised knowledge and a workflow for a specific task. Once installed, Claude recognises when you're doing brand, social, or SEO/GEO work for MB and applies the right MB-specific frameworks, voice, and compliance rules automatically, without you having to explain them each time.
+
+## How Skills Work Together
+
+Skills reference each other and build on shared context, rather than working in isolation. MB's 11 skills split into two families, each with its own foundation.
+
+**Brand and social:** `brand-mb` is the foundation, every other skill in this family reads it first for MB's voice, colours, and legal-marketing compliance guardrails before doing anything.
+
+```
+                                   brand-mb
+                   (voice, brand guidelines, legal-marketing
+                    guardrails, read first by every skill below)
+                                       |
+              _________________________________________________________
+             |              |              |               |           |
+             v              v              v               v           v
+     brand-analyst-mb  post-writer-mb  post-grader-mb  viral-hooks-mb  repurpose-mb
+```
+
+Skills cross-reference each other:
+```
+  post-writer-mb    -> viral-hooks-mb (hook)  -> post-grader-mb (grade)
+  repurpose-mb      -> viral-hooks-mb (hook)  -> post-grader-mb (grade)
+  brand-analyst-mb  -> brand-mb (MB's own side, before researching a competitor)
+```
+
+**SEO and GEO:** no single foundation skill here, instead a pipeline from competitive research through to a published, validated page.
+
+```
+  seo-competitor-mb          seo-backlinks-mb
+  (Share of Voice/Model)     (off-site links, complements
+        |                     the Share-of-Model read)
+        v
+   seo-gap-mb  ------------>  seo-content-mb  <----------->  seo-audit-mb
+  (finds + scores the         (writes the page, the           (validates the
+   opportunity, hands            schema, runs the               schema and technical
+   seo-content-mb a brief)       compliance gate)                setup after publish)
+```
+
+See each skill's own "When NOT to Use" and cross-link notes in its SKILL.md for the full dependency map.
+
 ## Install (claude.ai / Cowork)
 
 1. Open **Extensions** → **Browse extensions**.

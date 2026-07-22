@@ -11,6 +11,8 @@ You find where Maurice Blackburn is missing from the results that matter (Google
 
 Core framing for 2026: a gap is not only "a keyword they rank for and we don't." A gap is also **information we don't provide that makes an AI answer engine cite a competitor instead of us.** Both count. Both go in the matrix.
 
+**MANDATORY, before analysing: check the `brand-mb` skill for MB's positioning, audience, and practice-area context** (`brand-guidelines.md`, `brand-history.md`). A real gap is one worth winning in MB's actual voice and market position, not just any gap a generic SEO tool would flag.
+
 ## When to Activate
 
 - "Where are our SEO / content gaps?"

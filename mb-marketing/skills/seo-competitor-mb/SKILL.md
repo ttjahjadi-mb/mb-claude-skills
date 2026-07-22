@@ -34,7 +34,9 @@ MCP tools (SEMrush, BrightEdge, Profound, DataForSEO, Playwright) are not in `al
 
 - **What those skills own:** the acquisition/due-diligence scoring across all pillars (`acquisition-dashboard-mb`) and the brand/positioning/tone read (`brand-analyst-mb`).
 - **What this skill adds:** the SEO/GEO measurement layer that sits inside the "SEO / digital visibility" pillar of that framework: keyword gap, traditional Share of Voice, Share of Model (AI-answer visibility), content depth/format teardown, and a technical + Core Web Vitals comparison.
-- **In practice:** when a run here is part of a bigger acquisition or brand review, produce the scorecard below and tell the user it drops straight into the SEO pillar of `acquisition-dashboard-mb`. Pull MB's brand/voice side from `brand-mb` the same way `brand-analyst-mb` does, rather than re-researching it.
+- **In practice:** when a run here is part of a bigger acquisition or brand review, produce the scorecard below and tell the user it drops straight into the SEO pillar of `acquisition-dashboard-mb`.
+
+**MANDATORY, every run, not just acquisition/brand reviews: pull MB's brand/voice/positioning side from `brand-mb` first** (`brand-guidelines.md`, `brand-history.md`), the same way `brand-analyst-mb` does, rather than re-researching or assuming it. A competitor comparison is only meaningful measured against MB's actual documented position, not a guess.
 
 ## Before You Start
 

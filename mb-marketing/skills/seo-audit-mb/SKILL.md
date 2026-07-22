@@ -11,6 +11,8 @@ Full technical SEO and structured-data auditor for the Maurice Blackburn website
 
 This skill absorbs the old `seo-analyst-mb` schema logic and extends it into a complete technical audit. Playwright MCP browser tools load at runtime via ToolSearch (query `select:mcp__playwright__browser_navigate` and friends). Paid connectors are not needed here; siblings cover keyword, gap, and backlink work.
 
+**MANDATORY, before auditing: check the `brand-mb` skill for MB's positioning, audience, and practice-area context** (`brand-guidelines.md`, `brand-history.md`). This grounds severity judgements in who MB actually is (an Australian plaintiff law firm, YMYL content, a specific documented audience and voice), not a generic site audit template.
+
 ## When to Activate
 
 - "Audit this page / this site for SEO."

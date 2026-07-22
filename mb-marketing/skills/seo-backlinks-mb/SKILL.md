@@ -11,6 +11,8 @@ Audit Maurice Blackburn's off-site link profile, separate the healthy links from
 
 MCP tools (SEMrush, DataForSEO, Playwright) are not in `allowed-tools` above because they load at runtime via ToolSearch. Fetch a tool's schema with `ToolSearch` (e.g. `select:mcp__playwright__browser_navigate`) before calling it. This job usually needs a human-provided backlink CSV export: parse that as the default path (see Before You Start and Data sourcing).
 
+**MANDATORY, before analysing: check the `brand-mb` skill for MB's positioning, audience, and practice-area context** (`brand-guidelines.md`, `brand-history.md`). Outreach angles and pitch framing only work if they fit MB's actual documented voice and market position, not a generic law-firm assumption.
+
 ## When to Activate
 
 - "Audit our backlinks" / "how healthy is our backlink profile" / "backlink health report."

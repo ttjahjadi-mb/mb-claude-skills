@@ -30,6 +30,8 @@ Core framing for 2026: a gap is not only "a keyword they rank for and we don't."
 
 ## Before You Start
 
+**Treat every new chat as a brand new session, even if a previous conversation covered this exact scope or practice area.** Never skip a question below because a past chat seems to have already answered it, past chat history is background context only, not a substitute for confirming inputs in this run.
+
 Confirm these before running. Ask, do not assume:
 
 1. **Scope**: one practice area, several, or the whole site? A single practice area gives a sharper, more actionable matrix.

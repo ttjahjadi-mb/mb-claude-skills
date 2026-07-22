@@ -1,6 +1,6 @@
 ---
 name: seo-content-mb
-description: Write or optimise a Maurice Blackburn page so it ranks in traditional search AND gets cited by AI answer engines (ChatGPT, Claude, Gemini, Perplexity, Google AI Overviews), with legal-marketing compliance as a hard gate. States its content-type reasoning (blog vs practice-area page vs localised practice-area page) before drafting, produces a full agency-style Targeting brief (suggested URL/meta/H1/SERP preview/keywords/People Also Asked/internal links), a YMYL + E-E-A-T alignment summary, a publish-ready page draft delivered as BOTH an HTML layout preview and a copywriter-editable MB-branded .docx, and the JSON-LD schema as its own separate file. Use when the user says "write an SEO page for [practice area]", "optimise this page for search", "make this page rank", "get us cited in AI answers", "write a GEO-ready page", "help this page show up in ChatGPT/AI Overviews", or pastes a draft and asks to SEO/GEO it.
+description: Write or optimise a Maurice Blackburn page so it ranks in traditional search AND gets cited by AI answer engines (ChatGPT, Claude, Gemini, Perplexity, Google AI Overviews), with legal-marketing compliance as a hard gate. Treats every chat as a new session, never skips its mandatory questions on the assumption a past chat covered them. States its content-type reasoning (blog vs practice-area page vs localised practice-area page) before drafting, produces a full agency-style Targeting brief (suggested URL/meta title/meta description/H1/keywords table/People Also Asked/internal links, no SERP preview), a YMYL + E-E-A-T alignment summary, an HTML page draft carrying the same metadata block, the JSON-LD schema as its own separate file, and two separate MB-branded docx files (an internal QA report, and a copywriter-facing content brief with the full page copy). Use when the user says "write an SEO page for [practice area]", "optimise this page for search", "make this page rank", "get us cited in AI answers", "write a GEO-ready page", "help this page show up in ChatGPT/AI Overviews", or pastes a draft and asks to SEO/GEO it.
 argument-hint: "[URL, file, or topic] [practice area] [geography]"
 allowed-tools: Read, Write, Grep, Glob, Bash, WebSearch, WebFetch, AskUserQuestion
 ---
@@ -34,7 +34,9 @@ MCP tools (Playwright, SEMrush, BrightEdge, Profound) load at runtime via ToolSe
 
 ## Before You Start
 
-Confirm these before writing. Ask only what is missing (use AskUserQuestion for a clean multi-part ask):
+**Treat every new chat as a brand new session, even if a previous conversation covered this exact page, topic, or practice area.** Never skip a mandatory question below because a past chat seems to have already answered it. Past chat history (this session's own earlier turns, or anything referenced from another conversation) is background context only, useful for relevancy, never a substitute for confirming the inputs below in this run. If prior context strongly suggests an answer, state the assumption and confirm it with the user rather than silently reusing it.
+
+Confirm these before writing. Ask only what is missing within this session (use AskUserQuestion for a clean multi-part ask):
 
 1. **Target page**: a URL to optimise, a file to edit, or a topic to write from scratch.
 2. **Practice area**: which of MB's areas, so entity coverage and the pillar link are right.
@@ -146,7 +148,7 @@ Grade the draft with this NAMED rubric and FIXED weights so the score is determi
 | **Entity & schema** | 15% | Named-entity coverage for the topic + valid, correctly-typed JSON-LD with a real Person author, delivered as its own file. |
 | **Authority / E-E-A-T** | 20% | The Step 3 YMYL + E-E-A-T Alignment read: named human author, attributed expert quote, cited sources/statistics with attribution, genuine last-reviewed freshness. |
 | **Technical** | 10% | Title <= 60 chars with entity+intent, meta description in range, self-canonical, AI crawlers allowed in robots.txt, dateModified set. |
-| **Brief completeness** | 15% | Step 0 content-type reasoning stated; Targeting brief fully populated (Suggested URL, Meta Title, H1, Meta Description, SERP Preview, Keywords, People Also Asked, Internal Links); schema delivered as its own file; both the HTML and the docx delivered. |
+| **Brief completeness** | 15% | Step 0 content-type reasoning stated; Targeting brief fully populated (Suggested URL, Meta Title, H1, Meta Description, Keywords table, People Also Asked, Internal Links); the HTML file carries the same metadata block, not just raw copy; schema delivered as its own file; both docx files (report and brief) delivered separately. |
 
 **Gate on top of the score:** compliance (Step 5) is pass/fail and overrides everything. A 95/100 draft that fails compliance does not ship. Report compliance first and separately, then the score.
 
@@ -159,22 +161,21 @@ Return, in this order:
 1. **One-line summary**: e.g. "Localised practice-area page, workers compensation, Melbourne, drafted and scored 86/100, compliance PASS."
 2. **Content-type decision** (Step 0): the 2-4 sentence reasoning for blog vs practice-area page vs localised practice-area page.
 3. **Compliance result**: PASS / FAIL with every check listed. If FAIL, what was fixed to reach PASS.
-4. **Targeting brief.** A single labelled section with exactly these fields, in this order (matches MB's existing agency brief format):
+4. **Targeting brief.** A single labelled section with exactly these fields, in this order (matches MB's existing agency brief format, no SERP Preview, that field is dropped):
    - **Suggested URL**: the real, full URL following `reference/mb-page-templates.md`'s pattern for the chosen content type.
    - **Suggested Meta Title**
    - **Suggested H1**
    - **Suggested Meta Description**
-   - **SERP Preview**: a text-mocked Google result (blue title line, green URL line, grey description line) so the user can eyeball how it will actually appear, not just read the raw strings separately.
-   - **Keywords**: primary keyword first, then secondary keywords, each with search volume in parentheses ONLY if sourced from a live connector or a pasted export (per Before You Start item 7). If no data source was provided, list the keywords without a fabricated number and state "search volume unavailable, no connector or export provided this run."
-   - **People Also Asked**: real PAA-style questions. Source via `WebSearch` on the primary query where possible. If live PAA data cannot be confirmed, generate plausible candidates from the Step 2 question-based headings and label them clearly as **"suggested, not sourced from live PAA data."** Never present a guessed question as if it were pulled from a real PAA box.
-   - **Internal Links**: real candidate MB URLs only, pulled from `reference/mb-page-templates.md`'s site inventory and matched to the practice area/content type. Never invent a URL.
+   - **Keywords**: a table, Primary/Secondary column plus the keyword and its search volume in parentheses if sourced from a live connector or a pasted export (per Before You Start item 7). If no data source was provided, list the keywords without a fabricated number and state "search volume unavailable, no connector or export provided this run."
+   - **People Also Asked**: a bullet list of real PAA-style questions. Source via `WebSearch` on the primary query where possible. If live PAA data cannot be confirmed, generate plausible candidates from the Step 2 question-based headings and label them clearly as **"suggested, not sourced from live PAA data."** Never present a guessed question as if it were pulled from a real PAA box.
+   - **Internal Links**: a bullet list of real candidate MB URLs only, pulled from `reference/mb-page-templates.md`'s site inventory and matched to the practice area/content type. Never invent a URL.
 5. **YMYL + E-E-A-T Alignment** (Step 3): the pillar-by-pillar pass/gap read.
-6. **Publish-ready page draft, delivered as two files, not one:**
-   - **HTML** (`<slug>.html`): the full page markup, for a quick layout/visual overview. Single H1, question-based H2/H3, answer-first sections, internal links using the real URLs from the Targeting brief, and the extractable disclaimer + jurisdiction line in body copy.
-   - **DOCX** (`<slug>.docx`), for the copywriter to actually edit and for version control: build via `scripts/render_mb_docx.py` (MB logo in the header). Include, as sections: the Targeting brief fields, the YMYL + E-E-A-T Alignment read, and the full page copy itself (each H2 as its own docx section, body paragraphs matching the drafted copy), so a copywriter has everything they need in one editable, versionable document. Do not put only the report metadata in the docx and leave the actual copy HTML-only, the docx must contain the real page copy.
-   Write both with `Write`/`Bash` (`/usr/bin/python3 scripts/render_mb_docx.py <input.json> <output-name>.docx` for the docx, it has `python-docx` installed), and tell the user both saved file paths.
-7. **JSON-LD schema file**: `<slug>.schema.json`, written per Step 4, path stated. Do not only inline it in chat or the docx.
-8. **Checklist pass-report**: the Step 1 on-page table and the Step 2 GEO items, each marked Pass / Critical / Warning / Info, plus the Step 6 rubric with per-pillar scores and the /100 total.
+6. **Publish-ready page draft.** Deliver as an **HTML file** (`<slug>.html`): the full page markup PLUS a metadata block at the top of the file (Meta Title, Meta Description, Keywords as a Primary/Secondary table, People Also Asked as a bullet list, Internal Links as a bullet list, mirroring the Targeting brief exactly), then the page body itself. Single H1, question-based H2/H3, answer-first sections, internal links using the real URLs from the Targeting brief, and the extractable disclaimer + jurisdiction line in body copy. This file is the layout/visual overview, it must be complete on its own, not just raw copy with the brief fields left out.
+7. **JSON-LD schema file**: `<slug>.schema.json`, its own standalone file, written per Step 4, path stated. Never inline it only in chat, the HTML, or either docx below.
+8. **Two separate docx files, not one combined document:**
+   - **Document 1, the report** (`<slug>-report.docx`): compliance result, checklist pass-report (Step 1 + Step 2 items), the Step 6 rubric with per-pillar scores and the /100 total, and the prioritised action plan. This is the internal QA record, no page copy in it.
+   - **Document 2, the full SEO content brief** (`<slug>-brief.docx`): mimics the real agency brief format the user shared (a "Targeting" section followed by the full page copy). Include, as sections: the Targeting brief fields exactly as in item 4 above, the YMYL + E-E-A-T Alignment read, then the full page copy itself (each H2 as its own docx section, body paragraphs matching the drafted copy). This is the copywriter-facing, version-controllable deliverable, it must contain the real page copy, not just metadata.
+   Build both via `scripts/render_mb_docx.py` (MB logo in the header): `/usr/bin/python3 scripts/render_mb_docx.py <input.json> <slug>-report.docx` and a second run for `<slug>-brief.docx`. Tell the user both saved file paths, and the HTML file path from item 6, and the schema file path from item 7, four files total.
 9. **Optional llms.txt entry**: flagged experimental / low-priority / forward-compat.
 10. **Prioritised action plan**: for anything not fixed inline, grouped **Quick Wins / Medium / High Impact**. Note that this backlog can be piped into `brief-ticket-monday-mb` or `brief-ticket-jira-mb`.
 11. **Next steps**: after publish, run `seo-audit-mb` (and `seo-analyst-mb`) to validate the live schema and technical setup; use `seo-gap-mb` to decide the next page to write.

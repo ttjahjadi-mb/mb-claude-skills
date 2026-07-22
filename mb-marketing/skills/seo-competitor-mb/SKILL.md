@@ -38,6 +38,8 @@ MCP tools (SEMrush, BrightEdge, Profound, DataForSEO, Playwright) are not in `al
 
 ## Before You Start
 
+**Treat every new chat as a brand new session, even if a previous conversation covered this exact scope or competitor set.** Never skip a question below because a past chat seems to have already answered it, past chat history is background context only, not a substitute for confirming inputs in this run.
+
 Confirm, briefly, before running:
 
 1. **Scope:** whole domain (mauriceblackburn.com.au) or a specific practice area / page? Practice areas: asbestos & dust diseases, medical negligence, road/transport accident injury, workplace injury & workers compensation, superannuation & TPD claims, class actions, employment & industrial law, abuse law, public liability.

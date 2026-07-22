@@ -36,6 +36,8 @@ Scope this skill to the technical health of pages that already exist. Route else
 
 ## Before You Start
 
+**Treat every new chat as a brand new session, even if a previous conversation covered this exact page or scope.** Never skip a question below because a past chat seems to have already answered it, past chat history is background context only, not a substitute for confirming inputs in this run.
+
 Confirm before auditing. Ask only what is missing:
 
 1. **Scope.** One URL, a set of URLs, a sitemap URL, or the whole domain (mauriceblackburn.com.au)?

@@ -39,7 +39,7 @@ Then just mention brand, social-content, or SEO/GEO work in conversation, the sk
 | Skill | When it kicks in |
 | --- | --- |
 | `seo-audit-mb` | "Audit this page/site for SEO": full technical + structured-data audit: crawlability, canonicals, hreflang, redirects, Core Web Vitals, AI-crawler access, JSON-LD validation |
-| `seo-content-mb` | "Write an SEO page for X" / "make this GEO-ready": reasons through content type first (blog vs practice-area vs localised practice-area page), then writes a page to rank AND be cited by AI answer engines, with a full Targeting brief (URL/meta title/meta description/H1/keywords table/People Also Asked/internal links), a YMYL + E-E-A-T read, a compliance gate, and four separate deliverables: an HTML preview, the schema as its own file, an internal QA report docx, and a copywriter-facing content brief docx with the full page copy |
+| `seo-content-mb` | "Write an SEO page for X" / "make this GEO-ready": writes a page to rank AND be cited by AI answer engines, with a full SEO brief, a YMYL/E-E-A-T read, a compliance gate, and delivery as HTML, a schema file, and two copywriter-ready docs |
 | `seo-gap-mb` | "Where are our SEO gaps" / "why does ChatGPT cite a competitor and not us": keyword, topic, and AI-citation gap analysis, ranked into a briefable opportunity list |
 | `seo-competitor-mb` | "How do we compare to [competitor] on search": keyword gap, Share of Voice, and Share of Model (AI-answer visibility) benchmarking |
 | `seo-backlinks-mb` | "Audit our backlinks" / "find link-building targets": backlink health, toxic-link flagging (disavow always held for human sign-off), and a competitor link-gap outreach list |
@@ -75,7 +75,7 @@ Compliance is a hard gate on every one of these — a post that scores well but 
 **SEO and GEO skills** (seo-audit-mb, seo-content-mb, seo-gap-mb, seo-competitor-mb, seo-backlinks-mb):
 
 - "Run a technical SEO audit on our TPD claims page."
-- "Write an SEO and GEO optimised page about workers compensation claims in Victoria." States its content-type reasoning first, then returns a full Targeting brief (suggested URL/meta title/meta description/H1/keywords table/People Also Asked/internal links), a YMYL + E-E-A-T read, the schema as its own file, an HTML layout preview, and two separate docx files: an internal QA report and a copywriter-facing content brief with the full page copy.
+- "Write an SEO and GEO optimised page about workers compensation claims in Victoria." Full SEO brief + page draft, delivered as HTML, a schema file, and two copywriter-ready docs.
 - "What SEO gaps do we have against Shine Lawyers on road injury content?"
 - "How does our Share of Voice compare to Slater and Gordon?"
 - "Audit our backlink profile and flag anything toxic."

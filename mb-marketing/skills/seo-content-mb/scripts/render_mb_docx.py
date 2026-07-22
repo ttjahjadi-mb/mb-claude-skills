@@ -16,12 +16,24 @@ Input JSON shape:
     {"heading": "Summary", "body": ["one or more paragraphs"]},
     {"heading": "Findings", "table": {"headers": [...], "rows": [[...], ...]}},
     {"heading": "Action plan", "list": ["item 1", "item 2"]},
-    {"heading": "Schema", "code": "raw text or JSON, monospaced block"}
+    {"heading": "Schema", "code": "raw text or JSON, monospaced block"},
+    {"heading": "Page Copy: Section Title", "body": [...], "subsections": [
+      {"heading": "An H3 sub-heading within this H2 section", "body": [...]}
+    ]}
   ]
 }
 
 Only "title" and "sections" are required. Each section needs "heading" plus
-exactly one of body/table/list/code.
+any of body/table/list/code, and optionally "subsections" (a list of the
+same shape, one nesting level deeper, rendered as a real Word Heading 2
+under the section's Heading 1). Use "subsections" to carry a drafted
+page's actual H2/H3 structure into the docx as real heading styles, not
+flat body text, so the hierarchy is visible in Word's Navigation pane.
+
+This file is the deliverable itself: never write an AI/assistant
+self-reference, a "reporter" or "prepared by AI" byline, or first-person
+orchestrator commentary into the title, sections, or date fields. It must
+read as ready for internal use as-is.
 """
 import json
 import sys
@@ -63,7 +75,7 @@ def add_title_block(doc, title, subtitle, date):
 
     if date:
         p = doc.add_paragraph()
-        run = p.add_run(f"Generated {date}")
+        run = p.add_run(f"Last updated {date}")
         run.font.size = Pt(9)
         run.italic = True
         run.font.color.rgb = RGBColor.from_string(BRAND_MUTED)
@@ -83,12 +95,8 @@ def add_title_block(doc, title, subtitle, date):
     pPr.append(pbdr)
 
 
-def add_section(doc, section):
-    from docx.shared import Pt, RGBColor
-
-    h = doc.add_heading(level=1)
-    run = h.add_run(section["heading"])
-    run.font.color.rgb = RGBColor.from_string(BRAND_PRIMARY)
+def add_section_body(doc, section):
+    from docx.shared import Pt
 
     if "body" in section:
         for para_text in section["body"]:
@@ -118,6 +126,19 @@ def add_section(doc, section):
         run = p.add_run(section["code"])
         run.font.name = "Consolas"
         run.font.size = Pt(9)
+
+
+def add_section(doc, section, level=1):
+    from docx.shared import RGBColor
+
+    h = doc.add_heading(level=level)
+    run = h.add_run(section["heading"])
+    run.font.color.rgb = RGBColor.from_string(BRAND_PRIMARY)
+
+    add_section_body(doc, section)
+
+    for sub in section.get("subsections", []):
+        add_section(doc, sub, level=min(level + 1, 3))
 
 
 def render(data, out_path):

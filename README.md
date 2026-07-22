@@ -8,17 +8,22 @@ Skills are markdown files that give Claude specialised knowledge and a workflow 
 
 ## How Skills Work Together
 
-Skills reference each other and build on shared context, rather than working in isolation. `brand-mb` is the shared foundation across both families, every skill below reads it first for MB's voice, colours, and legal-marketing compliance guardrails, so nothing this plugin produces reads as generic AI copy.
+Skills reference each other and build on shared context, rather than working in isolation. `brand-mb` is the foundation, every skill that writes MB-facing copy reads it first for voice, colours, and compliance guardrails, so nothing this plugin produces reads as generic AI copy.
 
 ```
-                                          brand-mb
-                          (voice, brand guidelines, legal-marketing
-                           guardrails, read first by every skill below)
-                                              |
-              ________________________________________________________________________
-             |              |              |               |           |             |
-             v              v              v               v           v             v
-     brand-analyst-mb  post-writer-mb  post-grader-mb  viral-hooks-mb  repurpose-mb  seo-content-mb
+                              brand-mb
+              (read first by every skill that writes copy)
+                                  |
+              _____________________________________________
+             |                                             |
+             v                                             v
+        Brand & Social                                SEO Content
+        --------------                                 -----------
+        brand-analyst-mb                                seo-content-mb
+        post-writer-mb
+        post-grader-mb
+        viral-hooks-mb
+        repurpose-mb
 ```
 
 Skills cross-reference each other:
@@ -28,17 +33,15 @@ Skills cross-reference each other:
   brand-analyst-mb  -> brand-mb (MB's own side, before researching a competitor)
 ```
 
-**SEO and GEO** otherwise has no single foundation of its own, instead a pipeline from competitive research through to a published, validated page:
+The other 4 SEO/GEO skills are research and technical, not copywriting, so they don't need `brand-mb`. They form their own pipeline instead:
 
 ```
-  seo-competitor-mb          seo-backlinks-mb
-  (Share of Voice/Model)     (off-site links, complements
-        |                     the Share-of-Model read)
+  seo-competitor-mb   seo-backlinks-mb
+        |
         v
-   seo-gap-mb  ------------>  seo-content-mb  <----------->  seo-audit-mb
-  (finds + scores the         (writes the page, the           (validates the
-   opportunity, hands            schema, runs the               schema and technical
-   seo-content-mb a brief)       compliance gate)                setup after publish)
+   seo-gap-mb  ------>  seo-content-mb  <----->  seo-audit-mb
+  (finds the             (writes the page,        (validates the
+   opportunity)           reads brand-mb)          schema after publish)
 ```
 
 See each skill's own "When NOT to Use" and cross-link notes in its SKILL.md for the full dependency map.

@@ -36,9 +36,13 @@ Confirm, briefly, before running:
 1. **Scope:** the whole domain (mauriceblackburn.com.au) or a specific section / practice-area path? Practice areas: asbestos & dust diseases, medical negligence, road/transport accident injury, workplace injury & workers compensation, superannuation & TPD claims, class actions, employment & industrial law, abuse law, public liability.
 2. **Competitors for the gap:** default Slater and Gordon (slatergordon.com.au) and Shine Lawyers (shine.com.au). Confirm or add others.
 3. **Geography:** national, or a state/city focus. This shapes which outreach prospects are relevant (local news, community, legal directories).
-4. **Data available (this is the gating question, ask explicitly, do not assume none exists):** backlink data is not free-crawlable at scale, so this job usually needs a paid export. Before running anything, ask directly which the user has:
-   - **Live connector:** SEMrush MCP (`mcp.semrush.com/v1/mcp`, backlink + competitive data) or DataForSEO MCP backlink API (if a key is provisioned). Load via ToolSearch.
-   - **Default path, an export CSV** the user pastes or points to: Ahrefs (Referring Domains / Backlinks export), SEMrush (Backlink Analytics export), or BrightEdge. State plainly that without one of these, MB's backlink profile cannot be enumerated and you can only do the parts that live crawling supports.
+4. **Data available (this is the gating question, MANDATORY, ask explicitly, do not assume none exists):** backlink data is not free-crawlable at scale, so this job usually needs a paid export. Before running anything, ask directly which the user has, naming all of these every time, no exceptions:
+   - **Ahrefs**: a Referring Domains / Backlinks export?
+   - **SEMrush**: a Backlink Analytics export, or live connector (`mcp.semrush.com/v1/mcp`)?
+   - **BrightEdge**: any backlink/competitive data export?
+   - **DataForSEO**: live connector backlink API, if a key is provisioned?
+
+   **Hard rule, this has failed in practice by being silently watered down, do not repeat that:** all four names must appear in the one question you send, in the same message. **Never rank or editorialise which matters more**, the user's answer decides, not your guess. Check the literal text before sending, rewrite it if any is missing. State plainly that without at least one of these, MB's backlink profile cannot be enumerated and you can only do the parts that live crawling supports.
 
 ## Data sourcing (state which path each part used)
 

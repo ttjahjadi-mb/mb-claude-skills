@@ -44,12 +44,19 @@ Confirm these before writing. Ask only what is missing within this session (use 
 4. **Primary query / intent**: the one question or search this page must own (informational vs. "find a lawyer" transactional).
 5. **Geography**: Australia-wide or a specific state/territory (jurisdiction changes compliance hedges, LocalBusiness schema, and the Step 0 decision).
 6. **Author**: the real MB lawyer or expert to attribute as the schema `author` Person. E-E-A-T needs a named human, not "MB Team."
-7. **Paid-tool data (MANDATORY, ask about every tool by name, do not bundle them into one line and do not silently drop any):** before writing, ask the user explicitly and separately whether each of the following is available. Do not skip a tool because another one was already confirmed, and do not assume "no" for a tool the user didn't mention unprompted:
+7. **Paid-tool data (MANDATORY, all four tools, equal standing, asked in the same turn):** before writing, ask about all four of the following, every time, with no exceptions:
    - **SEMrush**: live connector, or a keyword/SERP export to paste?
    - **BrightEdge**: live connector, or a Data Cube / rankings export to paste?
    - **Profound**: live connector (MB is on the Enterprise/API tier), or an AI-citation / Share-of-Voice export to paste?
    - **Google Search Console (GSC)**: an export of queries/impressions for this topic?
-   If the user answers for only one or two, ask about the remaining ones before moving on, do not treat a partial answer as a complete one. Always support the paste fallback for any of them. This data sharpens the title/entity targeting, the Keywords section of the Targeting brief, and the GEO angle.
+
+   **Hard rules, this has failed in practice by being silently watered down, do not repeat that:**
+   - All four tool names must literally appear in the question you send, in the same message, not split across separate replies and not with some deferred to "if you have time."
+   - **Never rank, prioritise, or editorialise which of the four matters more** ("GSC and SEMrush are most useful, BrightEdge/Profound are a nice-to-have/bonus/not a blocker" is exactly the failure mode to avoid). All four are equally mandatory to ask about. The user's own answer, not your guess, decides which data ends up used.
+   - If the topic or page seems to make one tool obviously irrelevant, still ask, do not silently drop it because you've reasoned it away.
+   - Before sending the question, check the literal text you are about to send: if "SEMrush", "BrightEdge", "Profound", and "GSC" do not all four appear in it, rewrite it before sending, do not send a partial question.
+   - If the user answers for only one or two tools unprompted, explicitly ask about the remaining ones before moving on. A partial answer is not a complete one.
+   - Always support the paste fallback for any of them. This data sharpens the title/entity targeting, the Keywords section of the Targeting brief, and the GEO angle.
 
 If the page exists, fetch and read it first (WebFetch, or Playwright for JS-rendered pages) so you optimise the real copy, not a guess.
 

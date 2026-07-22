@@ -43,12 +43,13 @@ Confirm before auditing. Ask only what is missing:
 1. **Scope.** One URL, a set of URLs, a sitemap URL, or the whole domain (mauriceblackburn.com.au)?
 2. **Practice area** of the page(s), so severity is judged against YMYL expectations (asbestos, medical negligence, road/transport injury, workers comp, super/TPD, class actions, employment, abuse law, public liability).
 3. **Geography.** MB is Australia-only. Any hreflang or non-AU signal is a flag, not a feature.
-4. **Inputs available (MANDATORY, ask about every source by name, do not bundle them into one line and do not silently drop any).** Before running the free-tool checks, ask separately:
+4. **Inputs available (MANDATORY, all four, equal standing, asked in the same turn).** Before running the free-tool checks, ask about all of the following, every time, no exceptions:
    - **Screaming Frog**: a crawl export for these pages?
    - **Google Search Console (GSC)**: a coverage/index export?
    - **BrightEdge**: a Data Cube export?
    - **SEMrush**: a Site Audit export?
-   Any of these cross-checks "in the sitemap" vs "actually indexed", or supplements Core Web Vitals with a broader ranking/technical picture, without guessing. If the user only answers for one, ask about the rest before proceeding. Always support the pasted/exported CSV fallback, but ask first rather than defaulting straight to the free-tool-only path.
+
+   **Hard rule, this has failed in practice by being silently watered down, do not repeat that:** all four names must appear in the one question you send, in the same message. **Never rank or editorialise which matters more**, the user's answer decides, not your guess. Check the literal text before sending, rewrite it if any is missing. Any of these cross-checks "in the sitemap" vs "actually indexed", or supplements Core Web Vitals with a broader ranking/technical picture, without guessing. If the user only answers for one, ask about the rest before proceeding. Always support the pasted/exported CSV fallback, but ask first rather than defaulting straight to the free-tool-only path.
 5. **Cadence.** One-off, or the quarterly recurring audit (see the note at the end)?
 
 If given a bare URL and no other context, begin immediately and note the assumptions you made.

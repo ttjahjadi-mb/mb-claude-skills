@@ -37,12 +37,13 @@ Confirm these before running. Ask, do not assume:
 1. **Scope**: one practice area, several, or the whole site? A single practice area gives a sharper, more actionable matrix.
 2. **Geography**: national, or a state focus (VIC/NSW/QLD/WA/SA)? MB content is jurisdiction-sensitive; a "road accident compensation" gap differs by state scheme (TAC in VIC vs CTP elsewhere).
 3. **Competitors**: default to Slater and Gordon and Shine Lawyers. Add or swap if the user names others.
-4. **Data source available (MANDATORY, ask about every tool by name, do not bundle them into one line and do not silently drop any)**: before running anything, ask separately:
+4. **Data source available (MANDATORY, all four, equal standing, asked in the same turn)**: before running anything, ask about all of the following, every time, no exceptions:
    - **SEMrush**: live connector, or a keyword-gap export to paste?
    - **BrightEdge**: live connector, or a Data Cube / rankings export to paste?
    - **Profound**: live connector (MB is on the Enterprise/API tier), or an AI-citation export to paste?
    - **Ahrefs / GSC / Screaming Frog**: any export covering this scope?
-   If the user only answers for one or two, ask about the rest before proceeding, a partial answer is not a complete one. If genuinely none of these exist, say so and run the lightweight WebSearch + Playwright probe only, labelling every number estimated. See "Data Sourcing" below for what each source gives you.
+
+   **Hard rules, this has failed in practice by being silently watered down, do not repeat that:** all names must appear in the one question you send, in the same message. **Never rank or editorialise which matters more** ("GSC and SEMrush are most useful, BrightEdge/Profound are a bonus" is exactly the failure mode to avoid), the user's answer decides, not your guess. Check the literal text before sending, rewrite it if any tool is missing. If the user only answers for one or two, ask about the rest before proceeding, a partial answer is not a complete one. If genuinely none of these exist, say so and run the lightweight WebSearch + Playwright probe only, labelling every number estimated. See "Data Sourcing" below for what each source gives you.
 5. **Answer-engine probing wanted?**: confirm whether to run the AI-citation gap probe (the GEO half). It is the highest-value half in 2026 but takes longer.
 
 State plainly which parts you can automate now and which need an export. Never pretend you have keyword volumes you cannot source.

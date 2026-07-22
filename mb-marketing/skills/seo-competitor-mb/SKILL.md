@@ -45,12 +45,13 @@ Confirm, briefly, before running:
 1. **Scope:** whole domain (mauriceblackburn.com.au) or a specific practice area / page? Practice areas: asbestos & dust diseases, medical negligence, road/transport accident injury, workplace injury & workers compensation, superannuation & TPD claims, class actions, employment & industrial law, abuse law, public liability.
 2. **Competitors:** default Slater and Gordon (slatergordon.com.au) and Shine Lawyers (shine.com.au). Confirm or add others.
 3. **Geography:** national, or a state/city (matters for local pack and "near me" intent).
-4. **Data available (MANDATORY, ask about every tool by name, do not bundle them into one line and do not silently drop any):** before running anything, ask separately:
+4. **Data available (MANDATORY, all four, equal standing, asked in the same turn):** before running anything, ask about all of the following, every time, no exceptions:
    - **SEMrush**: live connector, or a keyword-gap / ranking export to paste?
    - **BrightEdge**: live connector, or a Data Cube / rankings export to paste?
    - **Profound**: live connector (MB is on the Enterprise/API tier), or an AI-citation / Share-of-Model export to paste?
    - **GSC / Ahrefs / Screaming Frog**: any export covering this scope?
-   If the user only answers for one or two, ask about the rest before proceeding, a partial answer is not a complete one. State which parts you can automate now vs which need an export before you begin, so expectations are set.
+
+   **Hard rules, this has failed in practice by being silently watered down, do not repeat that:** all names must appear in the one question you send, in the same message. **Never rank or editorialise which matters more** ("GSC and SEMrush are most useful, BrightEdge/Profound are a bonus" is exactly the failure mode to avoid), the user's answer decides, not your guess. Check the literal text before sending, rewrite it if any tool is missing. If the user only answers for one or two, ask about the rest before proceeding, a partial answer is not a complete one. State which parts you can automate now vs which need an export before you begin, so expectations are set.
 
 ## Method
 

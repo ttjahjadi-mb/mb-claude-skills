@@ -8,19 +8,17 @@ Skills are markdown files that give Claude specialised knowledge and a workflow 
 
 ## How Skills Work Together
 
-Skills reference each other and build on shared context, rather than working in isolation. MB's 11 skills split into two families, each with its own foundation.
-
-**Brand and social:** `brand-mb` is the foundation, every other skill in this family reads it first for MB's voice, colours, and legal-marketing compliance guardrails before doing anything.
+Skills reference each other and build on shared context, rather than working in isolation. `brand-mb` is the shared foundation across both families, every skill below reads it first for MB's voice, colours, and legal-marketing compliance guardrails, so nothing this plugin produces reads as generic AI copy.
 
 ```
-                                   brand-mb
-                   (voice, brand guidelines, legal-marketing
-                    guardrails, read first by every skill below)
-                                       |
-              _________________________________________________________
-             |              |              |               |           |
-             v              v              v               v           v
-     brand-analyst-mb  post-writer-mb  post-grader-mb  viral-hooks-mb  repurpose-mb
+                                          brand-mb
+                          (voice, brand guidelines, legal-marketing
+                           guardrails, read first by every skill below)
+                                              |
+              ________________________________________________________________________
+             |              |              |               |           |             |
+             v              v              v               v           v             v
+     brand-analyst-mb  post-writer-mb  post-grader-mb  viral-hooks-mb  repurpose-mb  seo-content-mb
 ```
 
 Skills cross-reference each other:
@@ -30,7 +28,7 @@ Skills cross-reference each other:
   brand-analyst-mb  -> brand-mb (MB's own side, before researching a competitor)
 ```
 
-**SEO and GEO:** no single foundation skill here, instead a pipeline from competitive research through to a published, validated page.
+**SEO and GEO** otherwise has no single foundation of its own, instead a pipeline from competitive research through to a published, validated page:
 
 ```
   seo-competitor-mb          seo-backlinks-mb
@@ -82,7 +80,7 @@ Then just mention brand, social-content, or SEO/GEO work in conversation, the sk
 | Skill | When it kicks in |
 | --- | --- |
 | `seo-audit-mb` | "Audit this page/site for SEO": full technical + structured-data audit: crawlability, canonicals, hreflang, redirects, Core Web Vitals, AI-crawler access, JSON-LD validation |
-| `seo-content-mb` | "Write an SEO page for X" / "make this GEO-ready": writes a page to rank AND be cited by AI answer engines, with a full SEO brief, a YMYL/E-E-A-T read, a compliance gate, and delivery as HTML, a schema file, and two copywriter-ready docs |
+| `seo-content-mb` | "Write an SEO page for X" / "make this GEO-ready": writes a page in MB's real brand voice (`brand-mb`) to rank AND be cited by AI answer engines, with a full SEO brief, a YMYL/E-E-A-T read, a compliance gate, and delivery as HTML, a schema file, and two copywriter-ready docs |
 | `seo-gap-mb` | "Where are our SEO gaps" / "why does ChatGPT cite a competitor and not us": keyword, topic, and AI-citation gap analysis, ranked into a briefable opportunity list |
 | `seo-competitor-mb` | "How do we compare to [competitor] on search": keyword gap, Share of Voice, and Share of Model (AI-answer visibility) benchmarking |
 | `seo-backlinks-mb` | "Audit our backlinks" / "find link-building targets": backlink health, toxic-link flagging (disavow always held for human sign-off), and a competitor link-gap outreach list |

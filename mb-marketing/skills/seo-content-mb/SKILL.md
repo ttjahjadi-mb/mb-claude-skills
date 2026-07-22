@@ -1,6 +1,6 @@
 ---
 name: seo-content-mb
-description: Write or optimise a Maurice Blackburn page so it ranks in traditional search AND gets cited by AI answer engines (ChatGPT, Claude, Gemini, Perplexity, Google AI Overviews), with legal-marketing compliance as a hard gate. Treats every chat as a new session, never skips its mandatory questions on the assumption a past chat covered them. States its content-type reasoning (blog vs practice-area page vs localised practice-area page) before drafting, produces a full agency-style Targeting brief (suggested URL/meta title/meta description/H1/keywords table/People Also Asked/internal links, no SERP preview), a YMYL + E-E-A-T alignment summary, an HTML page draft carrying the same metadata block, the JSON-LD schema as its own separate file, and two separate MB-branded docx files (an internal QA report, and a copywriter-facing content brief with the full page copy). Use when the user says "write an SEO page for [practice area]", "optimise this page for search", "make this page rank", "get us cited in AI answers", "write a GEO-ready page", "help this page show up in ChatGPT/AI Overviews", or pastes a draft and asks to SEO/GEO it.
+description: Write or optimise a Maurice Blackburn page so it ranks in traditional search AND gets cited by AI answer engines (ChatGPT, Claude, Gemini, Perplexity, Google AI Overviews), with legal-marketing compliance as a hard gate. Always invokes brand-mb first and writes in MB's actual Courageous Ally voice, not generic copy. Treats every chat as a new session, never skips its mandatory questions on the assumption a past chat covered them. States its content-type reasoning (blog vs practice-area page vs localised practice-area page) before drafting, produces a full agency-style Targeting brief (suggested URL/meta title/meta description/H1/keywords table/People Also Asked/internal links, no SERP preview), a YMYL + E-E-A-T alignment summary, an HTML page draft carrying the same metadata block, the JSON-LD schema as its own separate file, and two separate MB-branded docx files (an internal QA report, and a copywriter-facing content brief with the full page copy). Use when the user says "write an SEO page for [practice area]", "optimise this page for search", "make this page rank", "get us cited in AI answers", "write a GEO-ready page", "help this page show up in ChatGPT/AI Overviews", or pastes a draft and asks to SEO/GEO it.
 argument-hint: "[URL, file, or topic] [practice area] [geography]"
 allowed-tools: Read, Write, Grep, Glob, Bash, WebSearch, WebFetch, AskUserQuestion
 ---
@@ -14,6 +14,11 @@ MB (mauriceblackburn.com.au) is an Australian plaintiff (claimant-side) law firm
 MCP tools (Playwright, SEMrush, BrightEdge, Profound) load at runtime via ToolSearch and are optional. Everything core here runs on the standard tools plus a pasted export fallback.
 
 **Read `reference/mb-page-templates.md` before drafting a service/practice page or a blog/guide page.** It documents the real, live MB page templates (section order, title/meta conventions, CTA cadence, schema gaps, GEO gaps, robots.txt/sitemap.xml grounding, site inventory by section) extracted from live production pages, so a new page matches house pattern instead of a generic template, and so Internal Links and Suggested URL in the Targeting brief (below) are real, not invented.
+
+**MANDATORY, before writing a single word of body copy: invoke the `brand-mb` skill and read its `tone-of-voice.md` and `brand-guidelines.md`.** This was previously only a passing mention buried in the compliance section, and a real run produced generic, off-brand copy as a result, do not repeat that. Every page this skill drafts must sound like MB, not a generic assistant:
+1. Invoke `brand-mb`, read `tone-of-voice.md` for the Courageous Ally voice, house-style mechanics (contractions fine, active voice, numbers spelled one-nine / numerals from 10, Australian English), and read `brand-guidelines.md` for colours/type if the deliverable touches visual styling.
+2. Read `brand-mb/reference/legal-marketing-guardrails.md` alongside this skill's own Step 5 compliance gate below, they overlap, both apply.
+3. If `brand-mb` cannot be loaded for any reason, say so explicitly before drafting, do not silently fall back to a generic voice and present it as on-brand.
 
 ## When to Activate
 
@@ -203,7 +208,7 @@ Return, in this order:
 
 - `seo-analyst-mb`, `seo-audit-mb`: validate the schema and technical setup after publish.
 - `seo-gap-mb`: decide what to write next.
-- `brand-mb`: MB brand voice, colour, tone (Courageous Ally).
+- `brand-mb`: invoked mandatorily before drafting, source of MB's Courageous Ally voice, colours, tone, and the legal-marketing guardrails file.
 - `post-grader-mb`: sibling legal-marketing compliance authority; the gate here mirrors it.
 - `brief-ticket-monday-mb` / `brief-ticket-jira-mb`, turn the action plan into tickets.
 - "SEO - Road Injury FAQ Schema" workstream, the FAQPage pattern reused in Step 4.

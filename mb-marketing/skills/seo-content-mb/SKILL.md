@@ -56,6 +56,7 @@ Confirm these before writing. Ask only what is missing within this session (use 
    - If the topic or page seems to make one tool obviously irrelevant, still ask, do not silently drop it because you've reasoned it away.
    - Before sending the question, check the literal text you are about to send: if "SEMrush", "BrightEdge", "Profound", and "GSC" do not all four appear in it, rewrite it before sending, do not send a partial question.
    - If the user answers for only one or two tools unprompted, explicitly ask about the remaining ones before moving on. A partial answer is not a complete one.
+   - **Ask this every single time the skill runs, with zero exceptions, by default.** Never assume. Do not skip it because this session already asked for a different page, because the user answered "no" for one tool earlier in this conversation, because the topic looks similar to one already covered, or for any other reason. Every new page, every new run, the full four-tool question again, fresh, even if the realistic answer is "same as last time."
    - Always support the paste fallback for any of them. This data sharpens the title/entity targeting, the Keywords section of the Targeting brief, and the GEO angle.
 
 If the page exists, fetch and read it first (WebFetch, or Playwright for JS-rendered pages) so you optimise the real copy, not a guess.

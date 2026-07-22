@@ -42,7 +42,7 @@ Confirm, briefly, before running:
    - **BrightEdge**: any backlink/competitive data export?
    - **DataForSEO**: live connector backlink API, if a key is provisioned?
 
-   **Hard rule, this has failed in practice by being silently watered down, do not repeat that:** all four names must appear in the one question you send, in the same message. **Never rank or editorialise which matters more**, the user's answer decides, not your guess. Check the literal text before sending, rewrite it if any is missing. State plainly that without at least one of these, MB's backlink profile cannot be enumerated and you can only do the parts that live crawling supports.
+   **Hard rule, this has failed in practice by being silently watered down, do not repeat that:** all four names must appear in the one question you send, in the same message. **Never rank or editorialise which matters more**, the user's answer decides, not your guess. Check the literal text before sending, rewrite it if any is missing. **Ask this every single time the skill runs, with zero exceptions, by default. Never assume.** Do not skip it because this session already asked for a different scope, or because the topic looks similar to one already covered. State plainly that without at least one of these, MB's backlink profile cannot be enumerated and you can only do the parts that live crawling supports.
 
 ## Data sourcing (state which path each part used)
 

@@ -35,10 +35,12 @@ Confirm these before running. Ask, do not assume:
 1. **Scope**: one practice area, several, or the whole site? A single practice area gives a sharper, more actionable matrix.
 2. **Geography**: national, or a state focus (VIC/NSW/QLD/WA/SA)? MB content is jurisdiction-sensitive; a "road accident compensation" gap differs by state scheme (TAC in VIC vs CTP elsewhere).
 3. **Competitors**: default to Slater and Gordon and Shine Lawyers. Add or swap if the user names others.
-4. **Data source available (ask this explicitly, do not assume none exists)**: before running anything, ask directly whether the user has Profound data, BrightEdge data, or a SEMrush export they can share for this scope, that is real, measured data instead of an estimated WebSearch probe. See "Data Sourcing" below:
-   - A live paid connector (SEMrush / BrightEdge / Profound / DataForSEO MCP), or
-   - A human-provided export (SEMrush keyword gap CSV, Ahrefs, GSC, Screaming Frog crawl), or
-   - Neither, so we run the lightweight WebSearch + Playwright probe only, and every number gets labelled estimated.
+4. **Data source available (MANDATORY, ask about every tool by name, do not bundle them into one line and do not silently drop any)**: before running anything, ask separately:
+   - **SEMrush**: live connector, or a keyword-gap export to paste?
+   - **BrightEdge**: live connector, or a Data Cube / rankings export to paste?
+   - **Profound**: live connector (MB is on the Enterprise/API tier), or an AI-citation export to paste?
+   - **Ahrefs / GSC / Screaming Frog**: any export covering this scope?
+   If the user only answers for one or two, ask about the rest before proceeding, a partial answer is not a complete one. If genuinely none of these exist, say so and run the lightweight WebSearch + Playwright probe only, labelling every number estimated. See "Data Sourcing" below for what each source gives you.
 5. **Answer-engine probing wanted?**: confirm whether to run the AI-citation gap probe (the GEO half). It is the highest-value half in 2026 but takes longer.
 
 State plainly which parts you can automate now and which need an export. Never pretend you have keyword volumes you cannot source.

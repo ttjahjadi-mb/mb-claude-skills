@@ -41,7 +41,12 @@ Confirm before auditing. Ask only what is missing:
 1. **Scope.** One URL, a set of URLs, a sitemap URL, or the whole domain (mauriceblackburn.com.au)?
 2. **Practice area** of the page(s), so severity is judged against YMYL expectations (asbestos, medical negligence, road/transport injury, workers comp, super/TPD, class actions, employment, abuse law, public liability).
 3. **Geography.** MB is Australia-only. Any hreflang or non-AU signal is a flag, not a feature.
-4. **Inputs available (ask this explicitly, do not assume none exists).** Before running the free-tool checks, ask whether the user has a Screaming Frog crawl export, a Google Search Console (GSC) coverage/index export, an XML sitemap, or a BrightEdge Data Cube / SEMrush Site Audit export for the same page(s). Any of these cross-checks "in the sitemap" vs "actually indexed", or supplements Core Web Vitals with a broader ranking/technical picture, without guessing. Always support the pasted/exported CSV fallback, but ask first rather than defaulting straight to the free-tool-only path.
+4. **Inputs available (MANDATORY, ask about every source by name, do not bundle them into one line and do not silently drop any).** Before running the free-tool checks, ask separately:
+   - **Screaming Frog**: a crawl export for these pages?
+   - **Google Search Console (GSC)**: a coverage/index export?
+   - **BrightEdge**: a Data Cube export?
+   - **SEMrush**: a Site Audit export?
+   Any of these cross-checks "in the sitemap" vs "actually indexed", or supplements Core Web Vitals with a broader ranking/technical picture, without guessing. If the user only answers for one, ask about the rest before proceeding. Always support the pasted/exported CSV fallback, but ask first rather than defaulting straight to the free-tool-only path.
 5. **Cadence.** One-off, or the quarterly recurring audit (see the note at the end)?
 
 If given a bare URL and no other context, begin immediately and note the assumptions you made.
@@ -52,12 +57,12 @@ Index hygiene comes first. A perfectly structured page that is blocked, noindexe
 
 ### 1. Crawl and index hygiene (do this first)
 
-1. **robots.txt.** `curl -s https://mauriceblackburn.com.au/robots.txt`. Confirm the audited path is not `Disallow`ed. Confirm search bots (`Googlebot`, `bingbot`) are allowed, and that AI crawlers are explicitly allowed: `GPTBot`, `ClaudeBot`, `PerplexityBot`, `Google-Extended`. A path blocked in robots.txt cannot be crawled: **Critical**.
+1. **robots.txt.** `curl -s https://www.mauriceblackburn.com.au/robots.txt` (canonical URL is `www`, the bare domain 301s to it). Confirm the audited path is not `Disallow`ed under any matching `User-agent` block, including a wildcard `User-agent: *`. A wildcard `Allow: /` with no bot-specific rule already covers `Googlebot`, `bingbot`, `GPTBot`, `ClaudeBot`, `PerplexityBot`, and `Google-Extended`, do not flag a missing per-bot line as a gap if a permissive wildcard already allows it. Only flag Critical if a bot is actually named in a `Disallow` block, or the audited path sits under a real disallowed prefix. Verified 2026-07-22: MB's robots.txt is exactly this wildcard-allow shape, with a handful of legacy language paths (`/es/`, `/ar/`, `/fa/`, `/it/`, `/vi/`, `/zh_cn/`, `/el/`), two specific PDFs, and `/partnerships/` disallowed. Re-check live rather than trusting this stays current.
 2. **Meta robots / X-Robots-Tag.** Fetch the page and check for `<meta name="robots" content="noindex...">` in the HTML head and for an `X-Robots-Tag` response header:
    `curl -sI https://mauriceblackburn.com.au/<path> | grep -i x-robots-tag`.
    An unintended `noindex` on a page you want ranked is **Critical**.
 3. **Canonical target.** Extract `<link rel="canonical">`. The value should be an absolute HTTPS URL. If a page points its canonical at a different URL, note where it sends authority (see check 2).
-4. **Sitemap membership vs reality.** Pull the XML sitemap(s): `curl -s https://mauriceblackburn.com.au/sitemap.xml`. Cross-check:
+4. **Sitemap membership vs reality.** Pull the XML sitemap: `curl -s https://www.mauriceblackburn.com.au/sitemap.xml`, a flat `urlset` (not an index), ~1,443 URLs as of 2026-07-22. robots.txt lists a second `Sitemap:` line (`mb.sitemap.xml`) but it 301s to this same file, there is only one real sitemap. Rough shape by section for context: `/blog` (586, the largest section), `/our-lawyers` (291), `/media-centre` (198), `/class-actions` (140), `/injury-illness` (87), `/our-offices` (35). Cross-check:
    - Page you want indexed but missing from the sitemap: **Warning**.
    - Page in the sitemap but `noindex`/canonicalised elsewhere/redirecting (mixed signals): **Critical**, sitemaps should list only indexable, canonical, 200-status URLs.
    - If a GSC coverage export is provided, diff "submitted in sitemap" against "indexed" to catch pages Google is choosing not to index. Never assert indexation status without either GSC data or a `site:` check; if you have neither, say so.

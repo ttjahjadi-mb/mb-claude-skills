@@ -43,7 +43,12 @@ Confirm, briefly, before running:
 1. **Scope:** whole domain (mauriceblackburn.com.au) or a specific practice area / page? Practice areas: asbestos & dust diseases, medical negligence, road/transport accident injury, workplace injury & workers compensation, superannuation & TPD claims, class actions, employment & industrial law, abuse law, public liability.
 2. **Competitors:** default Slater and Gordon (slatergordon.com.au) and Shine Lawyers (shine.com.au). Confirm or add others.
 3. **Geography:** national, or a state/city (matters for local pack and "near me" intent).
-4. **Data available (ask this explicitly, do not assume none exists):** before running anything, ask directly whether the user has Profound data, BrightEdge data, or a SEMrush export for this scope, rather than defaulting straight to the free/estimated path. Is a paid connector live (SEMrush / BrightEdge / Profound / DataForSEO MCP), or will the user paste/export a CSV (SEMrush keyword gap, Ahrefs backlinks, Screaming Frog crawl, GSC export)? State which parts you can automate now vs which need an export before you begin, so expectations are set.
+4. **Data available (MANDATORY, ask about every tool by name, do not bundle them into one line and do not silently drop any):** before running anything, ask separately:
+   - **SEMrush**: live connector, or a keyword-gap / ranking export to paste?
+   - **BrightEdge**: live connector, or a Data Cube / rankings export to paste?
+   - **Profound**: live connector (MB is on the Enterprise/API tier), or an AI-citation / Share-of-Model export to paste?
+   - **GSC / Ahrefs / Screaming Frog**: any export covering this scope?
+   If the user only answers for one or two, ask about the rest before proceeding, a partial answer is not a complete one. State which parts you can automate now vs which need an export before you begin, so expectations are set.
 
 ## Method
 

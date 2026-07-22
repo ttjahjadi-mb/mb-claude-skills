@@ -8,6 +8,12 @@ Analyzed:
 
 Note: MB's CDN can serve a stale/mismatched cached page under concurrent fetches. Always fetch pages one at a time and verify the returned `<title>`/canonical matches the requested URL before trusting the content.
 
+## Site inventory: robots.txt and sitemap.xml (verified 2026-07-22)
+
+- **robots.txt**: `https://www.mauriceblackburn.com.au/robots.txt` (canonical is `www`, bare domain 301s to it). A wildcard `User-agent: *` / `Allow: /`, no bot-specific rules, so AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended) are allowed by default, do not flag a missing per-bot line as a gap. Disallows: a handful of legacy language paths (`/es/`, `/ar/`, `/fa/`, `/it/`, `/vi/`, `/zh_cn/`, `/el/`), two specific PDFs, and `/partnerships/`. Lists two `Sitemap:` lines, `sitemap.xml` and `mb.sitemap.xml`, the second 301s to the first, there is only one real sitemap.
+- **sitemap.xml**: `https://www.mauriceblackburn.com.au/sitemap.xml`, a flat `urlset` (not a sitemap index), ~1,443 URLs. Rough shape by top-level path: `/blog` (586, the largest section), `/our-lawyers` (291, lawyer bio pages), `/media-centre` (198), `/class-actions` (140), `/injury-illness` (87, the practice/service pages this skill's templates above are drawn from), `/our-offices` (35), `/our-people` (18), `/wills` (13), `/campaign` (13), `/employment-issues` (12), `/social-justice` (8), `/insurance-claims-disputes` (7), `/free-claim-check` (6).
+- **Legacy URL pattern found, do not copy it.** A small number of `/personal-injury-lawyers-{vic,qld,wa}/...` URLs also exist in the sitemap (8 total), a different, older pattern than the `/injury-illness/{pillar}/{keyword}-{location}/` structure documented above. Treat these as legacy, not a second valid template.
+
 ---
 
 ## 1. Service / practice-area page template

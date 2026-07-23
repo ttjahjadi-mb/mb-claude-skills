@@ -14,16 +14,42 @@ Input JSON shape:
 {
   "meta_title": "TPD Claim for Mental Illness | Maurice Blackburn",
   "meta_description": "...",
-  "keywords": {"primary": ["..."], "secondary": ["...", "..."]},
-  "people_also_asked": ["...", "..."],
-  "internal_links": ["https://...", "https://..."],
-  "body_html": "<nav>...</nav>\n<h1>...</h1>\n<p class=\"byline\">...</p>\n<h2>...</h2>..."
+  "canonical_url": "https://www.mauriceblackburn.com.au/...",
+  "og_type": "article",
+  "published_date": "2026-07-23",
+  "modified_date": "2026-07-23",
+  "author_url": "https://www.mauriceblackburn.com.au/our-lawyers/josh-mennen/",
+  "body_html": "<div class=\"meta-block\">...</div>\n<nav>...</nav>\n<h1>...</h1>..."
 }
 
-"body_html" is the drafted page markup: breadcrumb nav, the single H1,
-byline, and every H2/H3 section already written as real semantic tags
-(never styled <p>/<div>/<strong> standing in for a heading). This script
-does not write copy, it only wraps and brands what was already drafted.
+Only "meta_title" and "body_html" are required. "canonical_url",
+"og_type", "published_date", "modified_date", "author_url" are optional,
+each is only emitted as a meta tag if provided, never fabricate one.
+
+"body_html" is the drafted page markup, using these standard classes for
+the CSS this script already provides (do not invent alternative class
+names or inline styles):
+
+- .meta-block   the internal Targeting-brief/metadata block, a clearly
+                 visible dashed-border box labelled "internal, remove
+                 before publish", never a hidden HTML comment, a reviewer
+                 must not be able to miss it and accidentally ship it.
+- .disclaimer   the compliance disclaimer + jurisdiction paragraph,
+                 tinted background with a left accent border.
+- .support-box  a soft, non-alarming box for crisis-line / support info
+                 or a CTA lead-in, white card on the page background.
+- .cta-btn      a filled MB-red button for the primary conversion link.
+- .faq-item     one Q&A pair, bottom-bordered, used inside the FAQ section.
+- .related-card a bordered card for a related-article link.
+- .flag         a yellow warning callout for anything the reviewer must
+                 action before publish (an unapproved quote, a claim to
+                 verify, a consent status to confirm). This is the visible
+                 equivalent of this skill's own "flag it" instructions,
+                 make gaps impossible to miss in the file, not just
+                 mentioned in the chat response.
+
+Every heading in body_html must be a real <h1>/<h2>/<h3> tag, never a
+styled <p>/<div>/<strong> standing in for one.
 """
 import base64
 import json
@@ -43,8 +69,10 @@ CSS_TEMPLATE = """
   --mb-shade1: #CC2E57;
   --mb-shade4: #461C2F;
   --mb-warm-white: #F8F5F0;
+  --mb-pure-white: #FFFFFF;
   --mb-neutral03: #D8DAE0;
   --mb-dark-grey: #4E4E4E;
+  --mb-tint20: #DED1DB;
 }}
 
 * {{ box-sizing: border-box; }}
@@ -61,7 +89,7 @@ body {{
 }}
 
 h1, h2, h3, h4 {{
-  font-family: {heading_font}, Georgia, serif;
+  font-family: {heading_font};
   color: var(--mb-shade4);
   font-weight: 500;
   line-height: 1.15;
@@ -76,9 +104,15 @@ a:hover {{ color: var(--mb-red); }}
 
 table {{ border-collapse: collapse; width: 100%; margin: 1.5em 0; font-size: 15px; }}
 th, td {{ border: 1px solid var(--mb-neutral03); padding: 10px 14px; text-align: left; }}
-th {{ background: var(--mb-neutral03); }}
+th {{ background: var(--mb-tint20); color: var(--mb-shade4); }}
 
-.byline {{ color: var(--mb-dark-grey); font-size: 14px; margin-top: -0.5em; }}
+.byline {{
+  color: var(--mb-dark-grey);
+  font-size: 14px;
+  border-bottom: 1px solid var(--mb-neutral03);
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+}}
 
 .site-header {{
   display: flex;
@@ -100,6 +134,61 @@ nav[aria-label="Breadcrumb"] ol {{
   color: var(--mb-dark-grey);
 }}
 nav[aria-label="Breadcrumb"] li:not(:last-child)::after {{ content: "/"; margin-left: 6px; }}
+
+.meta-block {{
+  background: var(--mb-pure-white);
+  border: 2px dashed var(--mb-red);
+  padding: 20px;
+  margin-bottom: 36px;
+  font-size: 14px;
+}}
+.meta-block h2 {{ margin-top: 0; font-size: 20px; border-bottom: none; }}
+.meta-block h3 {{ font-size: 15px; margin-bottom: 4px; margin-top: 1em; }}
+
+.disclaimer {{
+  background: var(--mb-tint20);
+  border-left: 4px solid var(--mb-red);
+  padding: 14px 18px;
+  font-size: 14px;
+  margin: 20px 0;
+}}
+
+.support-box {{
+  background: var(--mb-pure-white);
+  border: 1px solid var(--mb-neutral03);
+  padding: 16px 18px;
+  border-radius: 6px;
+  font-size: 15px;
+}}
+
+.cta-btn {{
+  display: inline-block;
+  background: var(--mb-red);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  margin: 16px 0;
+}}
+.cta-btn:hover {{ background: var(--mb-shade1); color: #fff; }}
+
+.faq-item {{ border-bottom: 1px solid var(--mb-neutral03); padding: 14px 0; }}
+
+.related-card {{
+  border: 1px solid var(--mb-neutral03);
+  border-radius: 6px;
+  padding: 14px;
+  margin-bottom: 10px;
+}}
+
+.flag {{
+  background: #FFF3CD;
+  border-left: 4px solid #E0A800;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin: 10px 0;
+}}
 """
 
 
@@ -123,13 +212,45 @@ def build_logo_html():
     return "<strong>Maurice Blackburn</strong>"
 
 
+def build_head_meta(data):
+    lines = []
+    canonical = data.get("canonical_url")
+    if canonical:
+        lines.append(f'<link rel="canonical" href="{canonical}">')
+
+    og_type = data.get("og_type")
+    meta_title = data.get("meta_title", "")
+    meta_description = data.get("meta_description", "")
+    if og_type:
+        lines.append(f'<meta property="og:type" content="{og_type}">')
+    if meta_title:
+        lines.append(f'<meta property="og:title" content="{meta_title}">')
+    if meta_description:
+        lines.append(f'<meta property="og:description" content="{meta_description}">')
+    if canonical:
+        lines.append(f'<meta property="og:url" content="{canonical}">')
+
+    published = data.get("published_date")
+    modified = data.get("modified_date")
+    author_url = data.get("author_url")
+    if published:
+        lines.append(f'<meta property="article:published_time" content="{published}">')
+    if modified:
+        lines.append(f'<meta property="article:modified_time" content="{modified}">')
+    if author_url:
+        lines.append(f'<meta property="article:author" content="{author_url}">')
+
+    return "\n".join(lines)
+
+
 def render(data, out_path):
-    heading_font = "'Reader Pro'" if READER_PRO_WOFF2_PATH.exists() else "Georgia"
+    heading_font = "'Reader Pro', Georgia, serif" if READER_PRO_WOFF2_PATH.exists() else "Georgia, serif"
     css = CSS_TEMPLATE.format(
         font_face_block=build_font_face_block(),
         heading_font=heading_font,
     )
     logo_html = build_logo_html()
+    head_meta = build_head_meta(data)
 
     meta_title = data.get("meta_title", "")
     meta_description = data.get("meta_description", "")
@@ -142,6 +263,7 @@ def render(data, out_path):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{meta_title}</title>
 <meta name="description" content="{meta_description}">
+{head_meta}
 <style>{css}</style>
 </head>
 <body>

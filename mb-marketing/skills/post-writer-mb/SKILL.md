@@ -98,7 +98,15 @@ After presenting the post, offer: "Want a matching MB-brand creative drafted for
 - **`Union -`** → MB×AWU co-brand, carries a *locked* "In partnership with Maurice Blackburn + AWU" footer that can't be removed (verified: `delete_element` → "Cannot delete a locked element"). Correct **only** when the post is genuinely an MB+AWU union / EBA / organised-workplace matter — and only after you **confirm with the user** ("This is a union co-branded template with a fixed AWU footer — use it, or a standalone MB one?"). Never for a generic MB post.
 - **`CFA`** → Claims Funding Australia, a **separate brand** (navy). Never use for an MB social post.
 
-**How to select:** call `search-brand-templates` (broad query, or by the specific title), then **filter the results to titles that start with `MB - `**. Ignore anything titled `Union -`, `CFA`, or with no MB prefix. Route by post format:
+**How to select:** call `search-brand-templates` (broad query, or by the specific title), then **filter the results to titles that start with `MB - `**. Ignore anything titled `Union -`, `CFA`, or with no MB prefix. Route by the request's **topic first**, then format:
+
+- **Witness ad / witness appeal request** → offer these four MB witness templates (present all four so the user chooses — see 1b):
+  - `MB - Video Witness Ad` (1080×1920, 9:16 video/story)
+  - `MB - Witness Ad_129x188mm_PRINT` (129×188mm print flyer)
+  - `MB - Witness Ad_134x188mm_PRINT` (134×188mm print flyer)
+  - `MB - Abuse Witness Ad_1920x1080px` (1920×1080 video, for abuse-investigation appeals)
+- **Class action post** → `MB - Quote - x 3 versions`.
+- **Anything else MB** → pick the best-fit `MB -` template for the content, by format:
 
 | Post format | MB template title (starts with `MB - `) |
 |---|---|
@@ -107,22 +115,29 @@ After presenting the post, offer: "Want a matching MB-brand creative drafted for
 | Client testimonial / review (feed, square) | MB - 5 star Google review - White |
 | Client testimonial / review (story / reel, 4:5–9:16) | MB - 5 star Google review - White (the 450×800 one) |
 | Award / recognition / milestone (with photo) | MB - FF Awards template - with photo |
-| Numbered list / "key points" / checklist | MB - Key Points List: White |
-| Witness appeal (video / story) | MB - Video Witness Ad |
-| Witness appeal (print) | MB - Witness Ad_129x188mm_PRINT |
+| Event promo | MB - Name of Event |
 
-The table lists the MB templates the Canva connector currently exposes. **It is not a hard allowlist** — because you filter live by the `MB -` prefix each run, any *new* `MB -` template MB publishes is picked up automatically; match the post's format to the closest one. (Note: the Connect API only returns a subset of MB's Canva library — templates become API-visible after being re-published as Brand Templates. If a template you expect isn't in the search results, it hasn't been exposed to the connector yet; don't substitute a `Union -`/`CFA` one to compensate.) If no `MB -` template fits the post's format, **stop and tell the user** (see the no-fit rule below) — never invent a design and never fall back to a `Union -`/`CFA` template.
+**It is not a hard allowlist** — you filter live by the `MB -` prefix each run, so any new `MB -` template MB publishes is picked up automatically; match the content to the closest one. **Connector-visibility caveat:** the Connect API only returns a subset of MB's Canva Brand Templates. Some listed here (verified 2026-08-08: `MB - Witness Ad_134x188mm_PRINT`, `MB - Abuse Witness Ad_1920x1080px`, `MB - Name of Event`) may not come back from `search-brand-templates` yet, and the Abuse ad is a flattened design with no editable text. Handle that gracefully per 1b — never substitute a `Union -`/`CFA` template to compensate. If no `MB -` template fits at all, **stop and tell the user** (no-fit rule below) — never invent a design.
 
-**1b. Confirm the template with the user before building — always ask, don't just pick.** After filtering to the fitting `MB -` template(s), present the shortlist and let the user choose *before* you create any design. This matters most where more than one `MB -` template fits the same post:
-- **Witness appeal** → `MB - Video Witness Ad` (9:16 story/reel) vs `MB - Witness Ad_129x188mm_PRINT` (print flyer). Always ask which.
+**1b. Confirm the template with the user before building — always ask, don't just pick.** After routing, present the shortlist and let the user choose *before* you create any design. Always ask when more than one template fits:
+- **Witness ad** → present all four (`MB - Video Witness Ad` 9:16 video; `MB - Witness Ad_129x188mm_PRINT` print; `MB - Witness Ad_134x188mm_PRINT` print; `MB - Abuse Witness Ad_1920x1080px` 16:9 video for abuse appeals). Ask which.
 - **Pull-quote** → `MB - Quote - x 3 versions` (square feed) vs `MB - Quote - LinkedIn Landscape 1200x627`.
 - **Testimonial / review** → `MB - 5 star Google review - White` square feed vs the 450×800 story.
 
-Show it as a short pick-list with a one-line "what it is" per option, e.g.: *"Two MB witness templates fit — which do you want? (1) Video Witness Ad — vertical 9:16 for IG/reels; (2) Witness Ad 129x188mm — print flyer."* When exactly one `MB -` template fits, name it ("I'll use `MB - Quote - x 3 versions`") and proceed unless the user redirects. Only build the design the user confirmed.
+Show it as a short pick-list with a one-line "what it is" per option. When exactly one fits (e.g. class action → `MB - Quote - x 3 versions`), name it and proceed unless the user redirects. Only build the design the user confirmed.
+
+**Graceful fallback when the confirmed template can't be built.** Two failure modes, both expected for some witness options: (a) `search-brand-templates` doesn't return the chosen title (not yet exposed to the connector — e.g. the 134mm and Abuse ads today), or (b) `create-design-from-brand-template` + `start-editing-transaction` succeeds but returns **no editable text** (`richtexts` empty — the Abuse ad is a flattened design). In either case do NOT silently swap or invent — tell the user plainly: *"`MB - Abuse Witness Ad_1920x1080px` isn't reachable through Canva's API yet (or has no editable text I can fill). Options: I open it for you to edit manually in Canva, or build one of the reachable witness templates (`MB - Video Witness Ad` / `MB - Witness Ad_129x188mm_PRINT`) instead."* Give the template's `create_url`/`view_url` for the manual route. Only proceed on the user's choice.
 
 **2. Create a new design from the confirmed template:** `create-design-from-brand-template` → new `design_id` + `edit_url`/`view_url`. (Brand-template designs can lag a moment; if a later call says "not found", recreate and use the fresh id.)
 
 **2b. Need a different size than the template's native one for this platform** (e.g. LinkedIn landscape 1200×627 from a template that defaults to square)? `resize-design` on the design from step 2 — reflows the layout and is safe as a one-off (verified clean). Continue the rest of the flow on the *resized* design's id. **Never call `publish-brand-template` on a resized design** — confirmed bug: it errors immediately and permanently orphans the design. Resize is fine for a single creative; it is not a way to save a new template.
+
+**2c. Name the design uniquely per request** (do this every time a creative is created). The design title must follow **`PRACTICE AREA - REQUEST - DDMMYYYY`** (spaces around the hyphens; date is today, `DDMMYYYY`, no separators). Example: `Class Actions - Allianz Social Post - 08082026`.
+- **PRACTICE AREA**: derive from the post's subject — Class Actions, Abuse, Workplace Injury, Superannuation & Insurance, Road Injury, Medical Negligence, Public Liability, Wills & Estates, etc.
+- **REQUEST**: a short human label for this specific piece (e.g. `Allianz Social Post`, `Bairnsdale West Witness Ad`, `TPD Review`).
+- **DDMMYYYY**: today's date. Get it reliably (don't guess) — e.g. `TZ="Australia/Sydney" date "+%d%m%Y"`.
+
+**Show the user the proposed filename and let them confirm or tweak it before applying.** Then set it with `update_title` inside the editing transaction (step 4; `update_title` is allowed even on `is_responsive: true` pages). Never leave the default "Copy of …" title.
 
 **3. Open an editing transaction:** `start-editing-transaction` on the *new* design. The response returns every text element's `element_id` and its current placeholder text, the `pages` array (note each page's `is_responsive`), and a thumbnail. **Guard:** if it returns no editable text elements (`richtexts` empty — some MB ads are flattened/locked, e.g. the old Abuse Witness ad) or the thumbnail shows a locked AWU partnership footer or CFA branding, do NOT proceed — `cancel-editing-transaction` and tell the user that template can't be auto-filled. (Shouldn't happen if you filtered to the `MB -` prefix; this catches a wrong pick or a flattened MB template.)
 

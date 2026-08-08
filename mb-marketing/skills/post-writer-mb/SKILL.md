@@ -88,7 +88,9 @@ Which CTA do you want — Free claim check, Ask Morry AI, Chat with Morry AI, Re
 
 ### Step 8: Draft a matching creative in Canva (auto-filled, for review)
 
-After presenting the post, offer: "Want a matching MB-brand creative drafted for this?" If Canva's MCP tools are connected (quick tool search for `mcp__claude_ai_Canva__*`), draft it on a **real MB brand template** with the copy already placed — **never** hand back a placeholder to paste manually. Verified working 2026-07-12: MB's templates aren't autofill-enabled (`get-brand-template-dataset` → `{}`), but the **editing-transaction API places copy programmatically**, which is the path used here.
+After presenting the post, offer: "Want a matching MB-brand creative drafted for this?" If Canva's MCP tools are connected (quick tool search for `mcp__claude_ai_Canva__*`), draft it on a **real MB brand template** with the copy already placed — **never** hand back a placeholder to paste manually. MB's templates aren't autofill-enabled (`get-brand-template-dataset` → `{}`), but you place copy programmatically via the design-editing API, which is the path used here.
+
+> **Canva tool set (verified 2026-08-09):** the editing flow is `create-design-from-brand-template` → **`read-design`** (with `open_transaction: true`) to see elements + get a `transaction_id` → **`edit-design`** (pass `operations`, then call again with `finalize: "commit"` or `"cancel"`) → `upload-asset-from-url` for images. This replaced the older `start-editing-transaction`/`perform-editing-operations`/`commit-editing-transaction`/`cancel-editing-transaction` tools named below. Canva renames these periodically — if a named tool 404s, search `mcp__claude_ai_Canva__*` and use the current equivalent; the *sequence* (create → read+open transaction → edit → commit) is what matters. `edit-design` operations include `update_title`, `replace_text`, `find_and_replace_text`, `update_fill`/`insert_fill` (images), `delete_element`.
 
 > **Golden rule: never edit the brand template itself.** `create-design-from-brand-template` spins up a *new* design from the template (the template stays read-only). All edits happen on that new design only.
 
@@ -105,7 +107,10 @@ After presenting the post, offer: "Want a matching MB-brand creative drafted for
   - `MB - Witness Ad_129x188mm_PRINT` (129×188mm print flyer)
   - `MB - Witness Ad_134x188mm_PRINT` (134×188mm print flyer)
   - `MB - Abuse Witness Ad_1920x1080px` (1920×1080 video, for abuse-investigation appeals)
-- **Class action post** → `MB - Quote - x 3 versions`.
+- **Class action post** → three MB class-action templates (present all three, let the user pick — see 1b):
+  - `MB - Class Action Template - Image - Instagram` (1080×1350, **image-capable**) — 2 text fields (a short headline + a "link in bio" CTA line) and 2 replaceable image slots (full-page background + an inner image). Use when a banner/image is supplied (e.g. the campaign banner goes in the background slot). The detailed copy lives in the caption, not on the card.
+  - `MB - Class Action Template - No Image - Instagram` (1080×1350, text-only) — class-action layout without an image slot.
+  - `MB - Quote - x 3 versions` (text-only) — pull-quote / statement style.
 - **Anything else MB** → pick the best-fit `MB -` template for the content, by format:
 
 | Post format | MB template title (starts with `MB - `) |
@@ -122,9 +127,10 @@ After presenting the post, offer: "Want a matching MB-brand creative drafted for
 **1b. Confirm the template with the user before building — always ask, don't just pick.** After routing, present the shortlist and let the user choose *before* you create any design. Always ask when more than one template fits:
 - **Witness ad** → present all four (`MB - Video Witness Ad` 9:16 video; `MB - Witness Ad_129x188mm_PRINT` print; `MB - Witness Ad_134x188mm_PRINT` print; `MB - Abuse Witness Ad_1920x1080px` 16:9 video for abuse appeals). Ask which.
 - **Pull-quote** → `MB - Quote - x 3 versions` (square feed) vs `MB - Quote - LinkedIn Landscape 1200x627`.
+- **Class action** → the three class-action templates: `MB - Class Action Template - Image - Instagram` (image-capable — pick when a banner/photo is supplied), `MB - Class Action Template - No Image - Instagram` (text-only), `MB - Quote - x 3 versions` (pull-quote style). Ask which; if the post needs an image on the card, steer to the Image one.
 - **Testimonial / review** → `MB - 5 star Google review - White` square feed vs the 450×800 story.
 
-Show it as a short pick-list with a one-line "what it is" per option. When exactly one fits (e.g. class action → `MB - Quote - x 3 versions`), name it and proceed unless the user redirects. Only build the design the user confirmed.
+Show it as a short pick-list with a one-line "what it is" per option. When exactly one fits, name it and proceed unless the user redirects. Only build the design the user confirmed.
 
 **Graceful fallback when the confirmed template can't be built.** Two failure modes, both expected for some witness options: (a) `search-brand-templates` doesn't return the chosen title (not yet exposed to the connector — e.g. the 134mm and Abuse ads today), or (b) `create-design-from-brand-template` + `start-editing-transaction` succeeds but returns **no editable text** (`richtexts` empty — the Abuse ad is a flattened design). In either case do NOT silently swap or invent — tell the user plainly: *"`MB - Abuse Witness Ad_1920x1080px` isn't reachable through Canva's API yet (or has no editable text I can fill). Options: I open it for you to edit manually in Canva, or build one of the reachable witness templates (`MB - Video Witness Ad` / `MB - Witness Ad_129x188mm_PRINT`) instead."* Give the template's `create_url`/`view_url` for the manual route. Only proceed on the user's choice.
 

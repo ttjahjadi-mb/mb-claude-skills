@@ -92,21 +92,32 @@ After presenting the post, offer: "Want a matching MB-brand creative drafted for
 
 > **Golden rule: never edit the brand template itself.** `create-design-from-brand-template` spins up a *new* design from the template (the template stays read-only). All edits happen on that new design only.
 
-**1. Pick from the APPROVED MB-standalone allowlist only.** The connected Canva account is mostly **MB×AWU co-brand** templates (a *locked* "In partnership with MB + AWU" footer that can't be removed — verified: `delete_element` → "Cannot delete a locked element") and **CFA / Claims Funding Australia** navy sub-brand templates. Those are NOT for standalone MB posts. Verified 2026-07-12, the only templates that are MB-only, editable, and safe for a standalone MB post are:
+**1. Pick by the `MB -` title-prefix rule (not a frozen ID list).** MB's Canva account uses a **three-way naming convention** (verified 2026-08-08): every brand template is prefixed by its brand identity.
 
-| Post format | Approved MB-only template (search by exact title) |
+- **`MB -`** → standalone Maurice Blackburn brand. **These are the only ones this skill uses by default.**
+- **`Union -`** → MB×AWU co-brand, carries a *locked* "In partnership with Maurice Blackburn + AWU" footer that can't be removed (verified: `delete_element` → "Cannot delete a locked element"). Correct **only** when the post is genuinely an MB+AWU union / EBA / organised-workplace matter — and only after you **confirm with the user** ("This is a union co-branded template with a fixed AWU footer — use it, or a standalone MB one?"). Never for a generic MB post.
+- **`CFA`** → Claims Funding Australia, a **separate brand** (navy). Never use for an MB social post.
+
+**How to select:** call `search-brand-templates` (broad query, or by the specific title), then **filter the results to titles that start with `MB - `**. Ignore anything titled `Union -`, `CFA`, or with no MB prefix. Route by post format:
+
+| Post format | MB template title (starts with `MB - `) |
 |---|---|
-| Pull-quote / striking stat / statement | Quote - x 3 versions |
-| Client testimonial / review | 5 star Google review - White (or "…- MB4") |
-| Award / recognition / milestone (with photo) | FF Awards template - with photo |
+| Pull-quote / striking stat / statement (square) | MB - Quote - x 3 versions |
+| Pull-quote (LinkedIn landscape) | MB - Quote - LinkedIn Landscape 1200x627 |
+| Client testimonial / review (feed, square) | MB - 5 star Google review - White |
+| Client testimonial / review (story / reel, 4:5–9:16) | MB - 5 star Google review - White (the 450×800 one) |
+| Award / recognition / milestone (with photo) | MB - FF Awards template - with photo |
+| Numbered list / "key points" / checklist | MB - Key Points List: White |
+| Witness appeal (video / story) | MB - Video Witness Ad |
+| Witness appeal (print) | MB - Witness Ad_129x188mm_PRINT |
 
-`search-brand-templates` by the exact title. **Do not substitute any other template** — the others carry the locked AWU footer or CFA branding and will produce off-brand output. If none of these three fits the post's format, **stop and tell the user** (see the no-fit rule below) — never invent a design.
+The table lists the MB templates the Canva connector currently exposes. **It is not a hard allowlist** — because you filter live by the `MB -` prefix each run, any *new* `MB -` template MB publishes is picked up automatically; match the post's format to the closest one. (Note: the Connect API only returns a subset of MB's Canva library — templates become API-visible after being re-published as Brand Templates. If a template you expect isn't in the search results, it hasn't been exposed to the connector yet; don't substitute a `Union -`/`CFA` one to compensate.) If no `MB -` template fits the post's format, **stop and tell the user** (see the no-fit rule below) — never invent a design and never fall back to a `Union -`/`CFA` template.
 
 **2. Create a new design from it:** `create-design-from-brand-template` → new `design_id` + `edit_url`/`view_url`. (Brand-template designs can lag a moment; if a later call says "not found", recreate and use the fresh id.)
 
 **2b. Need a different size than the template's native one for this platform** (e.g. LinkedIn landscape 1200×627 from a template that defaults to square)? `resize-design` on the design from step 2 — reflows the layout and is safe as a one-off (verified clean). Continue the rest of the flow on the *resized* design's id. **Never call `publish-brand-template` on a resized design** — confirmed bug: it errors immediately and permanently orphans the design. Resize is fine for a single creative; it is not a way to save a new template.
 
-**3. Open an editing transaction:** `start-editing-transaction` on the *new* design. The response returns every text element's `element_id` and its current placeholder text, the `pages` array (note each page's `is_responsive`), and a thumbnail. **Guard:** if it returns no editable text elements (`richtexts` empty — some MB ads are flattened/locked, e.g. the Abuse Witness ad) or the thumbnail shows a locked AWU partnership footer or CFA branding, do NOT proceed — `cancel-editing-transaction` and tell the user that template can't be auto-filled. (Shouldn't happen with the three approved templates; this catches a wrong pick.)
+**3. Open an editing transaction:** `start-editing-transaction` on the *new* design. The response returns every text element's `element_id` and its current placeholder text, the `pages` array (note each page's `is_responsive`), and a thumbnail. **Guard:** if it returns no editable text elements (`richtexts` empty — some MB ads are flattened/locked, e.g. the old Abuse Witness ad) or the thumbnail shows a locked AWU partnership footer or CFA branding, do NOT proceed — `cancel-editing-transaction` and tell the user that template can't be auto-filled. (Shouldn't happen if you filtered to the `MB -` prefix; this catches a wrong pick or a flattened MB template.)
 
 **4. Place the copy — fit it to the layout.** For each text element, `perform-editing-operations` with `replace_text` (or `find_and_replace_text`), mapping the post's hook/quote/body/attribution/CTA onto the template's fields. **Fit to the placeholder's length** — if your copy is much longer than what it replaces, it will overflow the fixed text box and collide with elements below (verified failure mode). If it's tight, shorten the copy or pick a roomier template, and **flag it to the user** in the review. On `is_responsive: true` pages, only `update_title`, `replace_text`, `update_fill`, `delete_element`, `find_and_replace_text` are allowed — stick to those.
 
@@ -116,7 +127,7 @@ After presenting the post, offer: "Want a matching MB-brand creative drafted for
 
 **7. Save + send for review:** `commit-editing-transaction` (saves the *new* design; template untouched). Give the user the `edit_url` + `view_url` + the rendered thumbnail: "Here's the drafted creative — review and tweak in Canva." If a preview looks wrong, `cancel-editing-transaction` instead and redraft.
 
-**No-fit rule — never invent a design.** If none of the three approved templates fits the post, do NOT fall back to `generate-design` or any AI-generated layout. Tell the user plainly: "None of the approved MB templates (Quote, Google review, Awards) fits this post — want me to use the closest one anyway, or should this creative be made manually / a new MB template added?" `generate-design` is off by default because it produces a non-template, off-allowlist design — the exact thing to avoid. Only use it if the user explicitly asks for an AI-generated creative this time, and then be clear it's not a brand template.
+**No-fit rule — never invent a design.** If no `MB -` template fits the post's format, do NOT fall back to `generate-design`, an AI-generated layout, or a `Union -`/`CFA` template. Tell the user plainly: "None of the standalone `MB -` templates fits this post — want me to use the closest one anyway, use a `Union -` co-brand template (fixed AWU footer), or make this creative manually / add a new MB template?" `generate-design` is off by default because it produces a non-template, off-brand design — the exact thing to avoid. Only use it if the user explicitly asks for an AI-generated creative this time, and then be clear it's not a brand template.
 
 If Canva isn't connected, say so plainly and note the creative for manual creation later.
 

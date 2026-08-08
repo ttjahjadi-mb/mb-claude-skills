@@ -66,10 +66,10 @@ Then just mention brand, social-content, or SEO/GEO work in conversation, the sk
 | --- | --- |
 | `brand-mb` | Building anything MB-branded (site component, deck, dashboard, document) that needs exact colours/fonts/logo, or writing content that needs to sound like MB rather than a generic assistant |
 | `brand-analyst-mb` | Asking "how does our brand compare to [competitor]" — a quick, conversational brand-vs-competitor read |
-| `post-writer-mb` | "Write me a post about X for [platform]" — produces a hook + body + CTA, on-brand, compliance-checked, and graded before you see it |
+| `post-writer-mb` | "Write me a post about X for [platform]" — produces a hook + body + CTA, on-brand, compliance-checked, and graded before you see it; if Canva is connected, can also auto-draft a matching creative on a real MB brand template (copy placed for you, not a blank template) |
 | `post-grader-mb` | "Is this post compliant/any good?" — scores a draft and lists the top 3 fixes; checks legal-marketing compliance as a hard pass/fail gate before anything else |
 | `viral-hooks-mb` | Needs a strong opening line — a curated hook library filtered for a law firm's voice and compliance obligations (no fake urgency, no fabricated confessions) |
-| `repurpose-mb` | "Turn this case update into a week of content" — one long input becomes a batch of platform-native posts across LinkedIn, Instagram, TikTok, and Meta |
+| `repurpose-mb` | "Turn this case update into a week of content" — one long input becomes a batch of platform-native posts across LinkedIn, Instagram, TikTok, and Meta; can also draft matching creatives on real MB brand templates when Canva is connected |
 
 **SEO and GEO:**
 

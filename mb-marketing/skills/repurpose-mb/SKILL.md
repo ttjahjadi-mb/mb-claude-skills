@@ -100,12 +100,16 @@ After the batch: "Which CTAs do you want to keep or swap? Want a matching Canva 
 
 If the user wants creatives, draft them on real MB brand templates with the copy **already placed** — follow `post-writer-mb`'s Step 8 flow exactly (create a new design from the template → open an editing transaction → `replace_text` the copy fitted to the layout → attach a supplied image via `upload-asset-from-url` + `update_fill` where the template has an image element → render the thumbnail → `commit` → send the `edit_url` + thumbnail for review). **Never edit the brand template itself; always work on the new design created from it.**
 
-**Approved MB-standalone templates only** (verified 2026-07-12) — the rest of the account is MB×AWU co-brand (locked footer) or CFA navy sub-brand and must not be used for standalone MB posts:
-- **Quote - x 3 versions** — pull-quote / statement
-- **5 star Google review - White** (or "…- MB4") — testimonial / review
-- **FF Awards template - with photo** — award / milestone
+**Pick by the `MB -` title-prefix rule** (MB's Canva uses a three-way naming convention, verified 2026-08-08). Filter `search-brand-templates` results to titles starting with **`MB - `** — those are standalone Maurice Blackburn. **`Union -`** = MB×AWU co-brand with a *locked* AWU partnership footer (use only for a genuine MB+AWU union/EBA post, and confirm with the user first). **`CFA`** = Claims Funding Australia, a separate brand — never for an MB post. Route by format:
+- **MB - Quote - x 3 versions** — pull-quote / statement (square); **MB - Quote - LinkedIn Landscape 1200x627** for LinkedIn landscape
+- **MB - 5 star Google review - White** — testimonial / review (feed square; the 450×800 one for story/reel)
+- **MB - FF Awards template - with photo** — award / milestone
+- **MB - Key Points List: White** — numbered list / key points
+- **MB - Video Witness Ad** / **MB - Witness Ad_129x188mm_PRINT** — witness appeal (video/story, or print)
 
-Batch discipline: for a multi-post batch, first list which approved template each post maps to (so the user can redirect before you create several designs), and **fit each post's copy to its template — flag any too long to fit cleanly**. **Never invent a design** — if none of the three approved templates fits a post, say so and ask, don't fall back to `generate-design`.
+This is the currently-exposed set, not a hard list: filtering live by the `MB -` prefix means any new `MB -` template MB publishes is picked up automatically. (The Connect API only returns a subset of MB's Canva library; if a template isn't in the results it hasn't been re-published to the connector yet — don't substitute a `Union -`/`CFA` one.)
+
+Batch discipline: for a multi-post batch, first list which `MB -` template each post maps to (so the user can redirect before you create several designs), and **fit each post's copy to its template — flag any too long to fit cleanly**. **Never invent a design** and never fall back to a `Union -`/`CFA` template or `generate-design` — if no `MB -` template fits a post, say so and ask.
 
 Need a size the template doesn't natively cover (e.g. LinkedIn landscape from a square template)? `resize-design` the created design as a one-off — it reflows cleanly. **Never call `publish-brand-template` on a resized design** — confirmed bug: it errors and permanently orphans the design. Resize per-post only; it isn't a way to save a new template.
 

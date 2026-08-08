@@ -153,7 +153,9 @@ Show it as a short pick-list with a one-line "what it is" per option. When exact
 
 **6. Render for review:** the `perform-editing-operations` response includes a thumbnail — show it in chat. Confirm nothing overflows.
 
-**7. Save + send for review:** `commit-editing-transaction` (saves the *new* design; template untouched). Give the user the `edit_url` + `view_url` + the rendered thumbnail: "Here's the drafted creative — review and tweak in Canva." If a preview looks wrong, `cancel-editing-transaction` instead and redraft.
+**7. Save + send for review:** commit the transaction (saves the *new* design; template untouched). Give the user the `edit_url` + `view_url` + the rendered thumbnail: "Here's the drafted creative — review and tweak in Canva." If a preview looks wrong, cancel instead and redraft.
+
+**8. QA the creative (accessibility + visual check).** After the creative is committed, run **`qa-creative-mb`** on the new `design_id` — it checks the drafted creative against WCAG 2.2 AA (contrast, legible size, alt text) and does a visual sanity read (overflow/overlap after the copy was placed), then offers safe auto-fixes with a before/after the user approves. Brand colours always win on contrast (a failing brand combo is flagged, never overridden). Don't skip it; it's the creative's equivalent of the compliance gate.
 
 **No-fit rule — never invent a design.** If no `MB -` template fits the post's format, do NOT fall back to `generate-design`, an AI-generated layout, or a `Union -`/`CFA` template. Tell the user plainly: "None of the standalone `MB -` templates fits this post — want me to use the closest one anyway, use a `Union -` co-brand template (fixed AWU footer), or make this creative manually / add a new MB template?" `generate-design` is off by default because it produces a non-template, off-brand design — the exact thing to avoid. Only use it if the user explicitly asks for an AI-generated creative this time, and then be clear it's not a brand template.
 

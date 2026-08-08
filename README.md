@@ -70,6 +70,7 @@ Then just mention brand, social-content, or SEO/GEO work in conversation, the sk
 | `post-grader-mb` | "Is this post compliant/any good?" — scores a draft and lists the top 3 fixes; checks legal-marketing compliance as a hard pass/fail gate before anything else |
 | `viral-hooks-mb` | Needs a strong opening line — a curated hook library filtered for a law firm's voice and compliance obligations (no fake urgency, no fabricated confessions) |
 | `repurpose-mb` | "Turn this case update into a week of content" — one long input becomes a batch of platform-native posts across LinkedIn, Instagram, TikTok, and Meta; can also draft matching creatives on real MB brand templates when Canva is connected |
+| `qa-creative-mb` | QA Creative Agent. After a Canva creative is drafted, checks it against WCAG 2.2 AA (colour contrast, legible text size, image alt text) and does a visual sanity read, then offers safe auto-fixes with a before/after you approve; brand colours always win on contrast. Auto-runs after the social skills make a creative; also usable standalone: "QA this creative / is this design AA compliant" |
 
 **SEO and GEO:**
 
@@ -81,7 +82,7 @@ Then just mention brand, social-content, or SEO/GEO work in conversation, the sk
 | `seo-competitor-mb` | "How do we compare to [competitor] on search": keyword gap, Share of Voice, and Share of Model (AI-answer visibility) benchmarking |
 | `seo-backlinks-mb` | "Audit our backlinks" / "find link-building targets": backlink health, toxic-link flagging (disavow always held for human sign-off), and a competitor link-gap outreach list |
 
-All 11 skills ship in the one **mb-marketing** plugin. `post-writer-mb`, `post-grader-mb`, `viral-hooks-mb`, and `repurpose-mb` all read `brand-mb`'s tone-of-voice, brand guidelines, and a shared legal-marketing guardrails file, bundled together so that dependency is never an issue. The SEO/GEO skills are built for a law firm's SEO/GEO work specifically: named competitor benchmarking, YMYL E-E-A-T weighting, and a legal-marketing compliance gate on anything `seo-content-mb` writes or recommends. Some SEO/GEO capabilities (keyword volume, backlink data, AI-answer share of voice) need a live SEMrush/BrightEdge/Profound/DataForSEO connector or a pasted CSV export; each skill states plainly which parts it can automate on the spot versus which need that data supplied.
+All 12 skills ship in the one **mb-marketing** plugin. `post-writer-mb`, `post-grader-mb`, `viral-hooks-mb`, and `repurpose-mb` all read `brand-mb`'s tone-of-voice, brand guidelines, and a shared legal-marketing guardrails file, bundled together so that dependency is never an issue; `qa-creative-mb` runs the WCAG 2.2 AA + visual check on any creative those skills draft. The SEO/GEO skills are built for a law firm's SEO/GEO work specifically: named competitor benchmarking, YMYL E-E-A-T weighting, and a legal-marketing compliance gate on anything `seo-content-mb` writes or recommends. Some SEO/GEO capabilities (keyword volume, backlink data, AI-answer share of voice) need a live SEMrush/BrightEdge/Profound/DataForSEO connector or a pasted CSV export; each skill states plainly which parts it can automate on the spot versus which need that data supplied.
 
 ## Try it — example prompts
 

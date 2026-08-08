@@ -113,7 +113,14 @@ After presenting the post, offer: "Want a matching MB-brand creative drafted for
 
 The table lists the MB templates the Canva connector currently exposes. **It is not a hard allowlist** — because you filter live by the `MB -` prefix each run, any *new* `MB -` template MB publishes is picked up automatically; match the post's format to the closest one. (Note: the Connect API only returns a subset of MB's Canva library — templates become API-visible after being re-published as Brand Templates. If a template you expect isn't in the search results, it hasn't been exposed to the connector yet; don't substitute a `Union -`/`CFA` one to compensate.) If no `MB -` template fits the post's format, **stop and tell the user** (see the no-fit rule below) — never invent a design and never fall back to a `Union -`/`CFA` template.
 
-**2. Create a new design from it:** `create-design-from-brand-template` → new `design_id` + `edit_url`/`view_url`. (Brand-template designs can lag a moment; if a later call says "not found", recreate and use the fresh id.)
+**1b. Confirm the template with the user before building — always ask, don't just pick.** After filtering to the fitting `MB -` template(s), present the shortlist and let the user choose *before* you create any design. This matters most where more than one `MB -` template fits the same post:
+- **Witness appeal** → `MB - Video Witness Ad` (9:16 story/reel) vs `MB - Witness Ad_129x188mm_PRINT` (print flyer). Always ask which.
+- **Pull-quote** → `MB - Quote - x 3 versions` (square feed) vs `MB - Quote - LinkedIn Landscape 1200x627`.
+- **Testimonial / review** → `MB - 5 star Google review - White` square feed vs the 450×800 story.
+
+Show it as a short pick-list with a one-line "what it is" per option, e.g.: *"Two MB witness templates fit — which do you want? (1) Video Witness Ad — vertical 9:16 for IG/reels; (2) Witness Ad 129x188mm — print flyer."* When exactly one `MB -` template fits, name it ("I'll use `MB - Quote - x 3 versions`") and proceed unless the user redirects. Only build the design the user confirmed.
+
+**2. Create a new design from the confirmed template:** `create-design-from-brand-template` → new `design_id` + `edit_url`/`view_url`. (Brand-template designs can lag a moment; if a later call says "not found", recreate and use the fresh id.)
 
 **2b. Need a different size than the template's native one for this platform** (e.g. LinkedIn landscape 1200×627 from a template that defaults to square)? `resize-design` on the design from step 2 — reflows the layout and is safe as a one-off (verified clean). Continue the rest of the flow on the *resized* design's id. **Never call `publish-brand-template` on a resized design** — confirmed bug: it errors immediately and permanently orphans the design. Resize is fine for a single creative; it is not a way to save a new template.
 

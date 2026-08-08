@@ -1,6 +1,6 @@
 # MB Claude Skills
 
-Free Claude skills for the Maurice Blackburn marketing team: brand reference, brand-vs-competitor comparison, on-brand social content creation, and SEO/GEO work, ready to use in any Claude conversation. One plugin, **mb-marketing**, 11 skills.
+Free Claude skills for the Maurice Blackburn marketing team: brand reference, brand-vs-competitor comparison, on-brand social content creation, creative accessibility QA, and SEO/GEO work, ready to use in any Claude conversation. One plugin, **mb-marketing**, 12 skills.
 
 ## What are Skills?
 
@@ -25,12 +25,15 @@ Skills reference each other and build on shared context, rather than working in 
         post-grader-mb                    seo-backlinks-mb
         viral-hooks-mb
         repurpose-mb
+        qa-creative-mb
 ```
 
 Skills cross-reference each other:
 ```
   post-writer-mb     -> viral-hooks-mb (hook)   -> post-grader-mb (grade)
   repurpose-mb       -> viral-hooks-mb (hook)   -> post-grader-mb (grade)
+  post-writer-mb  }
+  repurpose-mb    }  -> qa-creative-mb (WCAG 2.2 AA + visual QA on the drafted creative)
   brand-analyst-mb   -> brand-mb (MB's own side, before researching a competitor)
   seo-competitor-mb  -> seo-gap-mb (feeds the opportunity list)
   seo-gap-mb         -> seo-content-mb (hands off the brief)
@@ -45,7 +48,7 @@ See each skill's own "When NOT to Use" and cross-link notes in its SKILL.md for 
 2. Go to the **Plugins** tab.
 3. Click **Add GitHub**.
 4. Paste `ttjahjadi-mb/mb-claude-skills` into the URL field and click **Sync**.
-5. Find **Maurice Blackburn Marketing Skills** in the list and install/enable it, one plugin, all 11 skills included.
+5. Find **Maurice Blackburn Marketing Skills** in the list and install/enable it, one plugin, all 12 skills included.
 
 That's it, no downloading, no manual file uploads. Installing only pulls the repo's current state at that moment, it does **not** auto-update later. When the brand tokens, tone of voice, or skill logic change here, remove the plugin (⋮ menu → Remove) and re-add it via the same steps to pick up the latest version.
 

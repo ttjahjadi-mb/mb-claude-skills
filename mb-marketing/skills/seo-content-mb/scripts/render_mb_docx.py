@@ -95,16 +95,51 @@ def add_title_block(doc, title, subtitle, date):
     pPr.append(pbdr)
 
 
+import re as _re
+
+def _add_hyperlink(paragraph, url, text):
+    """Add a real clickable hyperlink run to a python-docx paragraph."""
+    from docx.oxml import OxmlElement
+    from docx.oxml.ns import qn
+    from docx.shared import RGBColor
+    part = paragraph.part
+    r_id = part.relate_to(url, "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink", is_external=True)
+    hyperlink = OxmlElement("w:hyperlink")
+    hyperlink.set(qn("r:id"), r_id)
+    new_run = OxmlElement("w:r")
+    rPr = OxmlElement("w:rPr")
+    color = OxmlElement("w:color"); color.set(qn("w:val"), "CC2E57"); rPr.append(color)  # MB Shade 1, link
+    u = OxmlElement("w:u"); u.set(qn("w:val"), "single"); rPr.append(u)
+    new_run.append(rPr)
+    t = OxmlElement("w:t"); t.text = text; new_run.append(t)
+    hyperlink.append(new_run)
+    paragraph._p.append(hyperlink)
+
+
+def _add_rich_text(paragraph, text):
+    """Render text containing [anchor](url) markdown links as real runs + hyperlinks."""
+    pos = 0
+    for m in _re.finditer(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", text):
+        if m.start() > pos:
+            paragraph.add_run(text[pos:m.start()])
+        _add_hyperlink(paragraph, m.group(2), m.group(1))
+        pos = m.end()
+    if pos < len(text):
+        paragraph.add_run(text[pos:])
+
+
 def add_section_body(doc, section):
     from docx.shared import Pt
 
     if "body" in section:
         for para_text in section["body"]:
-            doc.add_paragraph(para_text)
+            p = doc.add_paragraph()
+            _add_rich_text(p, para_text)
 
     if "list" in section:
         for item in section["list"]:
-            doc.add_paragraph(item, style="List Bullet")
+            p = doc.add_paragraph(style="List Bullet")
+            _add_rich_text(p, item)
 
     if "table" in section:
         headers = section["table"]["headers"]
@@ -129,11 +164,23 @@ def add_section_body(doc, section):
 
 
 def add_section(doc, section, level=1):
-    from docx.shared import RGBColor
+    from docx.shared import RGBColor, Pt
 
-    h = doc.add_heading(level=level)
+    # Clear, distinct visual hierarchy per level (users found the default H1/H2/H3 too similar):
+    # size, colour, and space-before all step down by level.
+    level_style = {
+        1: {"size": 20, "color": BRAND_PRIMARY, "space_before": 18},   # page H1 / top section
+        2: {"size": 15, "color": BRAND_PRIMARY, "space_before": 14},   # page H2 / section
+        3: {"size": 12.5, "color": BRAND_ACCENT, "space_before": 10},  # page H3 / FAQ question
+    }[min(level, 3)]
+
+    h = doc.add_heading(level=min(level, 3))
     run = h.add_run(section["heading"])
-    run.font.color.rgb = RGBColor.from_string(BRAND_PRIMARY)
+    run.font.color.rgb = RGBColor.from_string(level_style["color"])
+    run.font.size = Pt(level_style["size"])
+    run.bold = True
+    h.paragraph_format.space_before = Pt(level_style["space_before"])
+    h.paragraph_format.space_after = Pt(4)
 
     add_section_body(doc, section)
 

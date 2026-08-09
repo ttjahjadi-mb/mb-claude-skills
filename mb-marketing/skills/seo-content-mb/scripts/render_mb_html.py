@@ -158,6 +158,22 @@ nav[aria-label="Breadcrumb"] li:not(:last-child)::after {{ content: "/"; margin-
   margin: 20px 0;
 }}
 
+.key-takeaways {{
+  background: var(--mb-pure-white);
+  border: 1px solid var(--mb-neutral03);
+  border-left: 4px solid var(--mb-red);
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 20px 0;
+}}
+.key-takeaways h2, .key-takeaways p.kt-title {{
+  font-size: 16px;
+  margin: 0 0 8px;
+  color: var(--mb-shade4);
+}}
+.key-takeaways ul {{ margin: 0; padding-left: 20px; }}
+.key-takeaways li {{ margin-bottom: 4px; }}
+
 .content-warning {{
   background: var(--mb-tint20);
   border-left: 4px solid var(--mb-red);

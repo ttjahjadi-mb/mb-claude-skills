@@ -107,6 +107,28 @@ MB never promises a win or a payout. The recurring frames:
 
 ---
 
+## Per-practice-area language (each area has its own vocabulary and CTA model)
+
+The core voice is constant, but the terminology, the scheme names, and even the call-to-action change by practice area. Using the wrong area's vocabulary is an instant tell. Match the area:
+
+- **Road injury (VIC = TAC).** Scheme: Transport Accident Commission (TAC), a "no-fault" scheme. Terms: no-fault benefits, income support (up to 80% of pre-injury earnings), impairment benefit, common law claim (where another party was negligent), pain and suffering, CTP, lodge within 12 months (TAC discretion to 3 years). Opener: "A TAC claim is meant to support you, but getting the support you're entitled to isn't always simple." CTA: Free Claim Check + 1800 111 222 + No Win No Fee.
+- **Workplace injury (WorkCover).** Terms: WorkCover, weekly payments / weekly income support, medical expenses, lump sum impairment benefit, common law claim, contributory negligence, dependency claim (for a workplace death). Entitlement frame: "you may be entitled to: weekly income support, medical expenses, lump sum impairment benefits." CTA: Free Claim Check + 1800 111 222.
+- **Workplace disease / occupational exposure.** Terms: hazardous chemicals, cumulative exposure, latency period, occupational disease, duty of care, engineering controls, PPE, presumptive rights / "presumed entitlement" (firefighters), dependency claims. Often opens on a news hook or cited stat, then a systemic point.
+- **Superannuation / insurance.** Terms: TPD (total and permanent disability), income protection, "insurance attached to your super", preservation age, waiting period, date of disability, offsetting clauses, partial disability benefit, group vs retail policy. Signature reassurance: the injury "doesn't need to be work-related" and "can be physical or psychological". Doubly hedged: "you may be eligible to make a claim on your superannuation insurance." CTA: "free super claim check" (not the generic Free Claim Check).
+- **Asbestos / dust diseases.** Terms: mesothelioma, asbestosis, silicosis, pleural thickening / pleural plaques, latency period, Dust Diseases Tribunal, secondary and environmental exposure, duty of care. Almost always human-story led (Neil, Kyle, Wendy, Tom). CTA: Get in touch / Free Claim Check + No Win No Fee.
+- **Medical injury / negligence.** Definitional anchor: "Medical negligence occurs when a health professional's treatment falls below the accepted standard of care, causing injury or harm to a patient." Terms: delayed / missed diagnosis, adverse outcome, standard of care, coronial inquest, "time limits apply". Hedged: "you may be entitled to compensation."
+- **Public place / public liability.** Terms: duty of care, public liability claim, negligence, breach of duty, foreseeable risk, occupier, contributory negligence. Signature move on fault: "Even if you were partly at fault, you may still be entitled to compensation, although it could be reduced." Relatable scene openers: "A trip to the shops shouldn't end in an ambulance ride."
+- **Wills & estates.** Two sub-voices. Planning: Will, executor, capacity, estate plan, advance care directive ("Just do it today"). Disputes/administration: intestate / intestacy, letters of administration, grant of probate, administrator, beneficiary, statutory formula, contest / challenge a Will. CTA points to Will dispute lawyers or an estate-planning consult, not a claim check.
+- **Class actions.** Terms: group member ("you are automatically a group member"), settlement, shareholder class action, continuous disclosure obligations, misleading or deceptive conduct, GCO (group costs order), litigation funding, register. Two registers: recruitment for open actions ("Strength in numbers", "How can you join?") and factual announcement for settlements (precise amounts and eligibility windows, "the Honourable Justice ... handed down a landmark judgment"). CTA links to the specific class-action page, not a claim check.
+- **Childhood abuse.** Terms: survivor (never "victim"), trauma-informed, National Redress Scheme, civil damages claim, institutional abuse, re-traumatisation. Empathy-max, choice and pace emphasised: "You are not alone", "We will listen and believe you". Hedged: "you may be entitled to claim compensation."
+- **Employment issues.** Terms: Fair Work Act, unfair dismissal, genuine redundancy, redundancy pay / notice periods, consultation, enterprise agreement, award, 21-day claim deadline, general protections. Distinct commercial model: CTA is a paid "Book a consultation" (fixed-fee general consult), NOT Free Claim Check or No Win No Fee. "It doesn't cost you anything to know where you stand."
+- **Financial advice disputes.** Terms: AFCA (Australian Financial Complaints Authority), Compensation Scheme of Last Resort, AFSL, authorised representative, negligent financial advice, lodge a complaint. Often news-hook openers (a collapse or a Federal Court freeze). Hedged: "you may be eligible to lodge a complaint with AFCA." CTA: "Contact us today."
+- **Consumer protection.** Terms: Civil Aviation (Carriers' Liability) Act, travel insurance claim, delayed vs lost luggage, stated thresholds ($3,000 checked / $300 unchecked). Relatable-frustration openers.
+
+**CTA model by area (get this right):** personal-injury areas (road, workplace, medical, public, asbestos) close on Free Claim Check + 1800 111 222 + No Win No Fee; superannuation uses a "free super claim check"; employment uses a paid Book-a-consultation; class actions link to the action's own page / register; wills point to estate-planning or Will-dispute lawyers.
+
+---
+
 ## Voice pass rubric (run every check on a draft; any NO needs a fix)
 
 1. **Answer-first?** Does the opening sentence give a direct answer, a real stat, or a named person, rather than generic throat-clearing?
@@ -120,4 +142,5 @@ MB never promises a win or a payout. The recurring frames:
 9. **CTA is advocacy, warm, specific?** Closes with a real next step (Free Claim Check, obligation-free consult, get in touch) framed as help, not a hard sell?
 10. **Stats grounded?** Any statistic is cited with a year or source and reads as current, not a vague floated number?
 11. **Register matches purpose?** Explainer/story posts are warm and empathetic; class-action/settlement posts are factual and announcement-toned with precise amounts and eligibility windows?
-12. **Australian English, no em dashes?** Spelling is AU and every em dash is replaced with a comma, colon or full stop?
+12. **Right practice-area language?** Uses this area's actual scheme names and terms (TAC vs WorkCover vs TPD vs Fair Work vs AFCA), and the correct CTA model for the area (Free Claim Check vs super claim check vs paid consult vs class-action page)?
+13. **Australian English, no em dashes?** Spelling is AU and every em dash is replaced with a comma, colon or full stop?

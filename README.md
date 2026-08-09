@@ -80,7 +80,7 @@ Then just mention brand, social-content, or SEO/GEO work in conversation, the sk
 | Skill | When it kicks in |
 | --- | --- |
 | `seo-audit-mb` | "Audit this page/site for SEO": full technical + structured-data audit: crawlability, canonicals, hreflang, redirects, Core Web Vitals, AI-crawler access, JSON-LD validation |
-| `seo-content-mb` | "Write an SEO page for X" / "make this GEO-ready": writes a page in MB's real brand voice (`brand-mb`) to rank AND be cited by AI answer engines, with a full SEO brief, a YMYL/E-E-A-T read, a compliance gate, and delivery as MB-branded HTML, a schema file, and two copywriter-ready docs |
+| `seo-content-mb` | "Write an SEO page for X" / "make this GEO-ready": writes a page in MB's real brand voice (`brand-mb`) to rank AND be cited by AI answer engines. Runs a mandatory voice pass against a real MB blog-voice reference (rewrites anything generic), cites every claim with current data, uses statement headings (questions reserved for the FAQ), and gates on an 85/100 readiness bar plus legal-marketing compliance. Delivers a full SEO brief, a YMYL/E-E-A-T read, MB-branded HTML, a schema file, and two copywriter-ready docs |
 | `seo-gap-mb` | "Where are our SEO gaps" / "why does ChatGPT cite a competitor and not us": keyword, topic, and AI-citation gap analysis, ranked into a briefable opportunity list |
 | `seo-competitor-mb` | "How do we compare to [competitor] on search": keyword gap, Share of Voice, and Share of Model (AI-answer visibility) benchmarking |
 | `seo-backlinks-mb` | "Audit our backlinks" / "find link-building targets": backlink health, toxic-link flagging (disavow always held for human sign-off), and a competitor link-gap outreach list |

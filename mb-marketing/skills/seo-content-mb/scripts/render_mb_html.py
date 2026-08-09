@@ -34,8 +34,13 @@ names or inline styles):
                  visible dashed-border box labelled "internal, remove
                  before publish", never a hidden HTML comment, a reviewer
                  must not be able to miss it and accidentally ship it.
-- .disclaimer   the compliance disclaimer + jurisdiction paragraph,
-                 tinted background with a left accent border.
+- .disclaimer   a jurisdiction paragraph, tinted background with a left
+                 accent border. (No general "not legal advice" disclaimer,
+                 MB does not use one.)
+- .content-warning  a confirmed content/trigger warning for genuinely
+                 sensitive material only (abuse, self-harm), bold tinted box.
+- .sources      the references list collecting every citation used in the
+                 copy (source + year + link), top-bordered at the page end.
 - .support-box  a soft, non-alarming box for crisis-line / support info
                  or a CTA lead-in, white card on the page background.
 - .cta-btn      a filled MB-red button for the primary conversion link.
@@ -152,6 +157,25 @@ nav[aria-label="Breadcrumb"] li:not(:last-child)::after {{ content: "/"; margin-
   font-size: 14px;
   margin: 20px 0;
 }}
+
+.content-warning {{
+  background: var(--mb-tint20);
+  border-left: 4px solid var(--mb-red);
+  padding: 14px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 20px 0;
+}}
+
+.sources {{
+  border-top: 1px solid var(--mb-neutral03);
+  margin: 28px 0 0;
+  padding-top: 16px;
+  font-size: 14px;
+}}
+.sources h2 {{ font-size: 18px; }}
+.sources ol, .sources ul {{ padding-left: 20px; }}
+.sources li {{ margin-bottom: 6px; }}
 
 .support-box {{
   background: var(--mb-pure-white);

@@ -50,7 +50,7 @@ See each skill's own "When NOT to Use" and cross-link notes in its SKILL.md for 
 4. Paste `ttjahjadi-mb/mb-claude-skills` into the URL field and click **Sync**.
 5. Find **Maurice Blackburn Marketing Skills** in the list and install/enable it, one plugin, all 12 skills included.
 
-That's it, no downloading, no manual file uploads. Installing only pulls the repo's current state at that moment, it does **not** auto-update later. When the brand tokens, tone of voice, or skill logic change here, remove the plugin (⋮ menu → Remove) and re-add it via the same steps to pick up the latest version.
+That's it, no downloading, no manual file uploads. Installing only pulls the repo's current state at that moment, it does **not** auto-update later. When the brand tokens, tone of voice, or skill logic change here, remove the plugin (⋮ menu → Remove) and re-add it via the same steps to pick up the latest version. See [CHANGELOG.md](CHANGELOG.md) for what's changed in each version.
 
 ## Install (Claude Code)
 

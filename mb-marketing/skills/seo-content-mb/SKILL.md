@@ -148,6 +148,17 @@ Use `@context: https://schema.org` (https, not http). Schema still matters for G
 
 This pass feeds the **Voice match** pillar in Step 6, and the overall readiness gate (>= 85) will not pass on off-brand copy. If `blog-voice-reference.md` is missing, say so, grade against `tone-of-voice.md` alone, and flag that the anchor was unavailable.
 
+### Step 4.7: Content QA (MANDATORY, hard gate, the last check before a human sees it)
+
+**A drafted page is not deliverable until it passes this QA. It exists because a real run shipped a broken CTA link, invented URLs, and a docx whose copy did not match the HTML.** Run it after the copy is final and before you build or hand over any file. Any failure blocks delivery, fix and re-run.
+
+1. **Every link resolves, none invented.** Extract every URL in the copy (internal links, the CTA, the author by-line link, breadcrumb links, every Sources link) and **HTTP-check each one live**: `curl -s -o /dev/null -w "%{http_code}" -L <url>`. A non-200 (404/redirect-loop) fails. **Never invent a URL** (a real run guessed `/superannuation-claim-check/`, which 404s, the real path was `/free-claim-check/superannuation/`). Internal links must be real MB pages, confirm each against `reference/mb-page-templates.md`'s inventory and/or the live `sitemap.xml`. The only URL allowed to 404 is the new page's own canonical (it does not exist yet); note it as such.
+2. **Internal links are woven into the body prose, not just listed.** At least 2-3 internal links sit as descriptive contextual anchors inside the copy (e.g. the phrase "the TPD insurance in your super" links to the TPD money page), pointing up to the pillar and across to related pages. Links only in the meta-block fail this check, the reader and an LLM should meet them in the text.
+3. **One canonical copy, HTML and docx identical.** The page copy is authored **once**. The HTML `body_html` and the docx brief's page-copy sections must carry the **verbatim same text**, same sentences, same links, never a summary or paraphrase in one and the full copy in the other. Build both from the same source. Spot-check: a paragraph pulled from the HTML must appear word-for-word in the docx brief.
+4. **CTA + claim-check path is the real one for the practice area** (verified live in check 1). Super uses `/free-claim-check/superannuation/`; match the area.
+
+Report the QA as a short pass/fail list (each link + its HTTP code, the parity check, the woven-links check) in the report doc. If any link failed, show the broken URL and the corrected one.
+
 ### Step 5: Compliance gate (HARD, run before returning anything)
 
 This is a pass/fail gate, identical in spirit to `post-grader-mb`, which is the sibling compliance authority. A page can be perfectly optimised and still fail here. **If any check fails, fix it, then re-run the gate. Do not return a draft that fails.**
@@ -179,7 +190,7 @@ Grade the draft with this NAMED rubric and FIXED weights so the score is determi
 | **Technical** | 8% | Title <= 60 chars with entity+intent, meta description in range, self-canonical, AI crawlers allowed in robots.txt, dateModified set. |
 | **Brief completeness** | 12% | Step 0 content-type reasoning stated; Targeting brief fully populated (Suggested URL, Meta Title, H1, Meta Description, Keywords table, People Also Asked, Internal Links); the HTML file carries the same metadata block, not just raw copy; schema delivered as its own file; both docx files (report and brief) delivered separately. |
 
-**Gate on top of the score:** compliance (Step 5) is pass/fail and overrides everything. A 95/100 draft that fails compliance does not ship. Report compliance first and separately, then the score.
+**Gate on top of the score:** compliance (Step 5) **and Content QA (Step 4.7)** are both pass/fail and override everything. A 95/100 draft with a broken link, an invented URL, or a docx whose copy differs from the HTML does not ship. Report compliance and the Content QA result first and separately, then the score.
 
 Report each pillar's 0-10, the weighted contribution, and the total. **Hard gate: do not return a draft scoring below 85/100.** If it's below 85, state the biggest point-losers, fix them (Voice match and Authority are usually where the points are lost), and re-score until it clears 85. The bar is deliberately high: the goal is a draft that is publish-ready minus a content-reviewer and lawyer sign-off (the 85-90 band), materially better than a rough agency first draft that needs a heavy edit, not merely "optimised".
 
@@ -192,14 +203,22 @@ Return, in this order:
 1. **One-line summary**: e.g. "Localised practice-area page, workers compensation, Melbourne, drafted and scored 86/100, compliance PASS."
 2. **Content-type decision** (Step 0): the 2-4 sentence reasoning for blog vs practice-area page vs localised practice-area page.
 3. **Compliance result**: PASS / FAIL with every check listed. If FAIL, what was fixed to reach PASS.
-4. **Targeting brief.** A single labelled section with exactly these fields, in this order (matches MB's existing agency brief format, no SERP Preview, that field is dropped):
-   - **Suggested URL**: the real, full URL following `reference/mb-page-templates.md`'s pattern for the chosen content type.
-   - **Suggested Meta Title**
-   - **Suggested H1**
-   - **Suggested Meta Description**
-   - **Keywords**: a table, Primary/Secondary column plus the keyword and its search volume in parentheses if sourced from a live connector or a pasted export (per Before You Start item 7). If no data source was provided, list the keywords without a fabricated number and state "search volume unavailable, no connector or export provided this run."
-   - **People Also Asked**: a bullet list of real PAA-style questions. Source via `WebSearch` on the primary query where possible. If live PAA data cannot be confirmed, generate plausible candidates from the Step 2 question-based headings and label them clearly as **"suggested, not sourced from live PAA data."** Never present a guessed question as if it were pulled from a real PAA box.
-   - **Internal Links**: a bullet list of real candidate MB URLs only, pulled from `reference/mb-page-templates.md`'s site inventory and matched to the practice area/content type. Never invent a URL.
+4. **Targeting brief.** Present it as a **table in MB's agency "Targeting" format** (the same layout as the Overdose brief the reviewer shared, the "Townsville" table), placed **directly after the page heading** in the docx brief and mirrored in the HTML meta-block. The table rows, in this order (no Meta Preview / SERP snippet row, that field stays dropped):
+
+   | Field | Value |
+   |---|---|
+   | **Page Type** | Blog / Practice-area page / Localised practice-area page (from Step 0) |
+   | **Word Count** | the drafted count, or the target range (e.g. 600-1200+) |
+   | **New URL** | the real, full URL following `reference/mb-page-templates.md`'s pattern |
+   | **Title Tag** | <= 60 chars, entity + intent |
+   | **Meta Description** | 140-160 chars |
+   | **Recommended H1** | the H1 |
+
+   Then a **second table, Keywords**: two columns, `Keyword | Search Volume (AU)`. Populate volume only from a live connector or a pasted export (per Before You Start item 8); if no data source was provided, leave the volume cell blank and state once "search volume unavailable, no connector or export provided this run." Never fabricate a number.
+
+   Then two short lists after the tables:
+   - **People Also Asked**: real PAA-style questions. Source via `WebSearch` on the primary query where possible. If live PAA data cannot be confirmed, generate candidates from the FAQ questions and label them **"suggested, not sourced from live PAA data."** Never present a guess as sourced.
+   - **Internal Links**: real candidate MB URLs only, from `reference/mb-page-templates.md`'s inventory / the live sitemap, matched to the practice area. **Every one must be link-checked in Step 4.7.** Never invent a URL. These are also woven into the body prose (Step 4.7 check 2), not left only in this list.
 5. **YMYL + E-E-A-T Alignment** (Step 3): the pillar-by-pillar pass/gap read.
 6. **Publish-ready page draft.** Deliver as an **HTML file** (`<slug>.html`), and it must actually be MB-branded, not bare unstyled markup, that has shipped broken before, do not repeat it:
    - Draft the page body markup using these standard classes (the script below already styles them, do not invent alternative classes or inline styles):
@@ -217,7 +236,7 @@ Return, in this order:
 7. **JSON-LD schema file**: `<slug>.schema.json`, its own standalone file, written per Step 4, path stated. Never inline it only in chat, the HTML, or either docx below.
 8. **Two separate docx files, not one combined document:**
    - **Document 1, the report** (`<slug>-report.docx`): compliance result, checklist pass-report (Step 1 + Step 2 items), the Step 6 rubric with per-pillar scores and the /100 total, and the prioritised action plan. This is the internal QA record, no page copy in it.
-   - **Document 2, the full SEO content brief** (`<slug>-brief.docx`): mimics the real agency brief format the user shared (a "Targeting" section followed by the full page copy). Include, as sections: the Targeting brief fields exactly as in item 4 above, the YMYL + E-E-A-T Alignment read, then the full page copy itself. **Each drafted H2 is its own docx section (real Word Heading 1 style); each H3 beneath it goes in that section's `subsections` list (real Word Heading 2 style), matching `render_mb_docx.py`'s nested shape.** Never flatten an H3 into a body paragraph, the heading hierarchy must be identifiable in the document exactly as it will be in the published page. This is the copywriter-facing, version-controllable deliverable, it must contain the real page copy, not just metadata.
+   - **Document 2, the full SEO content brief** (`<slug>-brief.docx`): mimics the real agency brief format the user shared (the OD "Townsville" layout). Order: **the Targeting table (item 4) directly after the page heading**, then the YMYL + E-E-A-T Alignment read, then the full page copy. **The page-copy sections must be the VERBATIM SAME text as the HTML `body_html`, same sentences, same links, never a summary or paraphrase** (Step 4.7 check 3 verifies this). **Each drafted H2 is its own docx section (real Word Heading 1 style); each H3 beneath it goes in that section's `subsections` list (real Word Heading 2 style), matching `render_mb_docx.py`'s nested shape.** Never flatten an H3 into a body paragraph. This is the copywriter-facing deliverable, it must contain the real page copy verbatim, not just metadata.
    Build both via `scripts/render_mb_docx.py` (MB logo in the header): `/usr/bin/python3 scripts/render_mb_docx.py <input.json> <slug>-report.docx` and a second run for `<slug>-brief.docx`. Tell the user both saved file paths, and the HTML file path from item 6, and the schema file path from item 7, four files total.
 9. **Optional llms.txt entry**: flagged experimental / low-priority / forward-compat.
 10. **Prioritised action plan**: for anything not fixed inline, grouped **Quick Wins / Medium / High Impact**. Note that this backlog can be piped into `brief-ticket-monday-mb` or `brief-ticket-jira-mb`.

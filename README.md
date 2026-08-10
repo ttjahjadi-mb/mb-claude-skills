@@ -1,6 +1,6 @@
 # MB Claude Skills
 
-Free Claude skills for the Maurice Blackburn marketing team: brand reference, brand-vs-competitor comparison, on-brand social content creation, creative accessibility QA, and SEO/GEO work, ready to use in any Claude conversation. One plugin, **mb-marketing**, 12 skills.
+Free Claude skills for the Maurice Blackburn marketing team: brand reference, brand-vs-competitor comparison, on-brand social content creation, creative accessibility QA, SEO/GEO work, and an experimental Excel reporting builder, ready to use in any Claude conversation. One plugin, **mb-marketing**, 13 skills.
 
 ## What are Skills?
 
@@ -26,6 +26,10 @@ Skills reference each other and build on shared context, rather than working in 
         viral-hooks-mb
         repurpose-mb
         qa-creative-mb
+
+        Reporting (BETA, standalone: does not read brand-mb)
+        ----------------------------------------------------
+        excel-report-mb
 ```
 
 Skills cross-reference each other:
@@ -38,6 +42,8 @@ Skills cross-reference each other:
   seo-competitor-mb  -> seo-gap-mb (feeds the opportunity list)
   seo-gap-mb         -> seo-content-mb (hands off the brief)
   seo-content-mb    <-> seo-audit-mb (writes the schema; validates it after publish)
+  excel-report-mb    -> (BETA) stands alone. Asks you to confirm metric definitions
+                        before it builds; no dictionary exists yet to read from
 ```
 
 See each skill's own "When NOT to Use" and cross-link notes in its SKILL.md for the full dependency map.
@@ -48,7 +54,7 @@ See each skill's own "When NOT to Use" and cross-link notes in its SKILL.md for 
 2. Go to the **Plugins** tab.
 3. Click **Add GitHub**.
 4. Paste `ttjahjadi-mb/mb-claude-skills` into the URL field and click **Sync**.
-5. Find **Maurice Blackburn Marketing Skills** in the list and install/enable it, one plugin, all 12 skills included.
+5. Find **Maurice Blackburn Marketing Skills** in the list and install/enable it, one plugin, all 13 skills included.
 
 That's it, no downloading, no manual file uploads. Installing only pulls the repo's current state at that moment, it does **not** auto-update later. When the brand tokens, tone of voice, or skill logic change here, remove the plugin (⋮ menu → Remove) and re-add it via the same steps to pick up the latest version. See [CHANGELOG.md](CHANGELOG.md) for what's changed in each version.
 
@@ -84,8 +90,9 @@ Then just mention brand, social-content, or SEO/GEO work in conversation, the sk
 | `seo-gap-mb` | "Where are our SEO gaps" / "why does ChatGPT cite a competitor and not us": keyword, topic, and AI-citation gap analysis, ranked into a briefable opportunity list |
 | `seo-competitor-mb` | "How do we compare to [competitor] on search": keyword gap, Share of Voice, and Share of Model (AI-answer visibility) benchmarking |
 | `seo-backlinks-mb` | "Audit our backlinks" / "find link-building targets": backlink health, toxic-link flagging (disavow always held for human sign-off), and a competitor link-gap outreach list |
+| `excel-report-mb` | **BETA, feedback wanted.** "Build a summary page / funnel / channel breakdown from this spreadsheet": inventories the columns first and surfaces any labelled category column that already holds the stage names, writes the metric definitions down for you to confirm **before** it builds, then ships live SUMIFS plus a visible reconciliation row that must equal zero. Will not claim numbers "tie out" when the only check was its own logic. Does not know your metric definitions and asks every time |
 
-All 12 skills ship in the one **mb-marketing** plugin. `post-writer-mb`, `post-grader-mb`, `viral-hooks-mb`, and `repurpose-mb` all read `brand-mb`'s tone-of-voice, brand guidelines, and a shared legal-marketing guardrails file, bundled together so that dependency is never an issue; `qa-creative-mb` runs the WCAG 2.2 AA + visual check on any creative those skills draft. The SEO/GEO skills are built for a law firm's SEO/GEO work specifically: named competitor benchmarking, YMYL E-E-A-T weighting, and a legal-marketing compliance gate on anything `seo-content-mb` writes or recommends. Some SEO/GEO capabilities (keyword volume, backlink data, AI-answer share of voice) need a live SEMrush/BrightEdge/Profound/DataForSEO connector or a pasted CSV export; each skill states plainly which parts it can automate on the spot versus which need that data supplied.
+All 13 skills ship in the one **mb-marketing** plugin. `post-writer-mb`, `post-grader-mb`, `viral-hooks-mb`, and `repurpose-mb` all read `brand-mb`'s tone-of-voice, brand guidelines, and a shared legal-marketing guardrails file, bundled together so that dependency is never an issue; `qa-creative-mb` runs the WCAG 2.2 AA + visual check on any creative those skills draft. The SEO/GEO skills are built for a law firm's SEO/GEO work specifically: named competitor benchmarking, YMYL E-E-A-T weighting, and a legal-marketing compliance gate on anything `seo-content-mb` writes or recommends. Some SEO/GEO capabilities (keyword volume, backlink data, AI-answer share of voice) need a live SEMrush/BrightEdge/Profound/DataForSEO connector or a pasted CSV export; each skill states plainly which parts it can automate on the spot versus which need that data supplied. `excel-report-mb` is the one exception to the brand-first pattern: it is a beta reporting tool, does not read `brand-mb`, and deliberately stops to ask what your metrics mean rather than inferring them.
 
 ## Try it — example prompts
 
@@ -112,6 +119,14 @@ Good live demo: pick a real competitor name in the room and run `brand-analyst-m
 - "Turn this case update into posts for our channels." — produces a batch across LinkedIn, Instagram, TikTok, and Meta.
 
 Compliance is a hard gate on every one of these — a post that scores well but makes an outcome guarantee or skips a required trigger warning will not be returned as-is. MB's house style permits the em dash and these skills apply it by default; the only thing they'll ask you to confirm is the CTA (Free claim check, Ask Morry AI, Chat with Morry AI, Request a callback, or Get in touch).
+
+**excel-report-mb** (BETA, feedback wanted):
+
+- "Build a summary page on this workbook with an intake funnel by practice team and channel." — it will list the columns, point out any that already hold your stage names, then show you its proposed definitions and wait
+- "Fix the formulas on this summary sheet." — baselines the file's existing errors first, so it can tell you truthfully which ones were already there
+- "Why does my funnel not add up?" — traces the gap rather than papering over it
+
+Expect it to ask before it builds. That is the point of it, not a limitation: the failure it was written to prevent was a confident build on an invented definition. It does not yet do the QA release pass (independent re-derivation, prior-period plausibility, cohort maturity, sign-off), so a human still checks the numbers. Feedback welcome.
 
 **SEO and GEO skills** (seo-audit-mb, seo-content-mb, seo-gap-mb, seo-competitor-mb, seo-backlinks-mb):
 

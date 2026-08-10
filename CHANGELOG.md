@@ -2,6 +2,14 @@
 
 Release notes for the **mb-marketing** plugin. Each version is also an annotated git tag (`vX.Y.Z`). Installing the plugin doesn't auto-update, remove and re-add it (or `/plugin update` in Claude Code) to pick up a new version.
 
+## v0.4.0 - 2026-08-11
+- **New skill: `excel-report-mb` (BETA, experiment only, feedback wanted).** Builds a summary, funnel or dashboard sheet inside an existing workbook without inventing what the metrics mean. Written after a real build defined a key metric off an unlabelled binary flag column while the workbook already carried a labelled category column holding the actual stage names, then verified that logic against itself and reported that everything tied out.
+- **Gate 1, definitions contract.** Inventories every column and explicitly surfaces labelled category columns and lookup-derived columns *before* any flag column, then writes the metric definitions into a table and stops for confirmation. Skips the sign-off round when an approved definition source already covers the request, so routine repeat reporting is not slowed down.
+- **Gate 2, reconciliation.** Ships live SUMIFS rather than pasted values, plus a visible check row that must equal zero, and refuses to deliver the file if it does not resolve. Discloses unmapped and excluded records with counts and share, and baselines the workbook's pre-existing errors so it can say truthfully which are its own.
+- Forbidden from writing that numbers "tie out" or "match" when the only reference is its own derivation. States plainly that `openpyxl` cannot evaluate formulas, so a human still needs one open-and-save check.
+- Not yet included: the QA release pass (independent re-derivation, prior-period plausibility, cohort maturity, named sign-off). Coming once the thresholds are agreed.
+- Plugin goes from 12 to 13 skills. README, plugin and marketplace manifests updated to match.
+
 ## v0.3.7 - 2026-08-09
 - `seo-content-mb`: the "How we can help" close now offers MB's real **contact channel mix**, phone 1800 111 222 (as a `tel:` link), the free claim check, and "get in touch", not a single CTA.
 

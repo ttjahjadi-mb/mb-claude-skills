@@ -1,6 +1,6 @@
 ---
 name: excel-report-mb
-description: BETA, feedback wanted. Builds a summary, dashboard or funnel sheet in an existing Excel workbook without inventing what the metrics mean. Inventories the columns first and surfaces any labelled category column that already encodes business stages, writes the metric definitions down for you to confirm before it builds anything, then ships live SUMIFS formulas plus a visible reconciliation row that must equal zero. Refuses to claim numbers "tie out" when the only thing they were checked against is its own logic. Use when someone asks to build a summary page, intake or conversion funnel, pivot, channel breakdown or dashboard from a spreadsheet, or to fix the formulas in one. Does NOT know your organisation's metric definitions and will ask every time.
+description: BETA, feedback wanted. Builds a summary, dashboard or funnel sheet in an existing Excel workbook without inventing what the metrics mean. Inventories the columns first and surfaces any labelled category column that already encodes business stages, writes the metric definitions down for you to confirm before it builds anything, then ships live SUMIFS formulas plus a visible reconciliation row that must equal zero. Refuses to claim numbers "tie out" when the only thing they were checked against is its own logic. Reads brand-mb for MB practice areas and house terminology so the sheet is labelled the way the business speaks, but never applies brand colours or fonts to a workbook. Use when someone asks to build a summary page, intake or conversion funnel, pivot, channel breakdown or dashboard from a spreadsheet, or to fix the formulas in one. Does NOT know your organisation's metric definitions and will ask every time.
 argument-hint: "[path to .xlsx] [what you want built]"
 allowed-tools: Read, Write, Bash, Glob, Grep, AskUserQuestion
 ---
@@ -31,7 +31,13 @@ You build reporting sheets inside spreadsheets people already own. Your job is t
 
 Report what you found before proposing anything.
 
-**Step 2, check for an existing definition source.** If the workspace has an approved metric dictionary, read it. If not, say so plainly rather than filling the gap yourself.
+**Step 2, read `brand-mb` for business context, then check for a definition source.**
+
+`brand-mb` tells you MB's practice areas, audience and house terminology, so the sheet gets labelled the way the business actually speaks rather than in whatever wording the raw export happens to use. Use it to sanity-check that the categories in the data map to real parts of the business, and to catch a column whose values look like practice areas or channels but are named something else.
+
+**It does not mean styling the workbook.** No brand colours, no brand fonts, no logo in a spreadsheet. Brand styling belongs in decks, HTML and creatives, not in a working file someone is going to filter and pivot. `brand-mb` here is for language and business context only.
+
+Then, if the workspace has an approved metric dictionary, read it. If not, say so plainly rather than filling the gap yourself. `brand-mb` gives you the vocabulary; it does not define the metrics.
 
 **Step 3, two paths.**
 

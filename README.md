@@ -11,25 +11,21 @@ Skills are markdown files that give Claude specialised knowledge and a workflow 
 Skills reference each other and build on shared context, rather than working in isolation. `brand-mb` is the foundation of the whole marketing ecosystem, every other skill checks it first to understand MB's positioning, audience, and voice before doing anything.
 
 ```
-                                 brand-mb
-                (read by every other skill first: MB's
-             positioning, audience, voice, and practice areas)
-                                     |
-              ________________________________________________
-             |              |               |                 |
-             v              v               v                 v
-        Brand & Social    SEO Content   SEO Research      SEO Technical
-        --------------    -----------   -----------       -------------
-        brand-analyst-mb  seo-content-mb  seo-gap-mb       seo-audit-mb
-        post-writer-mb                    seo-competitor-mb
-        post-grader-mb                    seo-backlinks-mb
-        viral-hooks-mb
-        repurpose-mb
-        qa-creative-mb
-
-        Reporting (BETA, standalone: does not read brand-mb)
-        ----------------------------------------------------
-        excel-report-mb
+                                  brand-mb
+                   (read by every other skill first: MB's
+                positioning, audience, voice, and practice areas)
+                                      |
+  _________________________________________________________________________
+  |                  |                |                   |               |
+  v                  v                v                   v               v
+  Brand & Social     SEO Content      SEO Research        SEO Technical   Reporting
+  --------------     -----------      ------------        -------------   ---------
+  brand-analyst-mb   seo-content-mb   seo-gap-mb          seo-audit-mb    excel-report-mb
+  post-writer-mb                      seo-competitor-mb                   (BETA)
+  post-grader-mb                      seo-backlinks-mb
+  viral-hooks-mb
+  repurpose-mb
+  qa-creative-mb
 ```
 
 Skills cross-reference each other:
@@ -42,8 +38,8 @@ Skills cross-reference each other:
   seo-competitor-mb  -> seo-gap-mb (feeds the opportunity list)
   seo-gap-mb         -> seo-content-mb (hands off the brief)
   seo-content-mb    <-> seo-audit-mb (writes the schema; validates it after publish)
-  excel-report-mb    -> (BETA) stands alone. Asks you to confirm metric definitions
-                        before it builds; no dictionary exists yet to read from
+  excel-report-mb    -> brand-mb (practice areas + house terminology, before it
+                        names anything in the sheet). BETA
 ```
 
 See each skill's own "When NOT to Use" and cross-link notes in its SKILL.md for the full dependency map.
@@ -92,7 +88,7 @@ Then just mention brand, social-content, or SEO/GEO work in conversation, the sk
 | `seo-backlinks-mb` | "Audit our backlinks" / "find link-building targets": backlink health, toxic-link flagging (disavow always held for human sign-off), and a competitor link-gap outreach list |
 | `excel-report-mb` | **BETA, feedback wanted.** "Build a summary page / funnel / channel breakdown from this spreadsheet": inventories the columns first and surfaces any labelled category column that already holds the stage names, writes the metric definitions down for you to confirm **before** it builds, then ships live SUMIFS plus a visible reconciliation row that must equal zero. Will not claim numbers "tie out" when the only check was its own logic. Does not know your metric definitions and asks every time |
 
-All 13 skills ship in the one **mb-marketing** plugin. `post-writer-mb`, `post-grader-mb`, `viral-hooks-mb`, and `repurpose-mb` all read `brand-mb`'s tone-of-voice, brand guidelines, and a shared legal-marketing guardrails file, bundled together so that dependency is never an issue; `qa-creative-mb` runs the WCAG 2.2 AA + visual check on any creative those skills draft. The SEO/GEO skills are built for a law firm's SEO/GEO work specifically: named competitor benchmarking, YMYL E-E-A-T weighting, and a legal-marketing compliance gate on anything `seo-content-mb` writes or recommends. Some SEO/GEO capabilities (keyword volume, backlink data, AI-answer share of voice) need a live SEMrush/BrightEdge/Profound/DataForSEO connector or a pasted CSV export; each skill states plainly which parts it can automate on the spot versus which need that data supplied. `excel-report-mb` is the one exception to the brand-first pattern: it is a beta reporting tool, does not read `brand-mb`, and deliberately stops to ask what your metrics mean rather than inferring them.
+All 13 skills ship in the one **mb-marketing** plugin. `post-writer-mb`, `post-grader-mb`, `viral-hooks-mb`, and `repurpose-mb` all read `brand-mb`'s tone-of-voice, brand guidelines, and a shared legal-marketing guardrails file, bundled together so that dependency is never an issue; `qa-creative-mb` runs the WCAG 2.2 AA + visual check on any creative those skills draft. The SEO/GEO skills are built for a law firm's SEO/GEO work specifically: named competitor benchmarking, YMYL E-E-A-T weighting, and a legal-marketing compliance gate on anything `seo-content-mb` writes or recommends. Some SEO/GEO capabilities (keyword volume, backlink data, AI-answer share of voice) need a live SEMrush/BrightEdge/Profound/DataForSEO connector or a pasted CSV export; each skill states plainly which parts it can automate on the spot versus which need that data supplied. `excel-report-mb` reads `brand-mb` too, for practice areas and house terminology so the sheet is labelled the way the business speaks, though it deliberately does not apply brand colours or fonts to a workbook. It is in beta and stops to ask what your metrics mean rather than inferring them.
 
 ## Try it — example prompts
 

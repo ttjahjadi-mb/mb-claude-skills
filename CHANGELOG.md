@@ -8,6 +8,7 @@ Release notes for the **mb-marketing** plugin. Each version is also an annotated
 - **Gate 2, reconciliation.** Ships live SUMIFS rather than pasted values, plus a visible check row that must equal zero, and refuses to deliver the file if it does not resolve. Discloses unmapped and excluded records with counts and share, and baselines the workbook's pre-existing errors so it can say truthfully which are its own.
 - Forbidden from writing that numbers "tie out" or "match" when the only reference is its own derivation. States plainly that `openpyxl` cannot evaluate formulas, so a human still needs one open-and-save check.
 - Not yet included: the QA release pass (independent re-derivation, prior-period plausibility, cohort maturity, named sign-off). Coming once the thresholds are agreed.
+- Reads `brand-mb` for practice areas and house terminology so the sheet is labelled the way the business speaks. It does not apply brand colours or fonts to a workbook; brand styling stays with decks, HTML and creatives.
 - Plugin goes from 12 to 13 skills. README, plugin and marketplace manifests updated to match.
 
 ## v0.3.7 - 2026-08-09

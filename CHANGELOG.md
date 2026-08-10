@@ -2,6 +2,10 @@
 
 Release notes for the **mb-marketing** plugin. Each version is also an annotated git tag (`vX.Y.Z`). Installing the plugin doesn't auto-update, remove and re-add it (or `/plugin update` in Claude Code) to pick up a new version.
 
+## v0.4.2 - 2026-08-11
+- `excel-report-mb`: portability fixes found while preparing a claude.ai test. It pointed at `acquisition-dashboard-mb/templates/build_excel.py` for styling helpers, which is not part of this plugin and would dead-end for anyone installing from GitHub. Formatting guidance is now self-contained, with that file mentioned only as an optional lift if the workspace happens to have it.
+- Also states that it runs wherever code execution is available (Claude Code, or the analysis tool in claude.ai and the desktop apps) and needs only `openpyxl` and `pandas`, and degrades gracefully when `brand-mb` is not installed alongside it.
+
 ## v0.4.1 - 2026-08-11
 - `excel-report-mb`: corrected on first feedback. It is **not** standalone. It reads `brand-mb` for practice areas, audience and house terminology so a sheet is labelled the way the business speaks, and so it can spot a column whose values are practice areas or channels under a different name. It still does not apply brand colours or fonts to a workbook, that stays with decks, HTML and creatives.
 - README diagram rebuilt with Reporting as a fifth column under `brand-mb` rather than a detached block, and a leftover rule line from the old layout removed.

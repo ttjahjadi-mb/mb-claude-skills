@@ -33,7 +33,7 @@ Report what you found before proposing anything.
 
 **Step 2, read `brand-mb` for business context, then check for a definition source.**
 
-`brand-mb` tells you MB's practice areas, audience and house terminology, so the sheet gets labelled the way the business actually speaks rather than in whatever wording the raw export happens to use. Use it to sanity-check that the categories in the data map to real parts of the business, and to catch a column whose values look like practice areas or channels but are named something else.
+If `brand-mb` is not installed, say so once and carry on with the user's own wording rather than inventing house terminology. When it is available, `brand-mb` tells you MB's practice areas, audience and house terminology, so the sheet gets labelled the way the business actually speaks rather than in whatever wording the raw export happens to use. Use it to sanity-check that the categories in the data map to real parts of the business, and to catch a column whose values look like practice areas or channels but are named something else.
 
 **It does not mean styling the workbook.** No brand colours, no brand fonts, no logo in a spreadsheet. Brand styling belongs in decks, HTML and creatives, not in a working file someone is going to filter and pivot. `brand-mb` here is for language and business context only.
 
@@ -72,11 +72,15 @@ Provisional default until the owner sets a real threshold: always disclose, and 
 - **Live formulas, not pasted values.** SUMIFS, AVERAGEIFS, COUNTIFS with absolute ranges, so the user can edit the logic
 - **Filters through a helper cell**, so an "All" option is a wildcard rather than a formula rewrite
 - **Baseline the file's existing errors before you touch it.** Count pre-existing `#N/A`, `#REF!`, `#VALUE!` first, so you can say truthfully which errors are yours and which were already there. Never claim credit for a clean file you did not clean
-- Reuse the openpyxl header styling and `DataValidation` dropdown patterns from `acquisition-dashboard-mb/templates/build_excel.py` rather than writing new ones
+- **Formatting, keep it minimal.** Bold header row, frozen panes, sensible column widths, percentages as percentages and dates as dates. That is enough. A working file people filter and pivot does not want decoration
+- Filter cells use `openpyxl.worksheet.datavalidation.DataValidation` with a `list` formula pointing at a named range or a hidden config block, so the dropdown survives a save
+- If this workspace also has `acquisition-dashboard-mb`, its `templates/build_excel.py` already has header styling and dropdown helpers worth lifting. It is not part of this plugin, so do not assume it exists
 
 ## Verification, honestly
 
 Recompute the expected values independently in pandas from the raw data and compare against what the formulas should produce. That checks your logic, not Excel's evaluation of it.
+
+Runs wherever code execution is available: Claude Code, or the analysis tool in claude.ai and the desktop apps. `openpyxl` and `pandas` are all it needs. If no code execution is available, say so and stop rather than hand-calculating.
 
 `openpyxl` cannot evaluate formulas. Unless LibreOffice is available to recalculate, close with exactly this:
 

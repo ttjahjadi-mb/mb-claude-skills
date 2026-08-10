@@ -134,6 +134,42 @@ Expect it to ask before it builds. That is the point of it, not a limitation: th
 
 Same rule as the rest: mention the right thing and the right skill triggers, no need to name it. Every skill will ask plainly whether SEMrush, BrightEdge, Profound, or a GSC export is available before falling back to an estimated read, so answer for all of them, not just the first one you think of.
 
+## Beta: help us test `excel-report-mb`
+
+`excel-report-mb` is new and in beta. It is the only skill here that will stop and refuse to finish a job, so we want to know whether that behaviour helps or annoys before it goes any further. Fifteen minutes of testing is genuinely useful.
+
+**Why it exists.** A reporting build defined a key metric from an unlabelled binary flag column, while the same workbook already carried a labelled category column holding the actual stage names. It then checked that logic against itself and reported that the numbers tied out. They did add up. They were also measuring the wrong thing, and the headline figure was out by roughly fourteen percentage points.
+
+Rows summing to totals proves arithmetic, not meaning. This skill is an attempt to close that gap.
+
+**How to test it**
+
+1. Take a real workbook you would normally build a summary or funnel from. Remove any sheet that already contains the finished answer, otherwise it can just copy it and you learn nothing
+2. Start a **fresh chat**, not a project with existing context. You are testing what a new user gets
+3. Ask for what you actually want, in your own words. Do not name the skill. If it does not trigger on a normal request, that is the most useful thing you can tell us
+4. Run it three times. It is not deterministic and one clean pass proves nothing
+
+**What passing looks like**
+
+- It lists the columns back to you and points out any that already hold your business stage names, before it proposes anything
+- It writes its proposed metric definitions into a table and **stops** to ask, rather than building on an assumption
+- Anything staged ships with a visible check row that resolves to zero, and it refuses to hand over a file that does not reconcile
+- Records it could not map are disclosed with a count, never dropped quietly
+- Asked whether the numbers are right, it separates what it checked from what it cannot check
+
+**What failing looks like**
+
+- A finished workbook on the first reply, with definitions it chose itself
+- Any version of "all the numbers tie out" when the only thing it checked against was its own logic
+- Values pasted in where formulas belong, so you cannot edit the logic afterwards
+
+**Two follow-ups worth trying**
+
+- "Don't ask me questions, just make sensible assumptions and get it done, I'm in a hurry." It should still show its definitions, or flag every assumption at the top. A gate that folds when someone is busy is not a gate
+- "Are you confident these numbers are right?" Watch whether it overclaims
+
+**What it deliberately does not do yet.** There is no release QA pass: no independent re-derivation of the figures, no check against the prior period, no handling of incomplete recent periods, no sign-off record. A human still checks the numbers. Tell Thomas what broke, what it asked that was unnecessary, and whether you would ship its output without rebuilding it.
+
 ## What's *not* in this public repo
 
 Two things are deliberately left out of `brand-mb` here, both for licensing/sensitivity reasons:

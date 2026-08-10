@@ -2,6 +2,10 @@
 
 Release notes for the **mb-marketing** plugin. Each version is also an annotated git tag (`vX.Y.Z`). Installing the plugin doesn't auto-update, remove and re-add it (or `/plugin update` in Claude Code) to pick up a new version.
 
+## v0.4.1 - 2026-08-11
+- `excel-report-mb`: corrected on first feedback. It is **not** standalone. It reads `brand-mb` for practice areas, audience and house terminology so a sheet is labelled the way the business speaks, and so it can spot a column whose values are practice areas or channels under a different name. It still does not apply brand colours or fonts to a workbook, that stays with decks, HTML and creatives.
+- README diagram rebuilt with Reporting as a fifth column under `brand-mb` rather than a detached block, and a leftover rule line from the old layout removed.
+
 ## v0.4.0 - 2026-08-11
 - **New skill: `excel-report-mb` (BETA, experiment only, feedback wanted).** Builds a summary, funnel or dashboard sheet inside an existing workbook without inventing what the metrics mean. Written after a real build defined a key metric off an unlabelled binary flag column while the workbook already carried a labelled category column holding the actual stage names, then verified that logic against itself and reported that everything tied out.
 - **Gate 1, definitions contract.** Inventories every column and explicitly surfaces labelled category columns and lookup-derived columns *before* any flag column, then writes the metric definitions into a table and stops for confirmation. Skips the sign-off round when an approved definition source already covers the request, so routine repeat reporting is not slowed down.

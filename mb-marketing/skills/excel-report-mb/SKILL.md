@@ -2,7 +2,6 @@
 name: excel-report-mb
 description: BETA, feedback wanted. Builds a summary, dashboard or funnel sheet in an existing Excel workbook without inventing what the metrics mean. Inventories the columns first and surfaces any labelled category column that already encodes business stages, writes the metric definitions down for you to confirm before it builds anything, then ships live SUMIFS formulas plus a visible reconciliation row that must equal zero. Refuses to claim numbers "tie out" when the only thing they were checked against is its own logic. Reads brand-mb for MB practice areas and house terminology so the sheet is labelled the way the business speaks, but never applies brand colours or fonts to a workbook. Use when someone asks to build a summary page, intake or conversion funnel, pivot, channel breakdown or dashboard from a spreadsheet, or to fix the formulas in one. Does NOT know your organisation's metric definitions and will ask every time.
 argument-hint: "[path to .xlsx] [what you want built]"
-allowed-tools: Read, Write, Bash, Glob, Grep, AskUserQuestion
 ---
 
 # Excel Report Builder (MB) — BETA
@@ -80,7 +79,7 @@ Provisional default until the owner sets a real threshold: always disclose, and 
 
 Recompute the expected values independently in pandas from the raw data and compare against what the formulas should produce. That checks your logic, not Excel's evaluation of it.
 
-Runs wherever code execution is available: Claude Code, or the analysis tool in claude.ai and the desktop apps. `openpyxl` and `pandas` are all it needs. If no code execution is available, say so and stop rather than hand-calculating.
+Runs wherever code execution is available: Claude Code, or the analysis tool in claude.ai and the desktop apps. `openpyxl` and `pandas` are all it needs, and this skill deliberately declares no `allowed-tools` so it inherits whatever the host environment provides rather than assuming a Claude Code shell. If no code execution is available, say so and stop rather than hand-calculating.
 
 `openpyxl` cannot evaluate formulas. Unless LibreOffice is available to recalculate, close with exactly this:
 

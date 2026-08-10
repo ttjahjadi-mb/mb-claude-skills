@@ -2,6 +2,9 @@
 
 Release notes for the **mb-marketing** plugin. Each version is also an annotated git tag (`vX.Y.Z`). Installing the plugin doesn't auto-update, remove and re-add it (or `/plugin update` in Claude Code) to pick up a new version.
 
+## v0.4.3 - 2026-08-11
+- `excel-report-mb`: dropped the `allowed-tools` frontmatter line. It named `Bash`, which is the Claude Code shape; claude.ai and the desktop apps run Python through the analysis tool instead. Declaring nothing means the skill inherits whatever the host provides, so it works the same in Claude Code, claude.ai and the desktop apps.
+
 ## v0.4.2 - 2026-08-11
 - `excel-report-mb`: portability fixes found while preparing a claude.ai test. It pointed at `acquisition-dashboard-mb/templates/build_excel.py` for styling helpers, which is not part of this plugin and would dead-end for anyone installing from GitHub. Formatting guidance is now self-contained, with that file mentioned only as an optional lift if the workspace happens to have it.
 - Also states that it runs wherever code execution is available (Claude Code, or the analysis tool in claude.ai and the desktop apps) and needs only `openpyxl` and `pandas`, and degrades gracefully when `brand-mb` is not installed alongside it.
